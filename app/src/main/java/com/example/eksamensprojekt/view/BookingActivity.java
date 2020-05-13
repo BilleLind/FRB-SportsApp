@@ -9,14 +9,14 @@ import com.example.eksamensprojekt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ChatActivity extends AppCompatActivity {
+public class BookingActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_booking);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -32,7 +32,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(ChatActivity.this, SignInActivity.class);
+            Intent signInIntent = new Intent(BookingActivity.this, SignInActivity.class);
             startActivity(signInIntent);
             finish();
         }
