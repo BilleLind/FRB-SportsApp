@@ -55,14 +55,17 @@ public class MainActivity extends AppCompatActivity {
         //updateUI(currentUser);
 
         /*
-        if not signed in go to sign in activity
         if (currentUser == null){
 
-            Intent signInIntent = new Intent(MainActivity.this, SignInActivity.class);
+            Intent signInIntent = new Intent(MainActivity.this, OpretOgLogInActivity.class);
             startActivity(signInIntent);
             finish();
         }
 
          */
+
+
     }
+
+
 }

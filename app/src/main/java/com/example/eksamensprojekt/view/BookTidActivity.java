@@ -30,7 +30,7 @@ public class BookTidActivity extends AppCompatActivity {
 
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(BookTidActivity.this, LoginInActivity.class);
+            Intent signInIntent = new Intent(BookTidActivity.this, OpretOgLogInActivity.class);
             startActivity(signInIntent);
             finish();
         }
