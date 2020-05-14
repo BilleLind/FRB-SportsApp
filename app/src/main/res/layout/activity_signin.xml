@@ -12,4 +12,12 @@
         android:text="sign in here"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="304dp" />
+
+    <Button
+        android:id="@+id/opretBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="opret bruger"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="150dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

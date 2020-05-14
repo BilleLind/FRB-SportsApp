@@ -1,6 +1,9 @@
 package com.example.eksamensprojekt.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +20,15 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signin);
 
         mAuth = FirebaseAuth.getInstance();
+
+        Button opretBruger = findViewById(R.id.opretBtn);
+        opretBruger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 }
