@@ -32,9 +32,9 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mFuldeNavn = (TextInputLayout) findViewById(R.id.reg_FuldeNavn);
-        mEmail = (TextInputLayout) findViewById(R.id.reg_Email);
-        mAdgangskode = (TextInputLayout) findViewById(R.id.reg_Adgangskode);
+        mFuldeNavn = (TextInputLayout) findViewById(R.id.angivFuldeNavn);
+        mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
+        mAdgangskode = (TextInputLayout) findViewById(R.id.angivTelefonNr);
         mBekraeftBtn = (Button) findViewById(R.id.bekraeftRegBtn);
 
         mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
