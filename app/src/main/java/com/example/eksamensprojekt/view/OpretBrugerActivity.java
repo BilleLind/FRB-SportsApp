@@ -12,12 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RegisterActivity extends AppCompatActivity {
+public class OpretBrugerActivity extends AppCompatActivity {
 
     private TextInputLayout mFuldeNavn;
     private TextInputLayout mEmail;
@@ -29,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_opret_bruger);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,12 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()){
 
-                    Intent bookingIntent = new Intent(RegisterActivity.this, BookingActivity.class);
+                    Intent bookingIntent = new Intent(OpretBrugerActivity.this, BookTidActivity.class);
                     startActivity(bookingIntent);
                     finish();
 
                 }else {
-                    Toast.makeText(RegisterActivity.this, "Der opstod en fejl", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OpretBrugerActivity.this, "Der opstod en fejl", Toast.LENGTH_LONG).show();
                 }
             }
         });

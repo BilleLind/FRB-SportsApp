@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.BookingActivity" />
+        <activity android:name=".view.BookTidActivity" />
         <activity android:name=".view.ChatActivity" />
-        <activity android:name=".view.RegisterActivity" />
-        <activity android:name=".view.SignInActivity" />
+        <activity android:name=".view.OpretBrugerActivity" />
+        <activity android:name=".view.LoginInActivity" />
     </application>
 
 </manifest>
