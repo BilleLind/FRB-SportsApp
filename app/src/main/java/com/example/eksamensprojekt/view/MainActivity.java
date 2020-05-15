@@ -7,14 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.example.eksamensprojekt.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -22,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-
+        //Tilføjer custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
@@ -45,24 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
-
-        /*
-        if (currentUser == null){
-
-            Intent signInIntent = new Intent(MainActivity.this, OpretOgLogInActivity.class);
-            startActivity(signInIntent);
-            finish();
-        }
-
-         */
 
 
     }

@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.eksamensprojekt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +19,8 @@ import java.util.Objects;
 
 public class OpretOgLogInActivity extends AppCompatActivity {
 
-    private TextInputLayout mFuldeNavn;
+    private TextInputLayout mFornavn;
+    private TextInputLayout mEfternavn;
     private TextInputLayout mEmail;
     private TextInputLayout mTelefonNr;
     private TextInputLayout mAdgangskode;
@@ -42,11 +41,14 @@ public class OpretOgLogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        //Tilføjer custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+
         //TextInput for opret ny bruger xml
-        mFuldeNavn = (TextInputLayout) findViewById(R.id.angivFuldeNavn);
+        mFornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
+        mEfternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
         mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
         mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
         mTelefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
@@ -56,17 +58,19 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         iAdgangskode = (TextInputLayout) findViewById(R.id.indsaetAdgangskode);
 
 
-
         //Setting up button to correct ids
         mBekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
         mGotoLogin = (Button) findViewById(R.id.goto_loginin_btn);
         mGoToOpretBruger = (Button) findViewById(R.id.goto_opret_bruger_btn);
         iLoginPaaBruger = (Button) findViewById(R.id.login_btn);
 
+
+        //Tager angivet inputs og registere ny bruger
         mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fuldeNavn = mFuldeNavn.getEditText().getText().toString();
+                String fornavn = mFornavn.getEditText().getText().toString();
+                String efternavn = mEfternavn.getEditText().getText().toString();
                 String email = mEmail.getEditText().getText().toString();
                 String telefonNr = mTelefonNr.getEditText().getText().toString();
                 String adgangskode = mAdgangskode.getEditText().getText().toString();
@@ -77,13 +81,17 @@ public class OpretOgLogInActivity extends AppCompatActivity {
             }
         });
 
+        //Skifter til login in layout
         mGotoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setContentView(R.layout.activity_login_in);
+
             }
         });
 
+        //Skifter til opret bruger layout
         mGoToOpretBruger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +101,8 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         });
     }
 
+
+    //Metode til registrering af ny bruger gennem firebase
     private void registerNyBruger( String email, String adgangskode) {
 
         mAuth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
