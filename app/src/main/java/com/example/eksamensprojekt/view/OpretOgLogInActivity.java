@@ -113,6 +113,7 @@ public class OpretOgLogInActivity extends AppCompatActivity {
 
                     Intent bookingIntent = new Intent(OpretOgLogInActivity.this, BookTidActivity.class);
                     startActivity(bookingIntent);
+                    Toast.makeText(OpretOgLogInActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
                     finish();
 
                 }else {
