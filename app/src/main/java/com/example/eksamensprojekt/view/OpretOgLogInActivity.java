@@ -28,9 +28,9 @@ public class OpretOgLogInActivity extends AppCompatActivity {
     private TextInputLayout iAdgangskode;
 
     private Button mBekraeftBtn;
-    private Button mGotoLogin;
-    private Button mGoToOpretBruger;
-    private Button iLoginPaaBruger;
+    private Button mGotoLoginBtn;
+    private Button mGoToOpretBrugerBtn;
+    private Button iLoginPaaBrugerBtn;
 
     private FirebaseAuth mAuth;
 
@@ -60,9 +60,9 @@ public class OpretOgLogInActivity extends AppCompatActivity {
 
         //Setting up button to correct ids
         mBekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
-        mGotoLogin = (Button) findViewById(R.id.goto_loginin_btn);
-        mGoToOpretBruger = (Button) findViewById(R.id.goto_opret_bruger_btn);
-        iLoginPaaBruger = (Button) findViewById(R.id.login_btn);
+        mGotoLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
+        mGoToOpretBrugerBtn = (Button) findViewById(R.id.goto_opret_bruger_btn);
+        iLoginPaaBrugerBtn = (Button) findViewById(R.id.login_btn);
 
 
         //Tager angivet inputs og registere ny bruger
@@ -82,7 +82,7 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         });
 
         //Skifter til login in layout
-        mGotoLogin.setOnClickListener(new View.OnClickListener() {
+        mGotoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -92,14 +92,16 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         });
 
         //Skifter til opret bruger layout
-        mGoToOpretBruger.setOnClickListener(new View.OnClickListener() {
+        mGoToOpretBrugerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 setContentView(R.layout.activity_opret_bruger);
             }
         });
+
     }
+
 
 
     //Metode til registrering af ny bruger gennem firebase
@@ -111,8 +113,8 @@ public class OpretOgLogInActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()){
 
-                    Intent bookingIntent = new Intent(OpretOgLogInActivity.this, BookTidActivity.class);
-                    startActivity(bookingIntent);
+                    Intent visProfilIntet = new Intent(OpretOgLogInActivity.this, VisProfilActivity.class);
+                    startActivity(visProfilIntet);
                     Toast.makeText(OpretOgLogInActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
                     finish();
 

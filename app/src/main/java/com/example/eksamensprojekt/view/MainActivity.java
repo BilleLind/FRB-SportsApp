@@ -13,6 +13,8 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         //Tilføjer custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+
+
 
 
         Button chat = findViewById(R.id.chatBtn);
@@ -37,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), BookTidActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button mVisProfilBtn = findViewById(R.id.vis_profil_btn);
+        mVisProfilBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), VisProfilActivity.class);
                 startActivity(i);
             }
         });
