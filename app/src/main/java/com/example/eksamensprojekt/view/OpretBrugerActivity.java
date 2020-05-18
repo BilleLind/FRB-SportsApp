@@ -1,7 +1,9 @@
 package com.example.eksamensprojekt.view;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,20 +19,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
-public class OpretOgLogInActivity extends AppCompatActivity {
+public class OpretBrugerActivity extends AppCompatActivity {
 
     private TextInputLayout mFornavn;
     private TextInputLayout mEfternavn;
     private TextInputLayout mEmail;
     private TextInputLayout mTelefonNr;
     private TextInputLayout mAdgangskode;
-    private TextInputLayout iEmail;
-    private TextInputLayout iAdgangskode;
 
     private Button mBekraeftBtn;
     private Button mGotoLoginBtn;
-    private Button mGoToOpretBrugerBtn;
-    private Button iLoginPaaBrugerBtn;
+
+    private ProgressDialog mRegProgress;
 
     private FirebaseAuth mAuth;
 
@@ -45,6 +45,9 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        mRegProgress = new ProgressDialog(this);
+
+
 
         //TextInput for opret ny bruger xml
         mFornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
@@ -53,16 +56,9 @@ public class OpretOgLogInActivity extends AppCompatActivity {
         mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
         mTelefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
 
-        //TextInput for log in xml
-        iEmail = (TextInputLayout) findViewById(R.id.indsaetEmail);
-        iAdgangskode = (TextInputLayout) findViewById(R.id.indsaetAdgangskode);
-
-
         //Setting up button to correct ids
         mBekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
         mGotoLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
-        mGoToOpretBrugerBtn = (Button) findViewById(R.id.goto_opret_bruger_btn);
-        iLoginPaaBrugerBtn = (Button) findViewById(R.id.login_btn);
 
 
         //Tager angivet inputs og registere ny bruger
@@ -75,34 +71,32 @@ public class OpretOgLogInActivity extends AppCompatActivity {
                 String telefonNr = mTelefonNr.getEditText().getText().toString();
                 String adgangskode = mAdgangskode.getEditText().getText().toString();
 
-                registerNyBruger(email, adgangskode);
+                if (!TextUtils.isEmpty(fornavn) || !TextUtils.isEmpty(efternavn) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(telefonNr) || !TextUtils.isEmpty(adgangskode)){
 
+
+                    mRegProgress.setTitle("Registrere bruger");
+                    mRegProgress.setMessage("Vent venligst mens vi opretter din bruger.");
+                    mRegProgress.setCanceledOnTouchOutside(false);
+                    mRegProgress.show();
+
+                    registerNyBruger(email, adgangskode);
+                }
 
             }
         });
+
 
         //Skifter til login in layout
         mGotoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setContentView(R.layout.activity_login_in);
+                setContentView(R.layout.activity_login_bruger);
 
-            }
-        });
-
-        //Skifter til opret bruger layout
-        mGoToOpretBrugerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setContentView(R.layout.activity_opret_bruger);
             }
         });
 
     }
-
-
 
     //Metode til registrering af ny bruger gennem firebase
     private void registerNyBruger( String email, String adgangskode) {
@@ -113,19 +107,21 @@ public class OpretOgLogInActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()){
 
-                    Intent visProfilIntet = new Intent(OpretOgLogInActivity.this, VisProfilActivity.class);
+                    mRegProgress.dismiss();
+
+                    Intent visProfilIntet = new Intent(OpretBrugerActivity.this, VisProfilActivity.class);
                     startActivity(visProfilIntet);
-                    Toast.makeText(OpretOgLogInActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
                     finish();
 
                 }else {
-                    Toast.makeText(OpretOgLogInActivity.this, "Der opstod en fejl", Toast.LENGTH_LONG).show();
+
+                    mRegProgress.hide();
+                    Toast.makeText(OpretBrugerActivity.this, "Der opstod en fejl. Check felterne for fejl og prøv igen", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-
     }
-
 
 }

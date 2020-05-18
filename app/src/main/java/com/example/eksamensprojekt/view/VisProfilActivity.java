@@ -60,7 +60,7 @@ public class VisProfilActivity extends AppCompatActivity {
 
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(VisProfilActivity.this, OpretOgLogInActivity.class);
+            Intent signInIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
             startActivity(signInIntent);
             finish();
         }

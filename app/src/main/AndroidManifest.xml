@@ -18,8 +18,10 @@
         </activity>
         <activity android:name=".view.BookTidActivity" />
         <activity android:name=".view.ChatActivity" />
-        <activity android:name=".view.OpretOgLogInActivity" />
+        <activity android:name=".view.OpretBrugerActivity" />
         <activity android:name=".view.VisProfilActivity"/>
+        <activity android:name=".view.FeedbackActivity"/>
+        <activity android:name=".view.LoginBrugerActivity"/>
     </application>
 
 </manifest>
