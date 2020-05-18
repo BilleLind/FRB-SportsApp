@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.eksamensprojekt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,8 +58,8 @@ public class VisProfilActivity extends AppCompatActivity {
 
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
-            startActivity(signInIntent);
+            Intent opretBrugerIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
+            startActivity(opretBrugerIntent);
             finish();
         }
 

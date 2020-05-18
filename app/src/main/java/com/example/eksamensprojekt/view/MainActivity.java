@@ -6,11 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import com.example.eksamensprojekt.R;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
+    ImageView actionBarProfil;
+    ImageView actionBarChat;
+
+    Button seTraerning;
+    Button bookTid;
 
 
 
@@ -24,35 +32,38 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
+        seTraerning = (Button) findViewById(R.id.goto_feedback_btn);
+        bookTid = (Button) findViewById(R.id.goto_booking_btn);
 
-
-        Button chat = findViewById(R.id.chatBtn);
-        chat.setOnClickListener(new View.OnClickListener() {
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(i);
+
+                setContentView(R.layout.activity_vis_profil);
             }
         });
 
-        Button booking = findViewById(R.id.bookingBtn);
-        booking.setOnClickListener(new View.OnClickListener() {
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), BookTidActivity.class);
-                startActivity(i);
+
+                setContentView(R.layout.activity_chat);
             }
         });
 
-        Button mVisProfilBtn = findViewById(R.id.vis_profil_btn);
-        mVisProfilBtn.setOnClickListener(new View.OnClickListener() {
+        bookTid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), VisProfilActivity.class);
-                startActivity(i);
+
+                setContentView(R.layout.activity_book_tid);
             }
         });
+
+
+
 
 
 

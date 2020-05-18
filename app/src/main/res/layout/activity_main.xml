@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,29 +10,33 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Startside"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:text="Velkommen til startsiden"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/chatBtn"
+        android:id="@+id/goto_booking_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="chat"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="Book tid"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/goto_feedback_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/bookingBtn"
+        android:id="@+id/goto_feedback_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="booking"
-        android:layout_alignParentBottom="true" />
+        android:text="Se træningsprogram/feedback"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/vis_profil_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="profil"
-        android:layout_alignParentRight="true"/>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
