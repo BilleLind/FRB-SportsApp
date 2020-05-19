@@ -2,21 +2,25 @@ package com.example.eksamensprojekt.view;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.ImageView;
 import com.example.eksamensprojekt.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    //Imageview fra actionbar
+    ImageView actionBarProfil;
+    ImageView actionBarChat;
+
+    //Button for main xml
+    Button seTraerning;
+    Button bookTid;
+
+
 
 
     @Override
@@ -24,47 +28,57 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
-
+        //Adding custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        //Sætter ids til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
-        Button chat = findViewById(R.id.chatBtn);
-        chat.setOnClickListener(new View.OnClickListener() {
+        seTraerning = (Button) findViewById(R.id.goto_feedback_btn);
+        bookTid = (Button) findViewById(R.id.goto_booking_btn);
+
+        //skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(i);
+
+                startActivity(new Intent(MainActivity.this, VisProfilActivity.class));
+                finish();
             }
         });
 
-        Button booking = findViewById(R.id.bookingBtn);
-        booking.setOnClickListener(new View.OnClickListener() {
+        //skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), BookTidActivity.class);
-                startActivity(i);
+
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
+                finish();
             }
         });
-}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        //skifter til book tid activity
+        bookTid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        /*
-        if not signed in go to sign in activity
-        if (currentUser == null){
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
 
-            Intent signInIntent = new Intent(MainActivity.this, SignInActivity.class);
-            startActivity(signInIntent);
-            finish();
-        }
+        //skifter til feedback activity
+        seTraerning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-         */
+                startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
+                finish();
+            }
+        });
     }
+
+
 }

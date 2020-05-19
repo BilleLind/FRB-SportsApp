@@ -32,7 +32,7 @@ public class ChatActivity extends AppCompatActivity {
 
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(ChatActivity.this, LoginInActivity.class);
+            Intent signInIntent = new Intent(ChatActivity.this, OpretBrugerActivity.class);
             startActivity(signInIntent);
             finish();
         }
