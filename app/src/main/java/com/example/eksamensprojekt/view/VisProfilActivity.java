@@ -36,18 +36,15 @@ public class VisProfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                mAuth.signOut();
+                mAuth.getInstance().signOut();
+                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
-
-
 
             }
         });
-
-
-
     }
 
+    //Tjekker om bruger er logget ind. Hvis ikke, vises opret bruger activity
     @Override
     public void onStart() {
         super.onStart();
@@ -63,7 +60,5 @@ public class VisProfilActivity extends AppCompatActivity {
             finish();
         }
 
-
     }
-
 }

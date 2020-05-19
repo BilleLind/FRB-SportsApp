@@ -32,6 +32,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
     private ProgressDialog mRegProgress;
 
+    //firebase authentication
     private FirebaseAuth mAuth;
 
     @Override
@@ -45,23 +46,22 @@ public class OpretBrugerActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        //Skaber new progress dialog
         mRegProgress = new ProgressDialog(this);
 
-
-
-        //TextInput for opret ny bruger xml
+        //sætter ids op til de korrekte views
         mFornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
         mEfternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
         mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
         mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
         mTelefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
 
-        //Setting up button to correct ids
+
         mBekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
         mGotoLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
 
 
-        //Tager angivet inputs og registere ny bruger
+        //Tager inputs og registere ny bruger
         mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,27 +71,29 @@ public class OpretBrugerActivity extends AppCompatActivity {
                 String telefonNr = mTelefonNr.getEditText().getText().toString();
                 String adgangskode = mAdgangskode.getEditText().getText().toString();
 
+                //if statement: hvis nogle af felterne er tomme, bliver oprettelsen brudt.
                 if (!TextUtils.isEmpty(fornavn) || !TextUtils.isEmpty(efternavn) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(telefonNr) || !TextUtils.isEmpty(adgangskode)){
 
 
-                    mRegProgress.setTitle("Registrere bruger");
+                    mRegProgress.setTitle("Opretter bruger");
                     mRegProgress.setMessage("Vent venligst mens vi opretter din bruger.");
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
 
-                    registerNyBruger(email, adgangskode);
+                    opretBruger(email, adgangskode);
                 }
 
             }
         });
 
 
-        //Skifter til login in layout
+        //Skifter til login in activity
         mGotoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setContentView(R.layout.activity_login_bruger);
+                startActivity(new Intent(OpretBrugerActivity.this, LoginBrugerActivity.class));
+                finish();
 
             }
         });
@@ -99,7 +101,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
     }
 
     //Metode til registrering af ny bruger gennem firebase
-    private void registerNyBruger( String email, String adgangskode) {
+    private void opretBruger(String email, String adgangskode) {
 
         mAuth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override

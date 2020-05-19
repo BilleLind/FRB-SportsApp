@@ -16,7 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.Objects;
 
 public class LoginBrugerActivity extends AppCompatActivity {
@@ -31,6 +30,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
 
     private ProgressDialog mLoginProgress;
 
+    //firebase authentication
     private FirebaseAuth mAuth;
 
 
@@ -47,6 +47,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        //Skaber new progress dialog
         mLoginProgress = new ProgressDialog(this);
 
         mGoToOpretBrugerBtn = (Button) findViewById(R.id.goto_opret_bruger_btn);
@@ -59,6 +60,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
         iAdgangskode = (TextInputLayout) findViewById(R.id.indsaetAdgangskode);
 
 
+        //tjekker om felterne er udfyldt og  henter bruger
         mLoginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,17 +82,20 @@ public class LoginBrugerActivity extends AppCompatActivity {
             }
         });
 
+        //skifter til opret bruger activity
         mGoToOpretBrugerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setContentView(R.layout.activity_opret_bruger);
+                startActivity(new Intent(LoginBrugerActivity.this, OpretBrugerActivity.class));
+                finish();
 
             }
         });
 
     }
 
+    //metode der henter eksisterende bruger med email og adgangskode via firebase
     private void hentBruger(String indsatEmail, String indsatAdgangskode) {
 
         mAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
