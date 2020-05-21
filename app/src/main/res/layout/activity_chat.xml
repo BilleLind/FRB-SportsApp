@@ -18,25 +18,26 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:popupTheme="@style/MenuStyle">
+            app:popupTheme="@style/MenuStyle"
+            android:onClick="tilbage">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/profile_billede"
-                android:src="@mipmap/ic_launcher"/>
+                android:id="@+id/profile_billede" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/brugerNavnChat"
-                android:layout_marginLeft="25dp"
                 android:layout_marginStart="25dp"
+                android:textSize="18sp"
                 android:text="username"
                 android:textColor="#fff"
                 android:textStyle="bold"/>
 
 
         </com.google.android.material.appbar.MaterialToolbar>
+
         <com.google.android.material.tabs.TabLayout
 
             android:id="@+id/tab_layout"
@@ -54,7 +55,6 @@
         android:id="@+id/view_paper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </LinearLayout>
