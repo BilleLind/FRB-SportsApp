@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -46,14 +47,15 @@ public class BeskedActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Intent intent;
 
+    Button logud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besked);
         //Tilføjer custom action bar
-       /* Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar_layout);*/
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
         intent = getIntent();
         fireBruger = FirebaseAuth.getInstance().getCurrentUser();
@@ -84,11 +86,11 @@ public class BeskedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        fornavn = findViewById(R.id.fornavnChat); // have to be the on shown in main.xml or it will crash when clicking on
+        fornavn = findViewById(R.id.fornavn); // have to be the on shown in main.xml or it will crash when clicking on
         send_btn = findViewById(R.id.btn_send);
         besked_send = findViewById(R.id.besked_send);
         profile_billede = findViewById(R.id.profile_billede);
-
+        logud = findViewById(R.id.chat_logud);
 
 
 
@@ -102,6 +104,15 @@ public class BeskedActivity extends AppCompatActivity {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
                 besked_send.setText("");
+            }
+        });
+
+        logud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(BeskedActivity.this, MainActivity.class));
+                finish();
             }
         });
 
@@ -160,7 +171,7 @@ public class BeskedActivity extends AppCompatActivity {
                         mChat.add(chat);
                     }
 
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this,mChat,billedeURL);
+                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, mChat, billedeURL);
                         recyclerView.setAdapter(beskedAdapter);
 
                 }

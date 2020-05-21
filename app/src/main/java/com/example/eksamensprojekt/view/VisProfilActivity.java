@@ -18,7 +18,6 @@ import java.util.Objects;
 public class VisProfilActivity extends AppCompatActivity {
 
     private Button  mLogudBtn;
-    private ImageView actionBarChat;
 
     private FirebaseAuth mAuth;
 
@@ -26,7 +25,7 @@ public class VisProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vis_profil);
-        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+
 
         //Tilføjer custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -36,26 +35,20 @@ public class VisProfilActivity extends AppCompatActivity {
 
         mLogudBtn = (Button) findViewById(R.id.log_ud_btn);
 
+
         mLogudBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
 
             }
         });
 
-        //skifter til chat activity
-        actionBarChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
-                finish();
-            }
-        });
+
     }
 
 

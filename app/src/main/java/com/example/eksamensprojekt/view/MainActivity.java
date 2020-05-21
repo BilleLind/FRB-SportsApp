@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         // check if user is null
         if (firebaseUser != null ) {
@@ -50,9 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
        // mAuth = FirebaseAuth.getInstance();
-
-        /* Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar_layout); */
 
         //Adding custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

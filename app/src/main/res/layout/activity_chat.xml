@@ -21,10 +21,11 @@
             app:tabSelectedTextColor="#fff"
             app:tabIndicatorColor="#fff"
             app:tabTextColor="#fff" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fornavnChat"
+            android:id="@+id/fornavn"
             android:text="hej"/>
     </com.google.android.material.appbar.AppBarLayout>
 

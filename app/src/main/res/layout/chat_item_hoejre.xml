@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/background_right"
             android:text="hello"
-            android:layout_alignParentEnd="true"
             android:id="@+id/vis_besked"
+            android:layout_alignParentEnd="true"
             android:textSize="18sp"
             android:textColor="#fff"
             android:padding="8dp" />

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.model.Bruger;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -38,8 +39,8 @@ public class OpretBrugerActivity extends AppCompatActivity {
     private ProgressDialog mRegProgress;
 
     //firebase authentication
-    private FirebaseAuth mAuth;
-    private DatabaseReference reference;
+    FirebaseAuth mAuth;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         mRegProgress = new ProgressDialog(this);
 
         //sætter ids op til de korrekte views
-        mFornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
+        mFornavn = (TextInputLayout) findViewById(R.id.fornavn);
         mEfternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
         mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
         mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
@@ -114,7 +115,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
     //Metode til registrering af ny bruger gennem firebase
     private void opretBruger(final String email, String adgangskode, final String fornavn, final String efternavn, final String telefonNr) {
 
-
         mAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -122,22 +122,23 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     assert firebaseUser != null;
-                    String brugerid = firebaseUser.getUid();
+                    final String brugerid = firebaseUser.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(brugerid);
+                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid); //TODO does this fix it? error in brugerFragment?
 
                     HashMap<String, String> hashMap = new HashMap<>();
-                    hashMap.put("brugerid" , brugerid);
+                    hashMap.put("id", brugerid);
                     hashMap.put("fornavn", fornavn);
                     hashMap.put("efternavn", efternavn);
                     hashMap.put("telefonNr", telefonNr);
                     hashMap.put("email", email);
+
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 mRegProgress.dismiss();
-                                Intent intent = new Intent(OpretBrugerActivity.this, VisProfilActivity.class);
+                                Intent intent = new Intent(OpretBrugerActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
                                 Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();

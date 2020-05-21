@@ -20,6 +20,7 @@ import com.example.eksamensprojekt.Fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.model.Bruger;
 
+import com.example.eksamensprojekt.model.Chat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
@@ -36,7 +37,19 @@ import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // check if user is null
+        if (firebaseUser == null ) {
+            Intent intent = new Intent(ChatActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
 
     TextView fornavn;
     ShapeableImageView profile_billede;
@@ -52,15 +65,22 @@ public class ChatActivity extends AppCompatActivity {
       /*  Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout); */
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //TODO trail for at være sikker på den kommer derned
+        final String bruger_id;
+        String data = getIntent().getStringExtra("brugerid");
+        if (data == null) {
+            bruger_id = firebaseUser.getUid();
+        } else {
+            bruger_id = getIntent().getStringExtra("brugerid");
+        }
 
 
 
-
-    fornavn = findViewById(R.id.fornavnChat);
+    fornavn = findViewById(R.id.fornavn);
     profile_billede = findViewById(R.id.profile_billede);
 
     firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
-    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(firebaseUser.getUid());
+    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         reference.addValueEventListener(new ValueEventListener() {
         @Override

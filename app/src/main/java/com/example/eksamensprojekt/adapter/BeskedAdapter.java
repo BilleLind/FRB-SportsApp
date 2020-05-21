@@ -1,7 +1,6 @@
 package com.example.eksamensprojekt.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.model.Bruger;
 import com.example.eksamensprojekt.model.Chat;
-import com.example.eksamensprojekt.view.BeskedActivity;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -25,16 +20,17 @@ import java.util.List;
 public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder> {
 
     public static final int MSG_TYPE_LEFT = 0;
-    public static final int MSG_TYPE_RIGHT = 0;
-    private Context mcontext;
+    public static final int MSG_TYPE_RIGHT = 1; //TODO 1 i stedet?
+
+    private Context mContext;
     private List<Chat> mChat;
     private String billedeURL;
 
     FirebaseUser fireBruger;
 
-    public BeskedAdapter(Context mcontext, List<Chat> mChat, String billedeURL) {
+    public BeskedAdapter(Context mContext, List<Chat> mChat, String billedeURL) {
         this.mChat = mChat;
-        this.mcontext = mcontext;
+        this.mContext = mContext;
         this.billedeURL = billedeURL;
     }
 
@@ -42,10 +38,10 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
     @Override
     public BeskedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from(mcontext).inflate(R.layout.chat_item_hoejre, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_hoejre, parent, false);
             return new BeskedAdapter.ViewHolder(view);
         } else {
-            View view = LayoutInflater.from(mcontext).inflate(R.layout.chat_item_venstre, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_venstre, parent, false);
             return new BeskedAdapter.ViewHolder(view);
         }
     }
