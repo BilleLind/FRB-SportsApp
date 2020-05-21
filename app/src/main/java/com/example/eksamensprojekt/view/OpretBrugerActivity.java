@@ -15,6 +15,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class OpretBrugerActivity extends AppCompatActivity {
 
@@ -24,6 +29,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
     private Button mBekraeftBtn;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +46,43 @@ public class OpretBrugerActivity extends AppCompatActivity {
         mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fulde_navn = mFuldeNavn.getEditText().getText().toString();
+                String brugerNavn = mFuldeNavn.getEditText().getText().toString();
                 String email = mEmail.getEditText().getText().toString();
                 String adgangskode = mAdgangskode.getEditText().getText().toString();
 
-                registerNyBruger(fulde_navn, email, adgangskode);
+                registerNyBruger(brugerNavn, email, adgangskode);
 
 
             }
         });
     }
 
-    private void registerNyBruger(String fulde_navn, String email, String adgangskode) {
+    private void registerNyBruger(final String brugerNavn, String email, String adgangskode) {
 
-        mAuth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if (task.isSuccessful()){
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    String userid = firebaseUser.getUid();
 
-                    Intent bookingIntent = new Intent(OpretBrugerActivity.this, BookTidActivity.class);
-                    startActivity(bookingIntent);
-                    finish();
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
+
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("id" , userid);
+                    hashMap.put("brugerNavn", brugerNavn);
+
+                    reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Intent intent = new Intent(OpretBrugerActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
 
                 }else {
                     Toast.makeText(OpretBrugerActivity.this, "Der opstod en fejl", Toast.LENGTH_LONG).show();
