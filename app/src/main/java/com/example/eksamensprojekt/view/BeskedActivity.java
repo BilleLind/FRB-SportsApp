@@ -79,7 +79,7 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
-        recyclerView = findViewById(R.id.recycler_view_besked);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
@@ -116,11 +116,12 @@ public class BeskedActivity extends AppCompatActivity {
                 Bruger bruger  =dataSnapshot.getValue(Bruger.class);
                 brugerNavn.setText(bruger.getBrugerNavn());
 
-                if (bruger.getBilledeURL().equals("default")) {
+
+                /*TODO if (bruger.getBilledeURL().equals("default")) {
                     profile_billede.setImageResource(R.mipmap.ic_launcher);
                 } else {
                     Glide.with(BeskedActivity.this).load(bruger.getBilledeURL()).into(profile_billede);
-                }
+                } */
                 laesBesked(fireBruger.getUid(), user_id, bruger.getBilledeURL());
             }
 
