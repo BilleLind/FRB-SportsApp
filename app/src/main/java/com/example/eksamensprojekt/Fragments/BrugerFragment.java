@@ -53,7 +53,7 @@ public class BrugerFragment extends Fragment {
     private void readUsers() {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Brugere");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,7 +64,8 @@ public class BrugerFragment extends Fragment {
 
                     assert firebaseUser != null;
                     assert bruger != null;
-                    if (!bruger.getId().equals(firebaseUser.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
+                    //TODO find why i haven't initialized bruger for the getBrugerid
+                    if (!bruger.getBrugerId().equals(firebaseUser.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
                         mBrugere.add(bruger);
                     }
                 }

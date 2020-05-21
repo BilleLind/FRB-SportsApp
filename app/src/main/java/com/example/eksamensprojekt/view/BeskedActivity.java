@@ -1,6 +1,7 @@
 package com.example.eksamensprojekt.view;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,13 +14,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.adapter.BeskedAdapter;
 import com.example.eksamensprojekt.model.Bruger;
 
 import com.example.eksamensprojekt.model.Chat;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,24 +31,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class BeskedActivity extends AppCompatActivity {
 
-
     ShapeableImageView profile_billede;
-    TextView brugerNavn;
-
+    TextView fornavn;
     ImageButton send_btn;
     EditText besked_send;
-
     FirebaseUser fireBruger;
     DatabaseReference reference;
-
     BeskedAdapter beskedAdapter;
     List<Chat> mChat;
-
     RecyclerView recyclerView;
-
     Intent intent;
 
 
@@ -57,17 +51,21 @@ public class BeskedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besked);
+        //Tilføjer custom action bar
+       /* Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);*/
+
         intent = getIntent();
         fireBruger = FirebaseAuth.getInstance().getCurrentUser();
-        final String user_id;
-        String data = getIntent().getStringExtra("userid");
+        final String bruger_id;
+        String data = getIntent().getStringExtra("brugerid");
         if (data == null) {
-            user_id = fireBruger.getUid();
+            bruger_id = fireBruger.getUid();
         } else {
-            user_id = getIntent().getStringExtra("userid");
+            bruger_id = getIntent().getStringExtra("brugerid");
         }
 
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+       /* MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,7 +74,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
             }
-        });
+        }); */
 
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -86,7 +84,7 @@ public class BeskedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        brugerNavn = findViewById(R.id.brugerNavnChat); // have to be the on shown in main.xml or it will crash when clicking on
+        fornavn = findViewById(R.id.fornavnChat); // have to be the on shown in main.xml or it will crash when clicking on
         send_btn = findViewById(R.id.btn_send);
         besked_send = findViewById(R.id.besked_send);
         profile_billede = findViewById(R.id.profile_billede);
@@ -99,7 +97,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendBesked(fireBruger.getUid(), user_id, msg);
+                    sendBesked(fireBruger.getUid(), bruger_id, msg);
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
@@ -108,13 +106,13 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(user_id);
+        reference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger  =dataSnapshot.getValue(Bruger.class);
-                brugerNavn.setText(bruger.getBrugerNavn());
+                fornavn.setText(bruger.getFornavn());
 
 
                 /*TODO if (bruger.getBilledeURL().equals("default")) {
@@ -122,7 +120,7 @@ public class BeskedActivity extends AppCompatActivity {
                 } else {
                     Glide.with(BeskedActivity.this).load(bruger.getBilledeURL()).into(profile_billede);
                 } */
-                laesBesked(fireBruger.getUid(), user_id, bruger.getBilledeURL());
+                laesBesked(fireBruger.getUid(), bruger_id, bruger.getBilledeURL());
             }
 
             @Override
@@ -147,7 +145,7 @@ public class BeskedActivity extends AppCompatActivity {
 
     }
 
-    private void laesBesked(final String minid, final String userid, final String billedeURL) {
+    private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
         mChat = new ArrayList<>();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -157,8 +155,8 @@ public class BeskedActivity extends AppCompatActivity {
                 mChat.clear();
                 for (DataSnapshot snapshot :  dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getModtager().equals(minid) && chat.getAfsender().equals(userid) ||
-                    chat.getModtager().equals(userid) && chat.getAfsender().equals(minid)) {
+                    if (chat.getModtager().equals(minid) && chat.getAfsender().equals(brugerId) ||
+                    chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
                         mChat.add(chat);
                     }
 

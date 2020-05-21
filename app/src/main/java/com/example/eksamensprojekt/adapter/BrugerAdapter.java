@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.model.Bruger;
 import com.example.eksamensprojekt.view.BeskedActivity;
@@ -38,13 +37,13 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Bruger bruger = mBrugere.get(position);
-        holder.brugernavn.setText(bruger.getBrugerNavn());
+        holder.fornavn.setText(bruger.getFornavn());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mcontext, BeskedActivity.class);
-                intent.putExtra("userid", bruger.getId());
+                intent.putExtra("brugerid", bruger.getBrugerId());
                 mcontext.startActivity(intent);
             }
         });
@@ -57,13 +56,13 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView brugernavn;
+        public TextView fornavn;
         public ImageView profile_billede;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            brugernavn = itemView.findViewById(R.id.brugerNavn);
+            fornavn = itemView.findViewById(R.id.fornavnChat);
             profile_billede = itemView.findViewById(R.id.profile_billede);
         }
     }

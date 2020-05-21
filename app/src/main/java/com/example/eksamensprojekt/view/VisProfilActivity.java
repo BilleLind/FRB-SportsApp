@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
@@ -16,6 +18,7 @@ import java.util.Objects;
 public class VisProfilActivity extends AppCompatActivity {
 
     private Button  mLogudBtn;
+    private ImageView actionBarChat;
 
     private FirebaseAuth mAuth;
 
@@ -23,6 +26,7 @@ public class VisProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vis_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
         //Tilføjer custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -42,7 +46,18 @@ public class VisProfilActivity extends AppCompatActivity {
 
             }
         });
+
+        //skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
     }
+
 
     //Tjekker om bruger er logget ind. Hvis ikke, vises opret bruger activity
     @Override

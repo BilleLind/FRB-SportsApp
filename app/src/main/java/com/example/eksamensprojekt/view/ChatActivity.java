@@ -2,26 +2,24 @@ package com.example.eksamensprojekt.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.bumptech.glide.Glide;
+
 import com.example.eksamensprojekt.Fragments.BrugerFragment;
 import com.example.eksamensprojekt.Fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.model.Bruger;
-import com.example.eksamensprojekt.model.Chat;
+
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
@@ -34,11 +32,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
 
-    TextView brugerNavn;
+
+    TextView fornavn;
     ShapeableImageView profile_billede;
 
     FirebaseUser firebaseUser;
@@ -48,26 +48,27 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        //Tilføjer custom action bar
+      /*  Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout); */
 
 
-    MaterialToolbar toolbar = findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    getSupportActionBar().setTitle("");
 
 
-    brugerNavn = findViewById(R.id.brugerNavnChat);
+
+    fornavn = findViewById(R.id.fornavnChat);
     profile_billede = findViewById(R.id.profile_billede);
 
     firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
-    reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(firebaseUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             Bruger bruger = dataSnapshot.getValue(Bruger.class);
-            brugerNavn.setText(bruger.getBrugerNavn());
+            fornavn.setText(bruger.getFornavn());
 
-            profile_billede.setImageResource(R.mipmap.ic_launcher);
+//TODO            profile_billede.setImageResource(R.mipmap.ic_launcher);
 
          /*   if (bruger.getBilledeURL().equals("default")){
                 profile_billede.setImageResource(R.mipmap.ic_launcher);
@@ -135,8 +136,8 @@ static class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 }
 
-    public void tilbage(View view) {
-       FirebaseAuth.getInstance().signOut();    
+    public void tilbage(View view) { //TODO hurtig log ud knap inde i chatten hvor man ser brugere og beskeder
+       FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(ChatActivity.this, MainActivity.class));
         finish();
     }

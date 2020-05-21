@@ -89,7 +89,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
 
-                    opretBruger(email, adgangskode);
+                    opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
                 }
 
             }
@@ -112,7 +112,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
 
     //Metode til registrering af ny bruger gennem firebase
-    private void opretBruger(String email, String adgangskode) {
+    private void opretBruger(final String email, String adgangskode, final String fornavn, final String efternavn, final String telefonNr) {
 
 
         mAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -120,13 +120,31 @@ public class OpretBrugerActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    assert firebaseUser != null;
+                    String brugerid = firebaseUser.getUid();
 
-                    mRegProgress.dismiss();
+                    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(brugerid);
 
-                    Intent visProfilIntet = new Intent(OpretBrugerActivity.this, VisProfilActivity.class);
-                    startActivity(visProfilIntet);
-                    Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
-                    finish();
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("brugerid" , brugerid);
+                    hashMap.put("fornavn", fornavn);
+                    hashMap.put("efternavn", efternavn);
+                    hashMap.put("telefonNr", telefonNr);
+                    hashMap.put("email", email);
+                    reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mRegProgress.dismiss();
+                                Intent intent = new Intent(OpretBrugerActivity.this, VisProfilActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        }
+                    });
 
 
                 } else {

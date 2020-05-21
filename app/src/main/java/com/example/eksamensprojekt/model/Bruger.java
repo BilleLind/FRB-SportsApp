@@ -2,31 +2,31 @@ package com.example.eksamensprojekt.model;
 
 public class Bruger {
 
-    private String id, brugerNavn, billedeURL;
+    private String brugerId, fornavn, billedeURL;
 
     public Bruger(String id, String brugerNavn, String billedeURL) {
-        this.id = id;
-        this.brugerNavn = brugerNavn;
+        this.brugerId = id;
+        this.fornavn = brugerNavn;
         this.billedeURL = billedeURL;
     }
 
     public Bruger() {
     }
 
-    public String getId() {
-        return id;
+    public String getBrugerId() {
+        return brugerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBrugerId(String brugerId) {
+        this.brugerId = brugerId;
     }
 
-    public String getBrugerNavn() {
-        return brugerNavn;
+    public String getFornavn() {
+        return fornavn;
     }
 
-    public void setBrugerNavn(String brugerNavn) {
-        this.brugerNavn = brugerNavn;
+    public void setFornavn(String fornavn) {
+        this.fornavn = fornavn;
     }
 
     public String getBilledeURL() {
