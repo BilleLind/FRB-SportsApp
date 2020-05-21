@@ -1,6 +1,10 @@
 package com.example.eksamensprojekt.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,11 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.bumptech.glide.Glide;
 import com.example.eksamensprojekt.Fragments.BrugerFragment;
 import com.example.eksamensprojekt.Fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.model.Bruger;
+import com.example.eksamensprojekt.model.Chat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
@@ -43,14 +50,13 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
 
-    brugerNavn = findViewById(R.id.brugerNavnChat);
-        profile_billede = findViewById(R.id.profile_billede);
-
     MaterialToolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
     getSupportActionBar().setTitle("");
 
 
+    brugerNavn = findViewById(R.id.brugerNavnChat);
+    profile_billede = findViewById(R.id.profile_billede);
 
     firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
     reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -60,7 +66,16 @@ public class ChatActivity extends AppCompatActivity {
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             Bruger bruger = dataSnapshot.getValue(Bruger.class);
             brugerNavn.setText(bruger.getBrugerNavn());
+
             profile_billede.setImageResource(R.mipmap.ic_launcher);
+
+         /*   if (bruger.getBilledeURL().equals("default")){
+                profile_billede.setImageResource(R.mipmap.ic_launcher);
+            } else {
+                //TODO why "change this"
+                Glide.with(getApplicationContext()).load(bruger.getBilledeURL()).into(profile_billede);
+            } */
+
         }
 
         @Override
@@ -68,31 +83,31 @@ public class ChatActivity extends AppCompatActivity {
 
         }
     });
-    TabLayout tabLayout = findViewById(R.id.tab_layout);
-    ViewPager viewPager = findViewById(R.id.view_paper);
 
-    ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        viewPagerAdapter.addFragment(new BrugerFragment(), "Users");
+    final TabLayout tabLayout = findViewById(R.id.tab_layout);
+    final ViewPager viewPager = findViewById(R.id.view_paper);
+
+    ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        viewPagerAdapter.addFragment(new ChatsFragment(), "Beskeder");
+        viewPagerAdapter.addFragment(new BrugerFragment(), "Bruger");
 
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
+
+
+
 }
 
-
-
-
-
-
-class ViewPagerAdapter extends FragmentPagerAdapter {
+static class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> fragments;
     private ArrayList<String> titles;
 
-    ViewPagerAdapter(FragmentManager fm) {
-        super(fm);
+    public ViewPagerAdapter(FragmentManager fm) { //TODO iether find out how it works with viewpager2 or this that are coded now
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragments = new ArrayList<>();
         this.titles = new ArrayList<>();
     }
@@ -119,4 +134,9 @@ class ViewPagerAdapter extends FragmentPagerAdapter {
     }
 }
 
+    public void tilbage(View view) {
+       FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(ChatActivity.this, MainActivity.class));
+        finish();
+    }
 }
