@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.example.eksamensprojekt.R;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,15 +28,34 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    FirebaseUser firebaseUser;
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        // check if user is null
+        if (firebaseUser != null ) {
+            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+       // mAuth = FirebaseAuth.getInstance();
+
         //Adding custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+
 
         //Sætter ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
@@ -43,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MainActivity.this, VisProfilActivity.class));
                 finish();
+
             }
         });
 
@@ -58,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         //skifter til book tid activity
         bookTid.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
+
+
+
+

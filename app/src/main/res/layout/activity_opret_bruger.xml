@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/angivFornavn"
+        android:id="@+id/fornavn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -30,7 +30,7 @@
         android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/angivFornavn">
+        app:layout_constraintTop_toBottomOf="@+id/fornavn">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

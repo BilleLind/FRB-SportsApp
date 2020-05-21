@@ -101,12 +101,12 @@ public class LoginBrugerActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 if (task.isSuccessful()){
 
 
                     mLoginProgress.dismiss();
                     Intent mainIntent = new Intent(LoginBrugerActivity.this, MainActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mainIntent);
                     finish();
                 }else {

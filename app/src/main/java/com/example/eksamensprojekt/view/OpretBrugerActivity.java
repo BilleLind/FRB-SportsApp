@@ -11,11 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.model.Bruger;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 import java.util.Objects;
 
@@ -33,7 +39,8 @@ public class OpretBrugerActivity extends AppCompatActivity {
     private ProgressDialog mRegProgress;
 
     //firebase authentication
-    private FirebaseAuth mAuth;
+    FirebaseAuth mAuth;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         mRegProgress = new ProgressDialog(this);
 
         //sætter ids op til de korrekte views
-        mFornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
+        mFornavn = (TextInputLayout) findViewById(R.id.fornavn);
         mEfternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
         mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
         mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
@@ -65,14 +72,17 @@ public class OpretBrugerActivity extends AppCompatActivity {
         mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 String fornavn = mFornavn.getEditText().getText().toString();
                 String efternavn = mEfternavn.getEditText().getText().toString();
                 String email = mEmail.getEditText().getText().toString();
                 String telefonNr = mTelefonNr.getEditText().getText().toString();
                 String adgangskode = mAdgangskode.getEditText().getText().toString();
 
+
                 //if statement: hvis nogle af felterne er tomme, bliver oprettelsen brudt.
-                if (!TextUtils.isEmpty(fornavn) || !TextUtils.isEmpty(efternavn) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(telefonNr) || !TextUtils.isEmpty(adgangskode)){
+                if (!TextUtils.isEmpty(fornavn) || !TextUtils.isEmpty(efternavn) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(telefonNr) || !TextUtils.isEmpty(adgangskode)) {
 
 
                     mRegProgress.setTitle("Opretter bruger");
@@ -80,11 +90,12 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     mRegProgress.setCanceledOnTouchOutside(false);
                     mRegProgress.show();
 
-                    opretBruger(email, adgangskode);
+                    opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
                 }
 
             }
         });
+
 
 
         //Skifter til login in activity
@@ -100,23 +111,44 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
     }
 
-    //Metode til registrering af ny bruger gennem firebase
-    private void opretBruger(String email, String adgangskode) {
 
-        mAuth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+    //Metode til registrering af ny bruger gennem firebase
+    private void opretBruger(final String email, String adgangskode, final String fornavn, final String efternavn, final String telefonNr) {
+
+        mAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
 
-                if (task.isSuccessful()){
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    assert firebaseUser != null;
+                    final String brugerid = firebaseUser.getUid();
 
-                    mRegProgress.dismiss();
+                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid); //TODO does this fix it? error in brugerFragment?
 
-                    Intent visProfilIntet = new Intent(OpretBrugerActivity.this, VisProfilActivity.class);
-                    startActivity(visProfilIntet);
-                    Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
-                    finish();
+                    HashMap<String, String> hashMap = new HashMap<>();
+                    hashMap.put("id", brugerid);
+                    hashMap.put("fornavn", fornavn);
+                    hashMap.put("efternavn", efternavn);
+                    hashMap.put("telefonNr", telefonNr);
+                    hashMap.put("email", email);
 
-                }else {
+                    reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                mRegProgress.dismiss();
+                                Intent intent = new Intent(OpretBrugerActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                Toast.makeText(OpretBrugerActivity.this, "Oprettelse af bruger gennemført", Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        }
+                    });
+
+
+                } else {
 
                     mRegProgress.hide();
                     Toast.makeText(OpretBrugerActivity.this, "Der opstod en fejl. Check felterne for fejl og prøv igen", Toast.LENGTH_LONG).show();
@@ -125,5 +157,5 @@ public class OpretBrugerActivity extends AppCompatActivity {
         });
 
     }
-
 }
+

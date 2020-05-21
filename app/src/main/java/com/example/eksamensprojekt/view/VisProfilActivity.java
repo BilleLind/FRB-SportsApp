@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
@@ -24,6 +26,7 @@ public class VisProfilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vis_profil);
 
+
         //Tilføjer custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
@@ -32,17 +35,22 @@ public class VisProfilActivity extends AppCompatActivity {
 
         mLogudBtn = (Button) findViewById(R.id.log_ud_btn);
 
+
         mLogudBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
 
             }
         });
+
+
+
     }
+
 
     //Tjekker om bruger er logget ind. Hvis ikke, vises opret bruger activity
     @Override
