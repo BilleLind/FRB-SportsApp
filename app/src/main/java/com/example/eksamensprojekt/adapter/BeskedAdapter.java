@@ -42,8 +42,6 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
     @Override
     public BeskedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MSG_TYPE_RIGHT) {
-
-
             View view = LayoutInflater.from(mcontext).inflate(R.layout.chat_item_hoejre, parent, false);
             return new BeskedAdapter.ViewHolder(view);
         } else {
@@ -59,12 +57,12 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
 
         holder.vis_besked.setText(chat.getBesked());
 
-        if (billedeURL.equals("default")){
+        /*TODO if (billedeURL.equals("default")){
             holder.profile_billede.setImageResource(R.mipmap.ic_launcher);
         } else {
             Glide.with(mcontext).load(billedeURL).into(holder.profile_billede);
-        }
-        
+        } */
+
 
 
     }
