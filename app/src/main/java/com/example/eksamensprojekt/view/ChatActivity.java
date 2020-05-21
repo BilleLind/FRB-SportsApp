@@ -76,6 +76,7 @@ public class ChatActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext()).load(bruger.getBilledeURL()).into(profile_billede);
             } */
 
+
         }
 
         @Override
@@ -135,7 +136,7 @@ static class ViewPagerAdapter extends FragmentPagerAdapter {
 }
 
     public void tilbage(View view) {
-       FirebaseAuth.getInstance().signOut();
+       FirebaseAuth.getInstance().signOut();    
         startActivity(new Intent(ChatActivity.this, MainActivity.class));
         finish();
     }
