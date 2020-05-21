@@ -8,12 +8,11 @@
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_alignParentEnd="true"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/profile_billede"
             android:visibility="gone"/>
 
@@ -23,14 +22,18 @@
             android:background="@drawable/background_right"
             android:text="hello"
             android:layout_alignParentEnd="true"
-            android:padding="8dp"
             android:id="@+id/vis_besked"
             android:textSize="18sp"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:padding="8dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_vist"
+            android:layout_below="@id/vis_besked"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
-
-
 
 </RelativeLayout>
