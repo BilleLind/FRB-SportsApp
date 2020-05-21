@@ -36,4 +36,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoutBtn"
+        android:text="logout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>
