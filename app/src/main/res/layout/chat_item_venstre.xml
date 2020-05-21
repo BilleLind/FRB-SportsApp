@@ -5,24 +5,29 @@
     android:padding="8dp"
     android:layout_height="wrap_content">
 
-
-<com.google.android.material.imageview.ShapeableImageView
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:src="@mipmap/ic_launcher"
-    android:id="@+id/profile_billede"/>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/profile_billede"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/profile_billede"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:text="hello"
         android:id="@+id/vis_besked"
         android:textSize="18sp"
-        android:background="@drawable/background_left"
-        android:padding="8dp"/>
+        android:padding="8dp"
+        android:background="@drawable/background_left"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_vist"
+        android:visibility="gone"
+        android:layout_below="@id/vis_besked"/>
 
 
 </RelativeLayout>
