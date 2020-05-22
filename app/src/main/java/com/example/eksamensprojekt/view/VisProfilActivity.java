@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
@@ -20,6 +21,7 @@ public class VisProfilActivity extends AppCompatActivity {
     private Button  mLogudBtn;
 
     private FirebaseAuth mAuth;
+    ImageView actionBarProfil, actionBarChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,29 @@ public class VisProfilActivity extends AppCompatActivity {
                 startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
 
+            }
+        });//Sætter ids til de korrekte views
+
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+
+        //skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VisProfilActivity.this, VisProfilActivity.class));
+                finish();
+
+            }
+        });
+
+        //skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                finish();
             }
         });
 

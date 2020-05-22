@@ -7,32 +7,10 @@
     tools:context="view.BeskedActivity"
     android:background="#e6e6e6">
 
-
-    <RelativeLayout
-        android:id="@+id/bottom_rel"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#fff"
-        android:padding="5dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fornavn"
-            android:text="hej"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/log_ud"
-            android:id="@+id/chat_logud"
-            android:layout_toRightOf="@+id/fornavn"/>
-
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
         />
 
@@ -55,6 +33,11 @@
             android:background="@drawable/ic_action_name" />
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fornavn"
+        android:text="hej"
+        android:layout_below="@id/besked_send"
+        android:visibility="gone"/>
     </RelativeLayout>
-
-</RelativeLayout>

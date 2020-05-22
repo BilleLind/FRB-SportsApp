@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,18 +36,18 @@ import java.util.Objects;
 
 public class BeskedActivity extends AppCompatActivity {
 
-    ShapeableImageView profile_billede;
+    ShapeableImageView profilBillede;
     TextView fornavn;
     ImageButton send_btn;
     EditText besked_send;
-    FirebaseUser fireBruger;
-    DatabaseReference reference;
+    FirebaseUser firebaseBruger;
+    DatabaseReference databaseReference;
     BeskedAdapter beskedAdapter;
-    List<Chat> mChat;
+    List<Chat> chatList;
     RecyclerView recyclerView;
     Intent intent;
+    ImageView actionBarProfil,actionBarChat;
 
-    Button logud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +58,37 @@ public class BeskedActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
         intent = getIntent();
-        fireBruger = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); // en "fail safe" for at undgå at brugerid ikke er kommet tilbage før den skal bruges
         final String bruger_id;
         String data = getIntent().getStringExtra("brugerid");
         if (data == null) {
-            bruger_id = fireBruger.getUid();
+            bruger_id = firebaseBruger.getUid();
         } else {
             bruger_id = getIntent().getStringExtra("brugerid");
         }
+        //Sætter ids til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
-       /* MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        //skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(BeskedActivity.this, VisProfilActivity.class));
+                finish();
+
+            }
+        });
+
+        //skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(BeskedActivity.this, ChatActivity.class));
                 finish();
             }
-        }); */
+        });
 
 
         recyclerView = findViewById(R.id.recycler_view);
@@ -86,11 +98,11 @@ public class BeskedActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        fornavn = findViewById(R.id.fornavn); // have to be the on shown in main.xml or it will crash when clicking on
+        fornavn = findViewById(R.id.fornavn); // nødvendigt at have som koden er nuværende
         send_btn = findViewById(R.id.btn_send);
         besked_send = findViewById(R.id.besked_send);
-        profile_billede = findViewById(R.id.profile_billede);
-        logud = findViewById(R.id.chat_logud);
+        profilBillede = findViewById(R.id.profile_billede);
+
 
 
 
@@ -99,7 +111,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendBesked(fireBruger.getUid(), bruger_id, msg);
+                    sendBesked(firebaseBruger.getUid(), bruger_id, msg);
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
@@ -107,19 +119,10 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
 
-        logud.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(BeskedActivity.this, MainActivity.class));
-                finish();
-            }
-        });
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
-        reference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
-
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger  =dataSnapshot.getValue(Bruger.class);
@@ -131,7 +134,7 @@ public class BeskedActivity extends AppCompatActivity {
                 } else {
                     Glide.with(BeskedActivity.this).load(bruger.getBilledeURL()).into(profile_billede);
                 } */
-                laesBesked(fireBruger.getUid(), bruger_id, bruger.getBilledeURL());
+                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL());
             }
 
             @Override
@@ -144,7 +147,7 @@ public class BeskedActivity extends AppCompatActivity {
 
     }
 
-    private void sendBesked(String afsender, String modtager, String besked) {
+    private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> hashMap =  new HashMap<>();
@@ -156,22 +159,22 @@ public class BeskedActivity extends AppCompatActivity {
 
     }
 
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
-        mChat = new ArrayList<>();
+    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { //
+        chatList = new ArrayList<>();
 
-        reference = FirebaseDatabase.getInstance().getReference("Chats");
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mChat.clear();
+                chatList.clear();
                 for (DataSnapshot snapshot :  dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
                     if (chat.getModtager().equals(minid) && chat.getAfsender().equals(brugerId) ||
                     chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
-                        mChat.add(chat);
+                        chatList.add(chat);
                     }
 
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, mChat, billedeURL);
+                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, chatList, billedeURL);
                         recyclerView.setAdapter(beskedAdapter);
 
                 }

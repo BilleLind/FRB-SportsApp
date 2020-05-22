@@ -30,7 +30,7 @@ public class BrugerFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private com.example.eksamensprojekt.adapter.BrugerAdapter brugerAdapter;
-    private List<Bruger> mBrugere;
+    private List<Bruger> brugerList;
 
 
     @Override
@@ -42,7 +42,7 @@ public class BrugerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mBrugere = new ArrayList<>();
+        brugerList = new ArrayList<>();
 
         readUsers();
 
@@ -52,24 +52,24 @@ public class BrugerFragment extends Fragment {
 
     private void readUsers() {
 
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Brugere");
+        final FirebaseUser firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Brugere");
 
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mBrugere.clear();
+                brugerList.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Bruger bruger =  snapshot.getValue(Bruger.class);
 
-                    assert firebaseUser != null;
+                    assert firebaseBruger != null;
                     assert bruger != null;
                     //TODO find why i haven't initialized bruger for the getBrugerid
-                    if (!bruger.getId().equals(firebaseUser.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
-                        mBrugere.add(bruger);
+                    if (!bruger.getId().equals(firebaseBruger.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
+                        brugerList.add(bruger);
                     }
                 }
-                brugerAdapter = new BrugerAdapter(getContext(), mBrugere);
+                brugerAdapter = new BrugerAdapter(getContext(), brugerList);
                 recyclerView.setAdapter(brugerAdapter);
             }
 
