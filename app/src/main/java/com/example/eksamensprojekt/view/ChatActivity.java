@@ -3,6 +3,7 @@ package com.example.eksamensprojekt.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,6 @@ import com.example.eksamensprojekt.Fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.model.Bruger;
 
-import com.example.eksamensprojekt.model.Chat;
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,13 +36,15 @@ import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
+    ImageView actionBarProfil, actionBarChat;
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
         // check if user is null
-        if (firebaseUser == null ) {
+        if (firebaseBruger == null ) {
             Intent intent = new Intent(ChatActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -52,24 +53,48 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     TextView fornavn;
-    ShapeableImageView profile_billede;
+    ShapeableImageView profilBillede;
 
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    FirebaseUser firebaseBruger;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         //Tilføjer custom action bar
-      /*  Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.action_bar_layout); */
+       Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser(); //TODO trail for at være sikker på den kommer derned
+        //Sætter ids til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+
+        //skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ChatActivity.this, VisProfilActivity.class));
+                finish();
+
+            }
+        });
+
+        //skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(ChatActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
+
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); //TODO trail for at være sikker på den kommer derned
         final String bruger_id;
         String data = getIntent().getStringExtra("brugerid");
         if (data == null) {
-            bruger_id = firebaseUser.getUid();
+            bruger_id = firebaseBruger.getUid();
         } else {
             bruger_id = getIntent().getStringExtra("brugerid");
         }
@@ -77,12 +102,12 @@ public class ChatActivity extends AppCompatActivity {
 
 
     fornavn = findViewById(R.id.fornavn);
-    profile_billede = findViewById(R.id.profile_billede);
+    profilBillede = findViewById(R.id.profile_billede);
 
-    firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
-    reference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
+    firebaseBruger =FirebaseAuth.getInstance().getCurrentUser();
+    databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
-        reference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             Bruger bruger = dataSnapshot.getValue(Bruger.class);
@@ -113,7 +138,7 @@ public class ChatActivity extends AppCompatActivity {
     ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Beskeder");
-        viewPagerAdapter.addFragment(new BrugerFragment(), "Bruger");
+        viewPagerAdapter.addFragment(new BrugerFragment(), "Brugere");
 
         viewPager.setAdapter(viewPagerAdapter);
 
@@ -126,12 +151,12 @@ public class ChatActivity extends AppCompatActivity {
 static class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private ArrayList<Fragment> fragments;
-    private ArrayList<String> titles;
+    private ArrayList<String> titler;
 
-    public ViewPagerAdapter(FragmentManager fm) { //TODO iether find out how it works with viewpager2 or this that are coded now
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragments = new ArrayList<>();
-        this.titles = new ArrayList<>();
+        this.titler = new ArrayList<>();
     }
     @NonNull
     @Override
@@ -146,19 +171,15 @@ static class ViewPagerAdapter extends FragmentPagerAdapter {
 
     public void addFragment( Fragment fragment, String title) {
         fragments.add(fragment);
-        titles.add(title);
+        titler.add(title);
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles.get(position);
+        return titler.get(position);
     }
 }
 
-    public void tilbage(View view) { //TODO hurtig log ud knap inde i chatten hvor man ser brugere og beskeder
-       FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(ChatActivity.this, MainActivity.class));
-        finish();
-    }
+
 }

@@ -20,28 +20,28 @@ import java.util.List;
 public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder> {
 
     public static final int MSG_TYPE_LEFT = 0;
-    public static final int MSG_TYPE_RIGHT = 1; //TODO 1 i stedet?
+    public static final int MSG_TYPE_RIGHT = 1;
 
-    private Context mContext;
-    private List<Chat> mChat;
+    private Context context;
+    private List<Chat> chatList;
     private String billedeURL;
 
-    FirebaseUser fireBruger;
+    FirebaseUser firebaseBruger;
 
-    public BeskedAdapter(Context mContext, List<Chat> mChat, String billedeURL) {
-        this.mChat = mChat;
-        this.mContext = mContext;
+    public BeskedAdapter(Context context, List<Chat> chatList, String billedeURL) {
+        this.chatList = chatList;
+        this.context = context;
         this.billedeURL = billedeURL;
     }
 
     @NonNull
     @Override
-    public BeskedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BeskedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // vælger om at den skal vises i view 1 (højre) eller 0 (venstre)
         if (viewType == MSG_TYPE_RIGHT) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_hoejre, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_hoejre, parent, false);
             return new BeskedAdapter.ViewHolder(view);
         } else {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.chat_item_venstre, parent, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_item_venstre, parent, false);
             return new BeskedAdapter.ViewHolder(view);
         }
     }
@@ -49,9 +49,9 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull BeskedAdapter.ViewHolder holder, int position) {
 
-        Chat chat =  mChat.get(position);
+        Chat chat =  chatList.get(position);
 
-        holder.vis_besked.setText(chat.getBesked());
+        holder.visBesked.setText(chat.getBesked());
 
         /*TODO if (billedeURL.equals("default")){
             holder.profile_billede.setImageResource(R.mipmap.ic_launcher);
@@ -65,26 +65,26 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mChat.size();
+        return chatList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView vis_besked;
-        public ImageView profile_billede;
+        public TextView visBesked;
+        public ImageView profilBillede;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            vis_besked = itemView.findViewById(R.id.vis_besked);
-            profile_billede = itemView.findViewById(R.id.profile_billede);
+            visBesked = itemView.findViewById(R.id.vis_besked);
+            profilBillede = itemView.findViewById(R.id.profile_billede);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        fireBruger = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getAfsender().equals(fireBruger.getUid())) {
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
+        if (chatList.get(position).getAfsender().equals(firebaseBruger.getUid())) {
             return MSG_TYPE_RIGHT;
         } else {
             return MSG_TYPE_LEFT;

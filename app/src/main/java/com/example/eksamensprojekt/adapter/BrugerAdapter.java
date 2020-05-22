@@ -35,7 +35,7 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { //TODO mulig begrundelse for at der skal være et fornavn textview
         final Bruger bruger = mBrugere.get(position);
         holder.fornavn.setText(bruger.getFornavn());
 
