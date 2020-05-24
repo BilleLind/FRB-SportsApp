@@ -36,7 +36,7 @@ import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
-    ImageView actionBarProfil, actionBarChat;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu;
 
     @Override
     protected void onStart() {
@@ -69,6 +69,7 @@ public class ChatActivity extends AppCompatActivity {
         //Sætter ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
 
         //skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +87,16 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(ChatActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til menu activity
+        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(ChatActivity.this, MainActivity.class));
                 finish();
             }
         });

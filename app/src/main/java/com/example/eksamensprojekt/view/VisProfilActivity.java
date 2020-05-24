@@ -21,7 +21,7 @@ public class VisProfilActivity extends AppCompatActivity {
     private Button mLogudBtn;
 
     private FirebaseAuth mAuth;
-    ImageView actionBarProfil, actionBarChat;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,22 @@ public class VisProfilActivity extends AppCompatActivity {
                 finish();
 
             }
-        });//Sætter ids til de korrekte views
+        });
 
+        //Sætter ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+
+        //Skifter til menu activity
+        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
         //skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
