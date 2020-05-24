@@ -46,41 +46,34 @@ public class BeskedActivity extends AppCompatActivity {
     List<Chat> chatList;
     RecyclerView recyclerView;
     Intent intent;
-    ImageView actionBarProfil, actionBarChat;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besked);
-        //Tilføjer custom action bar
+
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        intent = getIntent();
-        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); // en "fail safe" for at undgå at brugerid ikke er kommet tilbage før den skal bruges
-        final String bruger_id;
-        String data = getIntent().getStringExtra("brugerid");
-        if (data == null) {
-            bruger_id = firebaseBruger.getUid();
-        } else {
-            bruger_id = getIntent().getStringExtra("brugerid");
-        }
-        //Sætter ids til de korrekte views
+        //Forbinder ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
 
-        //skifter til vis profil activity
+        //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(BeskedActivity.this, VisProfilActivity.class));
                 finish();
-
             }
         });
 
-        //skifter til chat activity
+        //Skifter til chat activity
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +83,26 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
 
+        //Skifter til menu activity
+        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(BeskedActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        // ^ Action bar ^
+
+        intent = getIntent();
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); // en "fail safe" for at undgå at BrugerID ikke er kommet tilbage før den skal bruges
+        final String bruger_id;
+        String data = getIntent().getStringExtra("brugerid");
+        if (data == null) {
+            bruger_id = firebaseBruger.getUid();
+        } else {
+            bruger_id = getIntent().getStringExtra("brugerid");
+        }
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -97,12 +110,10 @@ public class BeskedActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
         fornavn = findViewById(R.id.fornavn); // nødvendigt at have som koden er nuværende
         send_btn = findViewById(R.id.btn_send);
         besked_send = findViewById(R.id.besked_send);
         profilBillede = findViewById(R.id.profile_billede);
-
 
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +128,6 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
 
-
         databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -125,7 +135,6 @@ public class BeskedActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger = dataSnapshot.getValue(Bruger.class);
                 fornavn.setText(bruger.getFornavn());
-
 
                 /*TODO if (bruger.getBilledeURL().equals("default")) {
                     profile_billede.setImageResource(R.mipmap.ic_launcher);
@@ -137,11 +146,8 @@ public class BeskedActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
-
     }
 
     private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
@@ -170,7 +176,6 @@ public class BeskedActivity extends AppCompatActivity {
                             chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
                         chatList.add(chat);
                     }
-
                     beskedAdapter = new BeskedAdapter(BeskedActivity.this, chatList, billedeURL);
                     recyclerView.setAdapter(beskedAdapter);
 

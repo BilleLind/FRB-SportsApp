@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -24,7 +25,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
     private TextInputLayout iEmail;
     private TextInputLayout iAdgangskode;
 
-
+    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
     private Button mGoToOpretBrugerBtn;
     private Button mLoginbtn;
     private Button mStaticBtn;
@@ -42,9 +43,45 @@ public class LoginBrugerActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        //Tilføjer custom actionbar
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+
+        //Forbinder ids til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+
+        //Skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginBrugerActivity.this, VisProfilActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(LoginBrugerActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til menu activity
+        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(LoginBrugerActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        // ^ Action bar ^
 
         //Skaber new progress dialog
         mLoginProgress = new ProgressDialog(this);

@@ -18,21 +18,17 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Imageview fra actionbar
-    ImageView actionBarProfil;
-    ImageView actionBarChat;
+    ImageView actionBarProfil, actionBarChat; //Action Bar Variabler
 
     //Button for main xml
     Button seTraerning;
     Button bookTid;
-
 
     FirebaseUser firebaseUser;
 
     @Override
     protected void onStart() {
         super.onStart();
-
 
         /*firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         // check if user is null
@@ -41,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }*/
-
     }
 
     @Override
@@ -49,32 +44,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // mAuth = FirebaseAuth.getInstance();
 
-        //Adding custom action bar
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-
-        //Sætter ids til de korrekte views
+        //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
-        seTraerning = (Button) findViewById(R.id.goto_feedback_btn);
-        bookTid = (Button) findViewById(R.id.goto_booking_btn);
-
-        //skifter til vis profil activity
+        //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, VisProfilActivity.class));
                 finish();
-
             }
         });
 
-        //skifter til chat activity
+        //Skifter til chat activity
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        // ^ Action bar ^
 
+        seTraerning = (Button) findViewById(R.id.goto_feedback_btn);
+        bookTid = (Button) findViewById(R.id.goto_booking_btn);
 
         //skifter til book tid activity
         bookTid.setOnClickListener(new View.OnClickListener() {

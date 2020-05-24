@@ -36,21 +36,8 @@ import java.util.Objects;
 
 public class ChatActivity extends AppCompatActivity {
 
-    ImageView actionBarProfil, actionBarChat, actionBarMenu;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
-        // check if user is null
-        if (firebaseBruger == null) {
-            Intent intent = new Intent(ChatActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-    }
+    private FirebaseAuth firebaseAuth;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     TextView fornavn;
     ShapeableImageView profilBillede;
@@ -62,16 +49,20 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        //Tilføjer custom action bar
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Sætter ids til de korrekte views
+        //Forbinder ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
 
-        //skifter til vis profil activity
+        //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        //skifter til chat activity
+        //Skifter til chat activity
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +91,7 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
             }
         });
+        // ^ Action Bar ^
 
         firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); //TODO trail for at være sikker på den kommer derned
         final String bruger_id;
@@ -110,11 +102,10 @@ public class ChatActivity extends AppCompatActivity {
             bruger_id = getIntent().getStringExtra("brugerid");
         }
 
-
         fornavn = findViewById(R.id.fornavn);
         profilBillede = findViewById(R.id.profile_billede);
 
-        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseBruger = firebaseAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -130,9 +121,7 @@ public class ChatActivity extends AppCompatActivity {
             } else {
                 //TODO why "change this"
                 Glide.with(getApplicationContext()).load(bruger.getBilledeURL()).into(profile_billede);
-            } */
-
-
+                } */
             }
 
             @Override
@@ -141,20 +130,33 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-
         final TabLayout tabLayout = findViewById(R.id.tab_layout);
         final ViewPager viewPager = findViewById(R.id.view_paper);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        viewPagerAdapter.addFragment(new ChatsFragment(), "Beskeder");
-        viewPagerAdapter.addFragment(new BrugerFragment(), "Brugere");
+        viewPagerAdapter.addFragment(new ChatsFragment(), "Beskeder"); //Beskeder tab i chat aktiviteten
+        viewPagerAdapter.addFragment(new BrugerFragment(), "Brugere"); //Brugere tab i chat aktiviteten
 
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        //_________________________________
+        firebaseBruger = firebaseAuth.getCurrentUser();
+        // check if user is null
+        if (firebaseBruger == null) {
+
+            Intent ikkeLoggetIndIntent = new Intent(ChatActivity.this, OpretBrugerActivity.class);
+            startActivity(ikkeLoggetIndIntent);
+            finish();
+        }
+        // ^ Det her når ikke at køre ^
     }
 
     static class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -190,6 +192,4 @@ public class ChatActivity extends AppCompatActivity {
             return titler.get(position);
         }
     }
-
-
 }

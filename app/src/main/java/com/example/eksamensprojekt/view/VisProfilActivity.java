@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
@@ -18,10 +17,11 @@ import java.util.Objects;
 
 public class VisProfilActivity extends AppCompatActivity {
 
-    private Button mLogudBtn;
+    private Button brugerLogUd;
 
-    private FirebaseAuth mAuth;
-    ImageView actionBarProfil, actionBarChat, actionBarMenu;
+    private FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseBruger;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,30 +29,34 @@ public class VisProfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vis_profil);
 
 
-        //Tilføjer custom action bar
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        mLogudBtn = (Button) findViewById(R.id.log_ud_btn);
-
-
-        mLogudBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
-                finish();
-
-            }
-        });
-
-        //Sætter ids til de korrekte views
+        //Forbinder ids til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+
+        //Skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VisProfilActivity.this, VisProfilActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
 
         //Skifter til menu activity
         actionBarMenu.setOnClickListener(new View.OnClickListener() {
@@ -63,46 +67,38 @@ public class VisProfilActivity extends AppCompatActivity {
                 finish();
             }
         });
+        // ^ Action bar ^
 
-        //skifter til vis profil activity
-        actionBarProfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(VisProfilActivity.this, VisProfilActivity.class));
-                finish();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-            }
-        });
+        brugerLogUd = (Button) findViewById(R.id.log_ud_btn);
 
-        //skifter til chat activity
-        actionBarChat.setOnClickListener(new View.OnClickListener() {
+
+        brugerLogUd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
             }
         });
-
-
     }
 
-
-    //Tjekker om bruger er logget ind. Hvis ikke, vises opret bruger activity
+    //Tjekker om bruger er logget ind. Hvis ikke, bliver bruger præsenteret for opret bruger aktiviteten.
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Tjek om bruger er logged in (ikke null) og opdater UI som nødvendigt.
+        firebaseBruger = firebaseAuth.getCurrentUser();
         //updateUI(currentUser);
 
+        if (firebaseBruger == null) {
 
-        if (currentUser == null) {
-
-            Intent opretBrugerIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
-            startActivity(opretBrugerIntent);
+            Intent ikkeLoggetIndIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
+            startActivity(ikkeLoggetIndIntent);
             finish();
         }
-
     }
 }

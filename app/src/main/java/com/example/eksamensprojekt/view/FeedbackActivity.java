@@ -3,6 +3,8 @@ package com.example.eksamensprojekt.view;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.View;
+import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,15 +17,52 @@ import java.util.Objects;
 public class FeedbackActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Tilføjer custom action bar
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
+
+        //Forbinder ids til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
+        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+
+        //Skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(FeedbackActivity.this, VisProfilActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(FeedbackActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til menu activity
+        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(FeedbackActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+        // ^ Action bar ^
 
         mAuth = FirebaseAuth.getInstance();
 
