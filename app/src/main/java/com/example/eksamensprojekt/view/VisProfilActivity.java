@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class VisProfilActivity extends AppCompatActivity {
 
-    private Button brugerLogUd;
+    private Button brugerLogUdKnap;
 
     private FirebaseAuth firebaseAuth;
     FirebaseUser firebaseBruger;
@@ -71,10 +71,10 @@ public class VisProfilActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        brugerLogUd = (Button) findViewById(R.id.log_ud_btn);
+        brugerLogUdKnap = (Button) findViewById(R.id.log_ud_btn);
 
 
-        brugerLogUd.setOnClickListener(new View.OnClickListener() {
+        brugerLogUdKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

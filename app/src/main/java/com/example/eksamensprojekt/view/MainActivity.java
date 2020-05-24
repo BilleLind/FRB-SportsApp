@@ -9,10 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.example.eksamensprojekt.R;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -20,23 +17,15 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView actionBarProfil, actionBarChat; //Action Bar Variabler
 
-    //Button for main xml
-    Button seTraerning;
-    Button bookTid;
+    //Button til main XML
+    Button seTraerningKnap;
+    Button bookTidKnap;
 
     FirebaseUser firebaseUser;
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        /*firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        // check if user is null
-        if (firebaseUser != null) {
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }*/
     }
 
     @Override
@@ -75,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
         });
         // ^ Action bar ^
 
-        seTraerning = (Button) findViewById(R.id.goto_feedback_btn);
-        bookTid = (Button) findViewById(R.id.goto_booking_btn);
+        seTraerningKnap = (Button) findViewById(R.id.goto_feedback_btn);
+        bookTidKnap = (Button) findViewById(R.id.goto_booking_btn);
 
         //skifter til book tid activity
-        bookTid.setOnClickListener(new View.OnClickListener() {
+        bookTidKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -89,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //skifter til feedback activity
-        seTraerning.setOnClickListener(new View.OnClickListener() {
+        seTraerningKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
