@@ -24,16 +24,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // mAuth = FirebaseAuth.getInstance();
+        // firebaseAuth = FirebaseAuth.getInstance();
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -86,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 }
 

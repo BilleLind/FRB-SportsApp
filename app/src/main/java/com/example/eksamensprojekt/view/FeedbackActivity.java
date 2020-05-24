@@ -16,13 +16,13 @@ import java.util.Objects;
 
 public class FeedbackActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_feedback);
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -64,18 +64,15 @@ public class FeedbackActivity extends AppCompatActivity {
         });
         // ^ Action bar ^
 
-        mAuth = FirebaseAuth.getInstance();
-
-
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         //updateUI(currentUser);
-
 
         if (currentUser == null) {
 
@@ -83,7 +80,5 @@ public class FeedbackActivity extends AppCompatActivity {
             startActivity(signInIntent);
             finish();
         }
-
-
     }
 }
