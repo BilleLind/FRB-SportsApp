@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
         firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
         // check if user is null
-        if (firebaseBruger == null ) {
+        if (firebaseBruger == null) {
             Intent intent = new Intent(ChatActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -63,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         //Tilføjer custom action bar
-       Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
         //Sætter ids til de korrekte views
@@ -100,18 +100,17 @@ public class ChatActivity extends AppCompatActivity {
         }
 
 
+        fornavn = findViewById(R.id.fornavn);
+        profilBillede = findViewById(R.id.profile_billede);
 
-    fornavn = findViewById(R.id.fornavn);
-    profilBillede = findViewById(R.id.profile_billede);
-
-    firebaseBruger =FirebaseAuth.getInstance().getCurrentUser();
-    databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
+        firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            Bruger bruger = dataSnapshot.getValue(Bruger.class);
-            fornavn.setText(bruger.getFornavn());
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Bruger bruger = dataSnapshot.getValue(Bruger.class);
+                fornavn.setText(bruger.getFornavn());
 
 //TODO            profile_billede.setImageResource(R.mipmap.ic_launcher);
 
@@ -123,19 +122,19 @@ public class ChatActivity extends AppCompatActivity {
             } */
 
 
-        }
+            }
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-        }
-    });
+            }
+        });
 
 
-    final TabLayout tabLayout = findViewById(R.id.tab_layout);
-    final ViewPager viewPager = findViewById(R.id.view_paper);
+        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+        final ViewPager viewPager = findViewById(R.id.view_paper);
 
-    ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         viewPagerAdapter.addFragment(new ChatsFragment(), "Beskeder");
         viewPagerAdapter.addFragment(new BrugerFragment(), "Brugere");
@@ -145,41 +144,41 @@ public class ChatActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
-
-}
-
-static class ViewPagerAdapter extends FragmentPagerAdapter {
-
-    private ArrayList<Fragment> fragments;
-    private ArrayList<String> titler;
-
-    public ViewPagerAdapter(FragmentManager fm) {
-        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.fragments = new ArrayList<>();
-        this.titler = new ArrayList<>();
-    }
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return fragments.get(position);
     }
 
-    @Override
-    public int getCount() {
-        return fragments.size();
-    }
+    static class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    public void addFragment( Fragment fragment, String title) {
-        fragments.add(fragment);
-        titler.add(title);
-    }
+        private ArrayList<Fragment> fragments;
+        private ArrayList<String> titler;
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titler.get(position);
+        public ViewPagerAdapter(FragmentManager fm) {
+            super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            this.fragments = new ArrayList<>();
+            this.titler = new ArrayList<>();
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragments.add(fragment);
+            titler.add(title);
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titler.get(position);
+        }
     }
-}
 
 
 }

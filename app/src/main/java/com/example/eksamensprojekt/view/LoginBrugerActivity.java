@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Objects;
 
 public class LoginBrugerActivity extends AppCompatActivity {
@@ -32,8 +33,6 @@ public class LoginBrugerActivity extends AppCompatActivity {
 
     //firebase authentication
     private FirebaseAuth mAuth;
-
-
 
 
     @Override
@@ -101,7 +100,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
 
 
                     mLoginProgress.dismiss();
@@ -109,7 +108,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(mainIntent);
                     finish();
-                }else {
+                } else {
 
                     mLoginProgress.hide();
                     Toast.makeText(LoginBrugerActivity.this, "Der opstod en fejl. Email eller adgangskode er forkert", Toast.LENGTH_LONG).show();
@@ -117,7 +116,6 @@ public class LoginBrugerActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }

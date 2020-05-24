@@ -28,7 +28,6 @@ public class FeedbackActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
     }
 
     @Override

@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     Button bookTid;
 
 
-
     FirebaseUser firebaseUser;
 
     @Override
@@ -35,22 +34,23 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        /*firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         // check if user is null
-        if (firebaseUser != null ) {
-            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+        if (firebaseUser != null) {
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-       // mAuth = FirebaseAuth.getInstance();
+        // mAuth = FirebaseAuth.getInstance();
 
         //Adding custom action bar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

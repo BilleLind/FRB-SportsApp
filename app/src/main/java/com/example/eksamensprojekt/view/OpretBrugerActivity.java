@@ -97,7 +97,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
         });
 
 
-
         //Skifter til login in activity
         mGotoLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

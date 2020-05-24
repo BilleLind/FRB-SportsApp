@@ -46,7 +46,7 @@ public class BeskedActivity extends AppCompatActivity {
     List<Chat> chatList;
     RecyclerView recyclerView;
     Intent intent;
-    ImageView actionBarProfil,actionBarChat;
+    ImageView actionBarProfil, actionBarChat;
 
 
     @Override
@@ -104,8 +104,6 @@ public class BeskedActivity extends AppCompatActivity {
         profilBillede = findViewById(R.id.profile_billede);
 
 
-
-
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +123,7 @@ public class BeskedActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Bruger bruger  =dataSnapshot.getValue(Bruger.class);
+                Bruger bruger = dataSnapshot.getValue(Bruger.class);
                 fornavn.setText(bruger.getFornavn());
 
 
@@ -144,13 +142,12 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        HashMap<String, Object> hashMap =  new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("afsender", afsender);
         hashMap.put("modtager", modtager);
         hashMap.put("besked", besked);
@@ -167,15 +164,15 @@ public class BeskedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chatList.clear();
-                for (DataSnapshot snapshot :  dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
                     if (chat.getModtager().equals(minid) && chat.getAfsender().equals(brugerId) ||
-                    chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
+                            chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
                         chatList.add(chat);
                     }
 
                     beskedAdapter = new BeskedAdapter(BeskedActivity.this, chatList, billedeURL);
-                        recyclerView.setAdapter(beskedAdapter);
+                    recyclerView.setAdapter(beskedAdapter);
 
                 }
             }

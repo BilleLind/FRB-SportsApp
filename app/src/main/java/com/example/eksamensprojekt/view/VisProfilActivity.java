@@ -18,7 +18,7 @@ import java.util.Objects;
 
 public class VisProfilActivity extends AppCompatActivity {
 
-    private Button  mLogudBtn;
+    private Button mLogudBtn;
 
     private FirebaseAuth mAuth;
     ImageView actionBarProfil, actionBarChat;
@@ -71,7 +71,6 @@ public class VisProfilActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
     }
