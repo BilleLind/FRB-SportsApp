@@ -64,7 +64,6 @@ public class BrugerFragment extends Fragment {
 
                     assert firebaseBruger != null;
                     assert bruger != null;
-                    //TODO find why i haven't initialized bruger for the getBrugerid
                     if (!bruger.getId().equals(firebaseBruger.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
                         brugerList.add(bruger);
                     }

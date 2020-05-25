@@ -35,7 +35,7 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { //TODO mulig begrundelse for at der skal være et fornavn textview
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) { // sætter fornavn på bruger_item skabalonen som implementeres i bruger fragmentet
         final Bruger bruger = mBrugere.get(position);
         holder.fornavn.setText(bruger.getFornavn());
 
@@ -56,8 +56,8 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView fornavn;
-        public ImageView profile_billede;
+        TextView fornavn;
+        ImageView profile_billede;
 
          ViewHolder(View itemView) {
             super(itemView);

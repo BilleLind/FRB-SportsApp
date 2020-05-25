@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eksamensprojekt.R;
@@ -37,7 +36,7 @@ import java.util.Objects;
 public class BeskedActivity extends AppCompatActivity {
 
     ShapeableImageView profilBillede;
-    TextView fornavn;
+
     ImageButton send_btn;
     EditText besked_send;
     FirebaseUser firebaseBruger;
@@ -53,6 +52,9 @@ public class BeskedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besked);
+        send_btn = findViewById(R.id.btn_send);
+        besked_send = findViewById(R.id.besked_send);
+        profilBillede = findViewById(R.id.profile_billede);
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -110,10 +112,6 @@ public class BeskedActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        fornavn = findViewById(R.id.fornavn); // nødvendigt at have som koden er nuværende
-        send_btn = findViewById(R.id.btn_send);
-        besked_send = findViewById(R.id.besked_send);
-        profilBillede = findViewById(R.id.profile_billede);
 
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,14 +132,8 @@ public class BeskedActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger = dataSnapshot.getValue(Bruger.class);
-                fornavn.setText(bruger.getFornavn());
 
-                /*TODO if (bruger.getBilledeURL().equals("default")) {
-                    profile_billede.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    Glide.with(BeskedActivity.this).load(bruger.getBilledeURL()).into(profile_billede);
-                } */
-                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL());
+                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL()); //billede ikke indført
             }
 
             @Override
@@ -150,7 +142,9 @@ public class BeskedActivity extends AppCompatActivity {
         });
     }
 
+    //TODO flyt til en anden klasse og implementer
     private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
+        // mon den skal være med som parameter så det er kaldt i klassen?
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -159,9 +153,9 @@ public class BeskedActivity extends AppCompatActivity {
         hashMap.put("besked", besked);
 
         reference.child("Chats").push().setValue(hashMap);
-
     }
 
+    //TODO flyt til en anden klasse og implementer
     private void laesBesked(final String minid, final String brugerId, final String billedeURL) { //
         chatList = new ArrayList<>();
 
