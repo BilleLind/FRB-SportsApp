@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-
 import com.example.eksamensprojekt.Fragments.BrugerFragment;
 import com.example.eksamensprojekt.Fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
@@ -68,7 +67,6 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(ChatActivity.this, VisProfilActivity.class));
                 finish();
-
             }
         });
 
