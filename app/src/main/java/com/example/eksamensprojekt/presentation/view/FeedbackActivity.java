@@ -1,18 +1,20 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.view.View;
 import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eksamensprojekt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class BookTidActivity extends AppCompatActivity {
+public class FeedbackActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
@@ -20,7 +22,7 @@ public class BookTidActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_tid);
+        setContentView(R.layout.activity_feedback);
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -36,7 +38,7 @@ public class BookTidActivity extends AppCompatActivity {
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(BookTidActivity.this, VisProfilActivity.class));
+                startActivity(new Intent(FeedbackActivity.this, VisProfilActivity.class));
                 finish();
             }
         });
@@ -46,7 +48,7 @@ public class BookTidActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(BookTidActivity.this, ChatActivity.class));
+                startActivity(new Intent(FeedbackActivity.this, ChatActivity.class));
                 finish();
             }
         });
@@ -56,7 +58,7 @@ public class BookTidActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(BookTidActivity.this, MainActivity.class));
+                startActivity(new Intent(FeedbackActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -72,15 +74,11 @@ public class BookTidActivity extends AppCompatActivity {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         //updateUI(currentUser);
 
-
         if (currentUser == null) {
 
-            Intent signInIntent = new Intent(BookTidActivity.this, OpretBrugerActivity.class);
+            Intent signInIntent = new Intent(FeedbackActivity.this, OpretBrugerActivity.class);
             startActivity(signInIntent);
             finish();
         }
-
-
     }
-
 }

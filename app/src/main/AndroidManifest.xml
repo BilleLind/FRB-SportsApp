@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.BeskedActivity" />
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".presentation.view.BeskedActivity" />
+        <activity android:name=".presentation.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.BookTidActivity" />
-        <activity android:name=".view.ChatActivity" />
-        <activity android:name=".view.OpretBrugerActivity" />
-        <activity android:name=".view.VisProfilActivity"/>
-        <activity android:name=".view.FeedbackActivity"/>
-        <activity android:name=".view.LoginBrugerActivity"/>
+        <activity android:name=".presentation.view.BookTidActivity" />
+        <activity android:name=".presentation.view.ChatActivity" />
+        <activity android:name=".presentation.view.OpretBrugerActivity" />
+        <activity android:name=".presentation.view.VisProfilActivity"/>
+        <activity android:name=".presentation.view.FeedbackActivity"/>
+        <activity android:name=".presentation.view.LoginBrugerActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.adapter;
+package com.example.eksamensprojekt.presentation.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.model.Bruger;
-import com.example.eksamensprojekt.view.BeskedActivity;
+import com.example.eksamensprojekt.data.model.Bruger;
+import com.example.eksamensprojekt.presentation.view.BeskedActivity;
 
 import java.util.List;
 

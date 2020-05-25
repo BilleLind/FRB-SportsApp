@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

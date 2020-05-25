@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.Fragments;
+package com.example.eksamensprojekt.presentation.fragments;
 
 import android.os.Bundle;
 

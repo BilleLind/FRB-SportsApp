@@ -1,28 +1,34 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
-import android.content.Intent;
-import android.os.Bundle;
-
-import android.view.View;
-import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import com.example.eksamensprojekt.R;
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
-    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    ImageView actionBarProfil, actionBarChat; //Action Bar Variabler
+
+    //Button til main XML
+    Button seTraerningKnap;
+    Button bookTidKnap;
+
+    FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+        setContentView(R.layout.activity_main);
+
+        // firebaseAuth = FirebaseAuth.getInstance();
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -32,13 +38,12 @@ public class FeedbackActivity extends AppCompatActivity {
         //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
 
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FeedbackActivity.this, VisProfilActivity.class));
+                startActivity(new Intent(MainActivity.this, VisProfilActivity.class));
                 finish();
             }
         });
@@ -48,37 +53,41 @@ public class FeedbackActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(FeedbackActivity.this, ChatActivity.class));
-                finish();
-            }
-        });
-
-        //Skifter til menu activity
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(FeedbackActivity.this, MainActivity.class));
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
                 finish();
             }
         });
         // ^ Action bar ^
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        seTraerningKnap = (Button) findViewById(R.id.goto_feedback_btn);
+        bookTidKnap = (Button) findViewById(R.id.goto_booking_btn);
+
+        //skifter til book tid activity
+        bookTidKnap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
+
+        //skifter til feedback activity
+        seTraerningKnap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
+                finish();
+            }
+        });
     }
-
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        //updateUI(currentUser);
-
-        if (currentUser == null) {
-
-            Intent signInIntent = new Intent(FeedbackActivity.this, OpretBrugerActivity.class);
-            startActivity(signInIntent);
-            finish();
-        }
     }
 }
+
+
+
+

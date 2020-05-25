@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.model;
+package com.example.eksamensprojekt.data.model;
 
 public class Bruger {
 

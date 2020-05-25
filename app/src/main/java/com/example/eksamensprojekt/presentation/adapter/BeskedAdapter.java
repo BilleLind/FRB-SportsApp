@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.adapter;
+package com.example.eksamensprojekt.presentation.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.model.Chat;
+import com.example.eksamensprojekt.data.model.Chat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

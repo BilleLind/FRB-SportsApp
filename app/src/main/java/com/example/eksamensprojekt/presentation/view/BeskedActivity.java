@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -16,10 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.adapter.BeskedAdapter;
-import com.example.eksamensprojekt.model.Bruger;
+import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
+import com.example.eksamensprojekt.data.model.Bruger;
 
-import com.example.eksamensprojekt.model.Chat;
+import com.example.eksamensprojekt.data.model.Chat;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

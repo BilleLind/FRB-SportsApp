@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.Fragments;
+package com.example.eksamensprojekt.presentation.fragments;
 
 import android.os.Bundle;
 
@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.adapter.BrugerAdapter;
-import com.example.eksamensprojekt.model.Bruger;
+import com.example.eksamensprojekt.presentation.adapter.BrugerAdapter;
+import com.example.eksamensprojekt.data.model.Bruger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +29,7 @@ import java.util.List;
 public class BrugerFragment extends Fragment {
     private RecyclerView recyclerView;
 
-    private com.example.eksamensprojekt.adapter.BrugerAdapter brugerAdapter;
+    private BrugerAdapter brugerAdapter;
     private List<Bruger> brugerList;
 
 
