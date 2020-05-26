@@ -3,13 +3,15 @@ package com.example.eksamensprojekt.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eksamensprojekt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,29 +34,47 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
     private ProgressDialog regProgress;
 
+    private ImageView actionBarMain;
+
     //Deklarere en instans af firebaseAuth
-    private FirebaseAuth auth;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opret_bruger);
 
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = firebaseAuth.getInstance();
+
 
         //Tilføjer custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
+        actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
+
+        actionBarMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(OpretBrugerActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
+        // ^^action bar
+
+
         //Skaber en ny progress dialog
         regProgress = new ProgressDialog(this);
 
-        //sætter ids op til de korrekte views
+        //sætter ids til de korrekte views
         fornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
         efternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
         email = (TextInputLayout) findViewById(R.id.angivEmail);
         adgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
         telefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
+
 
         bekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
         goToLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
@@ -83,8 +103,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
         });
 
     }
-
-
 
 
 
@@ -232,7 +250,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
     //Metode til registrering af ny bruger gennem firebase, som forbinder email og adgangskode til brugeren.
     private void opretBruger(String email, String adgangskode) {
 
-        auth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email,adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 

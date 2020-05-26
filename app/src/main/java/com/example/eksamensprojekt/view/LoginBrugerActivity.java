@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eksamensprojekt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,18 +23,18 @@ import java.util.Objects;
 
 public class LoginBrugerActivity extends AppCompatActivity {
 
-    private TextInputLayout iEmail;
-    private TextInputLayout iAdgangskode;
+    private TextInputLayout email;
+    private TextInputLayout adgangskode;
 
+    private Button goToOpretBrugerBtn;
+    private Button loginbtn;
 
-    private Button mGoToOpretBrugerBtn;
-    private Button mLoginbtn;
-    private Button mStaticBtn;
+    private ImageView actionBarMain;
 
-    private ProgressDialog mLoginProgress;
+    private ProgressDialog loginProgress;
 
     //firebase authentication
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
 
 
 
@@ -41,39 +44,51 @@ public class LoginBrugerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_bruger);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Tilføjer custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Skaber new progress dialog
-        mLoginProgress = new ProgressDialog(this);
+        actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
 
-        mGoToOpretBrugerBtn = (Button) findViewById(R.id.goto_opret_bruger_btn);
-        mLoginbtn = (Button) findViewById(R.id.login_paa_bruger);
-        mStaticBtn = (Button) findViewById(R.id.static_goto_login_btn);
-
-
-        //TextInput for login xml
-        iEmail = (TextInputLayout) findViewById(R.id.indsaetEmail);
-        iAdgangskode = (TextInputLayout) findViewById(R.id.indsaetAdgangskode);
-
-
-        //tjekker om felterne er udfyldt og  henter bruger
-        mLoginbtn.setOnClickListener(new View.OnClickListener() {
+        actionBarMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String indsatEmail = iEmail.getEditText().getText().toString();
-                String indsatAdgangskode = iAdgangskode.getEditText().getText().toString();
+                startActivity(new Intent(LoginBrugerActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
+        // ^^action bar
+
+
+        //Skaber new progress dialog
+        loginProgress = new ProgressDialog(this);
+
+        //Sætter ids til de korrekte views
+        goToOpretBrugerBtn = (Button) findViewById(R.id.goto_opret_bruger_btn);
+        loginbtn = (Button) findViewById(R.id.login_paa_bruger);
+
+        email = (TextInputLayout) findViewById(R.id.indsaetEmail);
+        adgangskode = (TextInputLayout) findViewById(R.id.indsaetAdgangskode);
+
+
+        //Tjekker om felterne er udfyldt og  henter bruger
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String indsatEmail = email.getEditText().getText().toString();
+                String indsatAdgangskode = adgangskode.getEditText().getText().toString();
 
                 if (!TextUtils.isEmpty(indsatEmail) || !TextUtils.isEmpty(indsatAdgangskode)) {
 
-                    mLoginProgress.setTitle("Logger ind");
-                    mLoginProgress.setMessage("Vent venligst mens vi finder din bruger.");
-                    mLoginProgress.setCanceledOnTouchOutside(false);
-                    mLoginProgress.show();
+                    loginProgress.setTitle("Logger ind");
+                    loginProgress.setMessage("Vent venligst mens vi finder din bruger.");
+                    loginProgress.setCanceledOnTouchOutside(false);
+                    loginProgress.show();
 
                     hentBruger(indsatEmail, indsatAdgangskode);
 
@@ -83,7 +98,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
         });
 
         //skifter til opret bruger activity
-        mGoToOpretBrugerBtn.setOnClickListener(new View.OnClickListener() {
+        goToOpretBrugerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -98,20 +113,20 @@ public class LoginBrugerActivity extends AppCompatActivity {
     //metode der henter eksisterende bruger med email og adgangskode via firebase
     private void hentBruger(String indsatEmail, String indsatAdgangskode) {
 
-        mAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()){
 
 
-                    mLoginProgress.dismiss();
+                    loginProgress.dismiss();
                     Intent mainIntent = new Intent(LoginBrugerActivity.this, MainActivity.class);
                     startActivity(mainIntent);
                     finish();
                 }else {
 
-                    mLoginProgress.hide();
+                    loginProgress.hide();
                     Toast.makeText(LoginBrugerActivity.this, "Der opstod en fejl. Email eller adgangskode er forkert", Toast.LENGTH_LONG).show();
                 }
 
