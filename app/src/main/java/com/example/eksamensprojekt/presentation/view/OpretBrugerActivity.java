@@ -3,7 +3,6 @@ package com.example.eksamensprojekt.presentation.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,17 +26,12 @@ import java.util.Objects;
 
 public class OpretBrugerActivity extends AppCompatActivity {
 
-    private TextInputLayout mFornavn;
-    private TextInputLayout mEfternavn;
-    private TextInputLayout mEmail;
-    private TextInputLayout mTelefonNr;
-    private TextInputLayout mAdgangskode;
+    private TextInputLayout fornavn, efternavn, email, telefonNr, adgangskode;
 
-    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
-    private Button mBekraeftBtn;
-    private Button mGotoLoginBtn;
+    private ImageView actionBarMain,actionBarChat,actionBarProfil;
+    private Button bekraeftBtn, goToLoginBtn;
 
-    private ProgressDialog mRegProgress;
+    private ProgressDialog opretProgress;
 
     //firebase authentication
     FirebaseAuth firebaseAuth;
@@ -48,28 +42,35 @@ public class OpretBrugerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opret_bruger);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = firebaseAuth.getInstance();
 
-        //Action Bar
-        //Tilføjer custom action bar til activity
+        //Tilføjer custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Forbinder IDs til de korrekte views
-        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
+        actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
 
-        //Skifter til vis profil activity
+
+        actionBarMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(OpretBrugerActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(OpretBrugerActivity.this, VisProfilActivity.class));
                 finish();
             }
         });
 
-        //Skifter til chat activity
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,63 +80,37 @@ public class OpretBrugerActivity extends AppCompatActivity {
             }
         });
 
-        //Skifter til menu activity
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+        // ^^action bar
+
+
+        //Skaber en ny progress dialog
+        opretProgress = new ProgressDialog(this);
+
+        //sætter ids til de korrekte views
+        fornavn = (TextInputLayout) findViewById(R.id.angivFornavn);
+        efternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
+        email = (TextInputLayout) findViewById(R.id.angivEmail);
+        adgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
+        telefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
+
+
+        bekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
+        goToLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
+
+
+        //På button click, kør bekraeft bruger metode
+        bekraeftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(OpretBrugerActivity.this, MainActivity.class));
-                finish();
-            }
-        });
-        // ^ Action bar ^
-
-        //Skaber new progress dialog
-        mRegProgress = new ProgressDialog(this);
-
-        //sætter ids op til de korrekte views
-        mFornavn = (TextInputLayout) findViewById(R.id.fornavn);
-        mEfternavn = (TextInputLayout) findViewById(R.id.angivEfternavn);
-        mEmail = (TextInputLayout) findViewById(R.id.angivEmail);
-        mAdgangskode = (TextInputLayout) findViewById(R.id.angivAdgangskode);
-        mTelefonNr = (TextInputLayout) findViewById(R.id.angivTelefonNr);
-
-
-        mBekraeftBtn = (Button) findViewById(R.id.bekraeft_ny_bruger_btn);
-        mGotoLoginBtn = (Button) findViewById(R.id.goto_loginin_btn);
-
-
-        //Tager inputs og registere ny bruger
-        mBekraeftBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                String fornavn = mFornavn.getEditText().getText().toString();
-                String efternavn = mEfternavn.getEditText().getText().toString();
-                String email = mEmail.getEditText().getText().toString();
-                String telefonNr = mTelefonNr.getEditText().getText().toString();
-                String adgangskode = mAdgangskode.getEditText().getText().toString();
-
-
-                //if statement: hvis nogle af felterne er tomme, bliver oprettelsen brudt.
-                if (!TextUtils.isEmpty(fornavn) || !TextUtils.isEmpty(efternavn) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(telefonNr) || !TextUtils.isEmpty(adgangskode)) {
-
-
-                    mRegProgress.setTitle("Opretter bruger");
-                    mRegProgress.setMessage("Vent venligst mens vi opretter din bruger.");
-                    mRegProgress.setCanceledOnTouchOutside(false);
-                    mRegProgress.show();
-
-                    opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
-                }
+                bekraeftBruger();
 
             }
         });
 
 
         //Skifter til login in activity
-        mGotoLoginBtn.setOnClickListener(new View.OnClickListener() {
+        goToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -145,6 +120,148 @@ public class OpretBrugerActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+
+    //Metoden til at bekræfte den indtastede data er gyldig
+    private void bekraeftBruger() {
+
+        String fornavn = OpretBrugerActivity.this.fornavn.getEditText().getText().toString();
+        String efternavn = OpretBrugerActivity.this.efternavn.getEditText().getText().toString();
+        String email = OpretBrugerActivity.this.email.getEditText().getText().toString();
+        String telefonNr = OpretBrugerActivity.this.telefonNr.getEditText().getText().toString();
+        String adgangskode = OpretBrugerActivity.this.adgangskode.getEditText().getText().toString();
+
+        //Tjekker om det indtastede data overholder regler. Hvis ikke, oprettelsen brudt.
+        if (tjekFornavn(fornavn) != true || tjekEfternavn(efternavn) != true || tjekEmail(email) != true || tjekTelefonNr(telefonNr) != true || tjekAdgangskode(adgangskode) != true){
+
+
+            opretProgress.setTitle("Opretter bruger");
+            opretProgress.setMessage("Vent venligst mens vi opretter din bruger.");
+            opretProgress.setCanceledOnTouchOutside(false);
+            opretProgress.show();
+
+            opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
+        }
+
+    }
+
+    //Tjekker om adgangskode indeholde mindst 8 tegn. Bestående af tal + store og små bogstaver.
+    private boolean tjekAdgangskode(String adgangskode) {
+
+        boolean godkendtAdgangskode;
+
+        if (adgangskode.length() < 8){
+            godkendtAdgangskode = false;
+            //<<exception>> forLidtTegnException()
+
+        }else if (manglerStortLilleBogstavEllerTal(adgangskode) == false){
+            godkendtAdgangskode = false;
+            //<<exception>> manglerStortLilleBogstavEllerTalException()
+
+        }else {
+            godkendtAdgangskode = true;
+        }
+        return godkendtAdgangskode;
+    }
+
+    //Metode til at gennemgå hvert enkel tegn i adgangskoden
+    private boolean manglerStortLilleBogstavEllerTal(String adgangskode) {
+        char ch;
+        boolean stortBogstav = false;
+        boolean lilleBogstav = false;
+        boolean tal = false;
+
+        for(int i=0; i < adgangskode.length();i++) {
+            ch = adgangskode.charAt(i);
+            if( Character.isDigit(ch)) {
+                tal = true;
+            }
+            else if (Character.isUpperCase(ch)) {
+                stortBogstav = true;
+            } else if (Character.isLowerCase(ch)) {
+                lilleBogstav = true;
+            }
+            if(tal && stortBogstav && lilleBogstav)
+                return true;
+        }
+        return false;
+    }
+
+
+    //Tjekker om telefonnummeret er større eller mindre end 8
+    private boolean tjekTelefonNr(String telefonNr) {
+
+        boolean godkendtTelefonNr;
+
+        int nummer = Integer.parseInt(telefonNr);
+
+        if (nummer < 8){
+            godkendtTelefonNr = false;
+            //<<exception>> forKortException()
+
+        }else if (nummer > 8){
+            godkendtTelefonNr = false;
+            //<<exception>> forLangtException()
+
+        }else {
+            godkendtTelefonNr = true;
+        }
+
+        return godkendtTelefonNr;
+    }
+
+    //Tjekker om email indeholder "@" eller "."
+    private boolean tjekEmail(String email) {
+
+        boolean godkendtEmail = false;
+
+        if (email.contains("@") || email.contains(".")){
+            godkendtEmail = true;
+            //<<exception>> ManglerSnabelAEllerPunktumException()
+
+        }
+        return godkendtEmail;
+    }
+
+    //Tjekker om efternavn er tomt eller indeholder tal
+    private boolean tjekEfternavn(String efternavn) {
+
+        boolean godkendtEfternavn;
+
+        if (efternavn == null){
+            godkendtEfternavn = false;
+            //<<exception>> TomtFeltException()
+
+        }else if (efternavn.matches(".*\\d.*")){
+            godkendtEfternavn = false;
+            //<<exception>> IndeholderTalException()
+
+        }else{
+            godkendtEfternavn = true;
+        }
+        return godkendtEfternavn;
+
+    }
+
+    //Tjekker om fornavn er tomt eller tal
+    private boolean tjekFornavn(String fornavn) {
+
+        boolean godkendtFornavn;
+
+        if (fornavn == null){
+            godkendtFornavn = false;
+            //<<exception>> TomtFeltException()
+
+        }else if (fornavn.matches(".*\\d.*")){
+            godkendtFornavn = false;
+            //<<exception>> IndeholderTalException()
+
+        }else{
+            godkendtFornavn = true;
+        }
+        return godkendtFornavn;
     }
 
 
@@ -173,7 +290,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                mRegProgress.dismiss();
+                                opretProgress.dismiss();
                                 Intent intent = new Intent(OpretBrugerActivity.this, MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
@@ -186,7 +303,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
                 } else {
 
-                    mRegProgress.hide();
+                    opretProgress.hide();
                     Toast.makeText(OpretBrugerActivity.this, "Der opstod en fejl. Check felterne for fejl og prøv igen", Toast.LENGTH_LONG).show();
                 }
             }
