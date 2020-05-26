@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
 import com.example.eksamensprojekt.data.model.Bruger;
 
-import com.example.eksamensprojekt.data.model.Chat;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,7 +42,7 @@ public class BeskedActivity extends AppCompatActivity {
     FirebaseUser firebaseBruger;
     DatabaseReference databaseReference;
     BeskedAdapter beskedAdapter;
-    List<Chat> chatList;
+    List<Besked> beskedList;
     RecyclerView recyclerView;
     Intent intent;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
@@ -157,20 +157,20 @@ public class BeskedActivity extends AppCompatActivity {
 
     //TODO flyt til en anden klasse og implementer
     private void laesBesked(final String minid, final String brugerId, final String billedeURL) { //
-        chatList = new ArrayList<>();
+        beskedList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                chatList.clear();
+                beskedList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getModtager().equals(minid) && chat.getAfsender().equals(brugerId) ||
-                            chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
-                        chatList.add(chat);
+                    Besked besked = snapshot.getValue(Besked.class);
+                    if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
+                            besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) {
+                        beskedList.add(besked);
                     }
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, chatList, billedeURL);
+                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, beskedList, billedeURL);
                     recyclerView.setAdapter(beskedAdapter);
 
                 }
