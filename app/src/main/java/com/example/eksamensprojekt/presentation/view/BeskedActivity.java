@@ -118,7 +118,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendBesked(firebaseBruger.getUid(), bruger_id, msg);
+                    sendBesked(firebaseBruger.getUid(), bruger_id, msg); //TODO forbind sendBesked methoden hertil fra den kommende klasse
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
