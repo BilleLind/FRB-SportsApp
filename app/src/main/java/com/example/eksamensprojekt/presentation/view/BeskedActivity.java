@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.adapter.BeskedAdapter;
-import com.example.eksamensprojekt.model.Bruger;
+import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
+import com.example.eksamensprojekt.data.model.Bruger;
 
-import com.example.eksamensprojekt.model.Chat;
+import com.example.eksamensprojekt.data.model.Chat;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -61,7 +61,7 @@ public class BeskedActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Forbinder ids til de korrekte views
+        //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);

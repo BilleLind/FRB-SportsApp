@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.eksamensprojekt.Fragments.BrugerFragment;
-import com.example.eksamensprojekt.Fragments.ChatsFragment;
+import com.example.eksamensprojekt.presentation.fragments.BrugerFragment;
+import com.example.eksamensprojekt.presentation.fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Bruger;
+
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,7 +58,6 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(ChatActivity.this, VisProfilActivity.class));
                 finish();
-
             }
         });
 

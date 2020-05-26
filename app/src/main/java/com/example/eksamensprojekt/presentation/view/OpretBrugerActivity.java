@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.model.Bruger;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -41,7 +40,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
     private ProgressDialog mRegProgress;
 
     //firebase authentication
-    FirebaseAuth mAuth;
+    FirebaseAuth firebaseAuth;
     DatabaseReference reference;
 
     @Override
@@ -49,14 +48,14 @@ public class OpretBrugerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opret_bruger);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Action Bar
         //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Forbinder ids til de korrekte views
+        //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
@@ -152,12 +151,12 @@ public class OpretBrugerActivity extends AppCompatActivity {
     //Metode til registrering af ny bruger gennem firebase
     private void opretBruger(final String email, String adgangskode, final String fornavn, final String efternavn, final String telefonNr) {
 
-        mAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, adgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
 
-                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                     assert firebaseUser != null;
                     final String brugerid = firebaseUser.getUid();
 

@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.view;
+package com.example.eksamensprojekt.presentation.view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,7 +33,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
     private ProgressDialog mLoginProgress;
 
     //firebase authentication
-    private FirebaseAuth mAuth;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -41,14 +41,14 @@ public class LoginBrugerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_bruger);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Action Bar
         //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Forbinder ids til de korrekte views
+        //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
@@ -134,7 +134,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
     //metode der henter eksisterende bruger med email og adgangskode via firebase
     private void hentBruger(String indsatEmail, String indsatAdgangskode) {
 
-        mAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(indsatEmail, indsatAdgangskode).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
