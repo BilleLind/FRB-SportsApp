@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   <com.shuhart.stepview.StepView
+       android:id="@+id/step_view"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="16dp"
+       app:sv_animationType="None"
+       app:sv_stepPadding="12dp"
+
+       app:sv_selectedCircleColor="@color/colorPrimary"
+       app:sv_selectedStepNumberColor="@android:color/white"
+       app:sv_selectedTextColor="@color/colorPrimary"
+       
+       app:sv_doneCircleColor="@color/colorAccent"
+       app:sv_doneStepLineColor="@color/colorAccent"
+       app:sv_doneTextColor="@android:color/white"
+       app:sv_doneStepMarkColor="@android:color/white"/>
+    
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@id/step_view"
+        android:layout_above="@+id/layout_button"/>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/tilbage_step_btn"
+            android:text="Tilbage"
+            android:enabled="false"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/txt_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/naeste_step_btn"
+            android:text="Næste"
+            android:enabled="false"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/txt_skip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:background="@android:color/darker_gray"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
