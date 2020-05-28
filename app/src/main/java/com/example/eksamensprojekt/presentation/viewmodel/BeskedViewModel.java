@@ -25,4 +25,8 @@ public class BeskedViewModel extends AndroidViewModel {
         nyChatBeskedLiveData = beskedRepository.sendNyBesked(nyBesked);
     }
 
+    public void  viderSendBeskeder() {
+        modtagChatBeskedLiveData = beskedRepository.modtagBesked();
+    }
+
 }

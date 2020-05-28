@@ -146,7 +146,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger = dataSnapshot.getValue(Bruger.class);
 
-                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL()); //billede ikke indført
+               visBeskeder();
             }
 
             @Override
@@ -163,32 +163,8 @@ public class BeskedActivity extends AppCompatActivity {
        beskedViewModel.nyBesked(beskedny);
     }
 
-    //TODO flyt til en anden klasse og implementer
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
-        beskedList = new ArrayList<>();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference(chats);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                beskedList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Besked besked = snapshot.getValue(Besked.class);
-                    if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
-                            besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) {
-                        beskedList.add(besked);
-                    }
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, beskedList, billedeURL);
-                    recyclerView.setAdapter(beskedAdapter);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+    private void visBeskeder() {
+        beskedViewModel.viderSendBeskeder();
     }
 
 }

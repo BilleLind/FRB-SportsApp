@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.data.model.Bruger;
 import com.example.eksamensprojekt.presentation.view.BeskedActivity;
+import com.example.eksamensprojekt.repository.BeskedRepository;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, BeskedActivity.class);
+                Intent intent = new Intent(mContext, BeskedRepository.class); // ændret det fra BeskedActivty.class
                 intent.putExtra("brugerid", bruger.getId());
                 mContext.startActivity(intent);
             }
