@@ -116,13 +116,9 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
                 startActivity(new Intent(OpretBrugerActivity.this, LoginBrugerActivity.class));
                 finish();
-
             }
         });
-
     }
-
-
 
     //Metoden til at bekræfte den indtastede data er gyldig
     private void bekraeftBruger() {
@@ -136,7 +132,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
         //Tjekker om det indtastede data overholder regler. Hvis ikke, oprettelsen brudt.
         if (tjekFornavn(fornavn) != true || tjekEfternavn(efternavn) != true || tjekEmail(email) != true || tjekTelefonNr(telefonNr) != true || tjekAdgangskode(adgangskode) != true){
 
-
             opretProgress.setTitle("Opretter bruger");
             opretProgress.setMessage("Vent venligst mens vi opretter din bruger.");
             opretProgress.setCanceledOnTouchOutside(false);
@@ -144,7 +139,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
             opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
         }
-
     }
 
     //Tjekker om adgangskode indeholde mindst 8 tegn. Bestående af tal + store og små bogstaver.

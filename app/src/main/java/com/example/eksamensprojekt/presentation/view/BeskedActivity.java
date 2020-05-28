@@ -188,5 +188,4 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
     }
-
 }
