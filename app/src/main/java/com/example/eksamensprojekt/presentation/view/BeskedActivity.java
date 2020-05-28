@@ -61,7 +61,9 @@ public class BeskedActivity extends AppCompatActivity {
         besked_send = findViewById(R.id.besked_send);
         profilBillede = findViewById(R.id.profile_billede);
 
+        //nødvendigt at initialisere ViewModel, ellers kom der nullPointException
         beskedViewModel = new ViewModelProvider(this).get(BeskedViewModel.class);
+
         //Action Bar
         //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -124,7 +126,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendBesked(firebaseBruger.getUid(), bruger_id, msg);
+                    sendBesked(firebaseBruger.getUid(), bruger_id, msg); // måske det kun er msg der skal gøres igennem, resten i reposotioriet
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
@@ -132,6 +134,7 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
 
+        //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
         databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -147,19 +150,6 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
     }
-/*
-    //TODO flyt til en anden klasse og implementer, implementered usikker på det virker endnu
-    private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
-        // mon den skal være med som parameter så det er kaldt i klassen?
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("afsender", afsender);
-        hashMap.put("modtager", modtager);
-        hashMap.put("besked", besked);
-
-        reference.child("Chats").push().setValue(hashMap);
-    }  metoden fra BeskedRepository nedenunder*/
 
     private void sendBesked(String afsender, String modtager, String besked) {
        Besked beskedny = new Besked();
@@ -167,7 +157,8 @@ public class BeskedActivity extends AppCompatActivity {
        beskedny.setModtager(modtager);
        beskedny.setBesked(besked);
         beskedViewModel.nyBesked(beskedny); // de bruger en boolean i User, eftersom der er flere end en tænker jeg at have en count?
-        // beskedViewModel.nyChatBeskedLiveData.observe hvorfor og hvordan? :/ virker det uden?
+        // beskedViewModel.nyChatBeskedLiveData.observe //hvorfor og hvordan? :/ virker det uden?
+        // det virker umiddelbart, den kaldes når man trykker på knappen så observer er sikkert unødvendigt
     }
 
     //TODO flyt til en anden klasse og implementer
