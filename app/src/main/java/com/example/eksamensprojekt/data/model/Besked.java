@@ -1,18 +1,18 @@
 package com.example.eksamensprojekt.data.model;
 
-public class Chat {
+public class Besked {
 
     private String afsender;
     private String modtager;
     private String besked;
 
-    public Chat(String afsender, String modtager, String besked) {
+    public Besked(String afsender, String modtager, String besked) {
         this.afsender = afsender;
         this.modtager = modtager;
         this.besked = besked;
     }
 
-    public Chat() {
+    public Besked() {
     }
 
     public String getAfsender() {

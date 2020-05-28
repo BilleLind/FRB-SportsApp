@@ -271,7 +271,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     assert firebaseUser != null;
                     final String brugerid = firebaseUser.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid); //TODO does this fix it? error in brugerFragment?
+                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid);
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", brugerid);
