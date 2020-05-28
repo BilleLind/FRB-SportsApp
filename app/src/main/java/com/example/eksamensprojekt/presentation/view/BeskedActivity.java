@@ -37,6 +37,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.eksamensprojekt.utils.Konstante.brugere;
+import static com.example.eksamensprojekt.utils.Konstante.chats;
+
 public class BeskedActivity extends AppCompatActivity {
 
     ShapeableImageView profilBillede;
@@ -134,8 +137,9 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
 
+
         //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
-        databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -156,16 +160,14 @@ public class BeskedActivity extends AppCompatActivity {
        beskedny.setAfsender(afsender);
        beskedny.setModtager(modtager);
        beskedny.setBesked(besked);
-        beskedViewModel.nyBesked(beskedny); // de bruger en boolean i User, eftersom der er flere end en tænker jeg at have en count?
-        // beskedViewModel.nyChatBeskedLiveData.observe //hvorfor og hvordan? :/ virker det uden?
-        // det virker umiddelbart, den kaldes når man trykker på knappen så observer er sikkert unødvendigt
+       beskedViewModel.nyBesked(beskedny);
     }
 
     //TODO flyt til en anden klasse og implementer
     private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
         beskedList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference = FirebaseDatabase.getInstance().getReference(chats);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

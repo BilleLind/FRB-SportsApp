@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.eksamensprojekt.utils.Konstante.brugere;
+
 
 public class BrugerFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -53,7 +55,7 @@ public class BrugerFragment extends Fragment {
     private void readUsers() {
 
         final FirebaseUser firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Brugere");
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(brugere);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
