@@ -12,29 +12,33 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="154dp"/>
-    <RadioButton
-            android:text="Super god!"
+    <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/super_Traening_Button"/>
-    <RadioButton
-            android:text="Den var okay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/okay_Traening_Button"/>
-    <RadioButton
-            android:text="Kunne have været bedre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/kunne_Forbedres_Button"/>
-    <RadioButton
-            android:text="Jeg havde en daarlig oplevelse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/daarlig_Oplevelse_Button"/>
-    <Button
-            android:id="@+id/gennemfoort_Traening_Button"
-            android:text="Gennemført for i dag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+        <RadioButton
+                android:text="Super god!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/super_Traening_Button"/>
+        <RadioButton
+                android:text="Den var okay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/okay_Traening_Button"/>
+        <RadioButton
+                android:text="Kunne have været bedre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/kunne_Forbedres_Button"/>
+        <RadioButton
+                android:text="Jeg havde en daarlig oplevelse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/daarlig_Oplevelse_Button"/>
+        <Button
+                android:id="@+id/gennemfoort_Traening_Button"
+                android:text="Gennemført for i dag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </RadioGroup>
 </LinearLayout>
