@@ -19,10 +19,5 @@
             android:id="@+id/naeste_Oovelse_Button"
             android:text="Næste øvelse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"            />
-    <Button
-            android:id="@+id/gennemfoort_Button"
-            android:text="Gennemført"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 </LinearLayout>
