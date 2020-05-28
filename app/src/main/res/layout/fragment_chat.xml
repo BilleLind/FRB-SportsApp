@@ -10,5 +10,8 @@
         android:layout_height="match_parent"
         android:id="@+id/recycler_view"/>
 
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="besked fragment"/>
 </FrameLayout>
