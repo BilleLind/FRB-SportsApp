@@ -138,21 +138,9 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
-        //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
-        databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(bruger_id);
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Bruger bruger = dataSnapshot.getValue(Bruger.class);
 
                visBeskeder();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+            
     }
 
     private void sendBesked(String afsender, String modtager, String besked) {
