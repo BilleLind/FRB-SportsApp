@@ -76,6 +76,8 @@ public class StartTraeningActivity extends AppCompatActivity {
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=12495");
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=12496");
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=12497");
+        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=12490");
+        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=12491");
 
         naesteOovelseButton = (Button)findViewById(R.id.naeste_Oovelse_Button);
 
