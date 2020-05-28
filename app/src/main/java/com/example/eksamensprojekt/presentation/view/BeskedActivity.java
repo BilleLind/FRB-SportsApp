@@ -3,6 +3,8 @@ package com.example.eksamensprojekt.presentation.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,8 @@ import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
 import com.example.eksamensprojekt.data.model.Bruger;
 
+import com.example.eksamensprojekt.presentation.viewmodel.BeskedViewModel;
+import com.example.eksamensprojekt.repository.BeskedRepository;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,6 +51,7 @@ public class BeskedActivity extends AppCompatActivity {
     Intent intent;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
+    BeskedViewModel beskedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,7 @@ public class BeskedActivity extends AppCompatActivity {
         besked_send = findViewById(R.id.besked_send);
         profilBillede = findViewById(R.id.profile_billede);
 
+        beskedViewModel = new ViewModelProvider(this).get(BeskedViewModel.class);
         //Action Bar
         //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -118,7 +124,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) {
-                    sendBesked(firebaseBruger.getUid(), bruger_id, msg); //TODO forbind sendBesked methoden hertil fra den kommende klasse
+                    sendBesked(firebaseBruger.getUid(), bruger_id, msg);
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
@@ -141,8 +147,8 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
     }
-
-    //TODO flyt til en anden klasse og implementer
+/*
+    //TODO flyt til en anden klasse og implementer, implementered usikker på det virker endnu
     private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
         // mon den skal være med som parameter så det er kaldt i klassen?
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -153,10 +159,19 @@ public class BeskedActivity extends AppCompatActivity {
         hashMap.put("besked", besked);
 
         reference.child("Chats").push().setValue(hashMap);
+    }  metoden fra BeskedRepository nedenunder*/
+
+    private void sendBesked(String afsender, String modtager, String besked) {
+       Besked beskedny = new Besked();
+       beskedny.setAfsender(afsender);
+       beskedny.setModtager(modtager);
+       beskedny.setBesked(besked);
+        beskedViewModel.nyBesked(beskedny); // de bruger en boolean i User, eftersom der er flere end en tænker jeg at have en count?
+        // beskedViewModel.nyChatBeskedLiveData.observe hvorfor og hvordan? :/ virker det uden?
     }
 
     //TODO flyt til en anden klasse og implementer
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { //
+    private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
         beskedList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
