@@ -7,21 +7,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.presentation.adapter.BookingViewPagerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.shuhart.stepview.StepView;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
+
 
 public class BookTidActivity extends AppCompatActivity {
 
-    private StepView stepView;
+
     private ViewPager viewPager;
+
+    private PagerAdapter pagerAdapter;
+
+    private static final int NUM_PAGES = 5;
 
     private Button naesteStep, tilbageStep;
 
@@ -33,7 +38,6 @@ public class BookTidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_tid);
-        //viewbind??
 
 
         //Action Bar
@@ -79,41 +83,34 @@ public class BookTidActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        stepView = (StepView) findViewById(R.id.step_view);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = (ViewPager) findViewById(R.id.view_pager_booking);
 
         naesteStep = (Button) findViewById(R.id.naeste_step_btn);
         tilbageStep = (Button) findViewById(R.id.tilbage_step_btn);
 
-        setupStepView();
-        setColorButton();
+        viewPager.setAdapter(new BookingViewPagerAdapter(getSupportFragmentManager()));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
-    }
+            }
 
-    private void setColorButton() {
-        if (naesteStep.isEnabled()){
-            naesteStep.setBackgroundResource(R.color.colorAccent);
+            @Override
+            public void onPageSelected(int position) {
 
-        }else {
-            naesteStep.setBackgroundResource(R.color.colorPrimary);
-        }
+                if (position == 0)
+                    tilbageStep.setEnabled(false);
+                else
+                    tilbageStep.setEnabled(true);
 
-        if (tilbageStep.isEnabled()){
-            tilbageStep.setBackgroundResource(R.color.colorAccent);
+            }
 
-        }else {
-            tilbageStep.setBackgroundResource(R.color.colorPrimary);
-        }
-    }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-    private void setupStepView() {
-        List<String> stepList = new ArrayList<>();
-        stepList.add("Behandling");
-        stepList.add("Behandler");
-        stepList.add("Tidspunkt");
-        stepList.add("Bekræft");
-        stepView.setSteps(stepList);
+            }
+        });
+
     }
 
     @Override
