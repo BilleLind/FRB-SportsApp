@@ -25,6 +25,7 @@
         <activity android:name=".presentation.view.VisProfilActivity"/>
         <activity android:name=".presentation.view.FeedbackActivity"/>
         <activity android:name=".presentation.view.LoginBrugerActivity"/>
+        <activity android:name=".presentation.adapter.BehandlingerAdapter"/>
     </application>
 
 </manifest>
