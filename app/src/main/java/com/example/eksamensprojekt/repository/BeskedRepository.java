@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.example.eksamensprojekt.utils.Konstante.brugerId;
 import static com.example.eksamensprojekt.utils.Konstante.brugere;
+import static com.example.eksamensprojekt.utils.Konstante.chats;
 
 public class BeskedRepository {
 
@@ -28,7 +29,7 @@ public class BeskedRepository {
         hashMap.put("modtager", nybesked.getModtager());
         hashMap.put("besked", nybesked.getBesked());
 
-        databaseReference.child("Chats").push().setValue(hashMap);
+        databaseReference.child(chats).push().setValue(hashMap);
 
         return nyBeskedMutableLiveData;
     }
