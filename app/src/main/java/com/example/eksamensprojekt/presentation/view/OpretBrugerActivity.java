@@ -24,6 +24,8 @@ import java.util.HashMap;
 
 import java.util.Objects;
 
+import static com.example.eksamensprojekt.utils.Konstante.brugere;
+
 public class OpretBrugerActivity extends AppCompatActivity {
 
     private TextInputLayout fornavn, efternavn, email, telefonNr, adgangskode;
@@ -271,7 +273,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     assert firebaseUser != null;
                     final String brugerid = firebaseUser.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid);
+                    reference = FirebaseDatabase.getInstance().getReference().child(brugere).child(brugerid);
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", brugerid);
