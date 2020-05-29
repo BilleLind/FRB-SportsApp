@@ -72,6 +72,7 @@ public class StartTraeningActivity extends AppCompatActivity {
         // ^ Action bar ^
 
         final ArrayList oovelsesListe = new ArrayList(); //Primitiv liste over øvelser
+        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=11");
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=605");
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=711");
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=29");
@@ -80,6 +81,7 @@ public class StartTraeningActivity extends AppCompatActivity {
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=10306");
 
         final ArrayList oovelsesNavnListe = new ArrayList(); //Primitiv liste over navn på øvelser
+        oovelsesNavnListe.add("Liggende bækkenløft");
         oovelsesNavnListe.add("Etbens knæbøj");
         oovelsesNavnListe.add("Bækkenløft m/knæstræk");
         oovelsesNavnListe.add("Armstræk");
@@ -94,10 +96,6 @@ public class StartTraeningActivity extends AppCompatActivity {
         naesteOovelseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webViewURL = (String) oovelsesListe.get(oovelsesPosition);
-                webViewName = (String) oovelsesNavnListe.get(oovelsesPosition);
-                titleTextView.setText(webViewName);
-                oovelseWebViewVar.loadUrl(webViewURL);
                 if (oovelsesPosition <= 4) {
                     oovelsesPosition = oovelsesPosition + 1;
                 } else{
@@ -105,6 +103,10 @@ public class StartTraeningActivity extends AppCompatActivity {
                     startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
                     finish();
                 }
+                webViewURL = (String) oovelsesListe.get(oovelsesPosition);
+                webViewName = (String) oovelsesNavnListe.get(oovelsesPosition);
+                titleTextView.setText(webViewName);
+                oovelseWebViewVar.loadUrl(webViewURL);
             }
         });
 
