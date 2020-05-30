@@ -26,8 +26,6 @@ public class BookTidActivity extends AppCompatActivity {
 
     private PagerAdapter pagerAdapter;
 
-    private static final int NUM_PAGES = 5;
-
     private Button naesteStep, tilbageStep;
 
     private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler

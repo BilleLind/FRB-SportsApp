@@ -14,11 +14,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.Interface.AlleBehandlingerLoadListener;
 import com.example.eksamensprojekt.presentation.Interface.BranchLoadListener;
+import com.example.eksamensprojekt.presentation.adapter.BehandlingerAdapter;
+import com.example.eksamensprojekt.presentation.commen.SpacesItemDecoration;
 import com.example.eksamensprojekt.presentation.presenter.BehandlingPresenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,6 +42,8 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
 
 
 
+
+
     CollectionReference alleBehandlingerRef;
     CollectionReference branchRef;
 
@@ -46,7 +52,7 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
     AlleBehandlingerLoadListener alleBehandlingerLoadListener;
     BranchLoadListener branchLoadListener;
 
-   ProgressDialog ventProgress;
+    ProgressDialog ventProgress;
 
 
     static BookingStep1Fragment instance;
@@ -59,7 +65,7 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
@@ -67,18 +73,23 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
         alleBehandlingerLoadListener = this;
         branchLoadListener = this;
 
-        ventProgress = new ProgressDialog(getActivity());
+
+
+
+
+        //ventProgress = new ProgressDialog(getActivity());
 
 
     }
 
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View itemView = inflater.inflate(R.layout.fragment_booking_step_1, container, false);
-        
+
         loadAlleBehandlinger();
 
         return itemView;
@@ -86,22 +97,27 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
 
     }
 
+
+
+
+
+
     private void loadAlleBehandlinger() {
 
         alleBehandlingerRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     List<String> list = new ArrayList<>();
                     list.add("Vælg en behandling");
-                    for (QueryDocumentSnapshot documentSnapshot:task.getResult())
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult())
                         list.add(documentSnapshot.getId());
                     alleBehandlingerLoadListener.onAllBehandlingerLoadSucces(list);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(Exception e) {
+            public void onFailure(@NonNull Exception e) {
                 alleBehandlingerLoadListener.onAllBehandlingerLoadFail(e.getMessage());
 
             }
@@ -114,7 +130,6 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
     public void onAllBehandlingerLoadSucces(List<String> behandlingsTyperList) {
 
         MaterialSpinner spinnerStep1 = (MaterialSpinner) getView().findViewById(R.id.spinner_step1);
-
         spinnerStep1.setItems(behandlingsTyperList);
         spinnerStep1.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener() {
             @Override
@@ -126,14 +141,17 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
             }
         });
 
+
+
     }
 
-    private void loadBranchOfBehandling(String behandlingsType) {
-        ventProgress.show();
+
+    private void loadBranchOfBehandling(String behandlingsTidOgPris) {
+        //ventProgress.show();
 
         branchRef = FirebaseFirestore.getInstance()
-                .collection("AlleBhandlinger")
-                .document(behandlingsType)
+                .collection("AlleBehandlinger")
+                .document(behandlingsTidOgPris)
                 .collection("Branch");
 
         branchRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -159,21 +177,41 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
         });
     }
 
+
     @Override
     public void onAllBehandlingerLoadFail(String message) {
-        Toast.makeText(getActivity(), message,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
 
     }
 
+
+
     @Override
     public void onBranchLoadSucces(List<BehandlingPresenter> behandlingsList) {
+
+
+        RecyclerView behandlingerRecycler = (RecyclerView)this.getView().findViewById(R.id.recycler_behandlinger);
+        BehandlingerAdapter adapter = new BehandlingerAdapter(getActivity(),behandlingsList);
+
+        behandlingerRecycler.setAdapter(adapter);
+        behandlingerRecycler.setHasFixedSize(true);
+        behandlingerRecycler.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        behandlingerRecycler.addItemDecoration(new SpacesItemDecoration(4));
+
+
+        //ventProgress.dismiss();
+
 
     }
 
     @Override
     public void onBranchLoadFail(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        ventProgress.dismiss();
+        //Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+        //ventProgress.dismiss();
+
+
 
     }
+
+
 }

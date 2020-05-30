@@ -28,9 +28,10 @@ public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapte
 
 
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.behandling_layout, parent, false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.behandling_layout, viewGroup, false);
 
         return new MyViewHolder(itemView);
     }
@@ -45,8 +46,10 @@ public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapte
 
     @Override
     public int getItemCount() {
+
         return behandlingPresenterList.size();
     }
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -55,7 +58,7 @@ public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapte
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            txtBehandlingsTid = (TextView) itemView.findViewById(R.id.tid_txt);
+            txtBehandlingsTid = (TextView) itemView.findViewById(R.id.tid_text);
             txtBehandlingsPris = (TextView) itemView.findViewById(R.id.pris_text);
         }
     }

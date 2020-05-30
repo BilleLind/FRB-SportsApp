@@ -4,7 +4,7 @@
     xmlns:app ="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="4dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,22 +13,22 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/tid_txt"
+            android:id="@+id/tid_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="30 min"
-            android:textSize="20sp"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textStyle="bold"/>
+            android:text="viser_tid"
+            android:textSize="20sp"
+           />
 
         <TextView
             android:id="@+id/pris_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="300 kr."
-            android:textSize="16sp"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:textStyle="italic"/>
+            android:text="viser_pris"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
 
     </LinearLayout>

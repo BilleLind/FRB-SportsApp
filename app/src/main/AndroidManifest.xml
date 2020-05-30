@@ -25,7 +25,9 @@
         <activity android:name=".presentation.view.VisProfilActivity"/>
         <activity android:name=".presentation.view.FeedbackActivity"/>
         <activity android:name=".presentation.view.LoginBrugerActivity"/>
-        <activity android:name=".presentation.adapter.BehandlingerAdapter"/>
+        <activity android:name=".presentation.adapter.BehandlingerAdapter" />
+        <activity android:name=".presentation.adapter.BookingViewPagerAdapter" />
+        <activity android:name=".presentation.fragments.BookingStep1Fragment" />
     </application>
 
 </manifest>
