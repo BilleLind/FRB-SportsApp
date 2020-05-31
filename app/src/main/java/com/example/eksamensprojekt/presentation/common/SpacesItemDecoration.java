@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.presentation.commen;
+package com.example.eksamensprojekt.presentation.common;
 
 import android.graphics.Rect;
 import android.view.View;

@@ -13,21 +13,20 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tid_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="viser_tid"
-            android:textSize="20sp"
-           />
+        <ImageView
+            android:id="@+id/ansatte_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@android:mipmap/sym_def_app_icon" />
+
 
         <TextView
-            android:id="@+id/pris_text"
+            android:id="@+id/ansatte_navn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="viser_pris"
+            android:text="viser_ansatte_navn"
             android:textSize="16sp"
             android:textStyle="italic" />
 

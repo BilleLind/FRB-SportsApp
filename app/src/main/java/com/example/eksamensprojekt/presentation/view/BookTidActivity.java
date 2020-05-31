@@ -7,11 +7,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.adapter.BookingViewPagerAdapter;
+import com.example.eksamensprojekt.presentation.common.common;
+import com.example.eksamensprojekt.presentation.fragments.BookingStep2Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -86,6 +89,25 @@ public class BookTidActivity extends AppCompatActivity {
         naesteStep = (Button) findViewById(R.id.naeste_step_btn);
         tilbageStep = (Button) findViewById(R.id.tilbage_step_btn);
 
+
+       ///
+        /*
+        naesteStep.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                common.step++;
+                if (common.step == 1){
+
+
+                }else if (common.step == 2){
+
+                }
+            }
+        });
+
+        */
+
         viewPager.setAdapter(new BookingViewPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -96,11 +118,17 @@ public class BookTidActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 
-                if (position == 0)
+               /* if (position == 0) {
                     tilbageStep.setEnabled(false);
-                else
-                    tilbageStep.setEnabled(true);
+                    naesteStep.setEnabled(true);
 
+                } else {
+                    tilbageStep.setEnabled(true);
+                    naesteStep.setEnabled(true);
+
+                }
+
+                */
             }
 
             @Override

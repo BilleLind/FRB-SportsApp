@@ -45,7 +45,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="4dp"
             android:layout_weight="1"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorAccent"
             android:text="Næste"
             android:textColor="@android:color/white" />
 

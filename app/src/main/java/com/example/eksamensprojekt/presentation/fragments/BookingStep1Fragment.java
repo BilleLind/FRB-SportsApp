@@ -1,28 +1,23 @@
 package com.example.eksamensprojekt.presentation.fragments;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.Interface.AlleBehandlingerLoadListener;
 import com.example.eksamensprojekt.presentation.Interface.BranchLoadListener;
 import com.example.eksamensprojekt.presentation.adapter.BehandlingerAdapter;
-import com.example.eksamensprojekt.presentation.commen.SpacesItemDecoration;
+import com.example.eksamensprojekt.presentation.common.SpacesItemDecoration;
 import com.example.eksamensprojekt.presentation.presenter.BehandlingPresenter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,8 +41,6 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
 
     CollectionReference alleBehandlingerRef;
     CollectionReference branchRef;
-
-    private BookingStep1Fragment binding;
 
     AlleBehandlingerLoadListener alleBehandlingerLoadListener;
     BranchLoadListener branchLoadListener;
@@ -137,6 +130,8 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
 
                 if (position > 0){
                     loadBranchOfBehandling(item.toString());
+                }else{
+                    //behandlingsrecycler.setvisibility(View.GONE);
                 }
             }
         });
@@ -197,6 +192,7 @@ public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLo
         behandlingerRecycler.setHasFixedSize(true);
         behandlingerRecycler.setLayoutManager(new GridLayoutManager(getActivity(),3));
         behandlingerRecycler.addItemDecoration(new SpacesItemDecoration(4));
+        behandlingerRecycler.setVisibility(View.VISIBLE);
 
 
         //ventProgress.dismiss();
