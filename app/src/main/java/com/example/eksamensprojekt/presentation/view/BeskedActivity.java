@@ -117,23 +117,23 @@ public class BeskedActivity extends AppCompatActivity {
             bruger_id = getIntent().getStringExtra("brugerid");
         }
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view); // her forbindes recyclerView med det recyclerView i activity_besked
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setStackFromEnd(true); // gør så recyclerView bliver fyldt ud begyndende fra bunden.
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        send_btn.setOnClickListener(new View.OnClickListener() {
+        send_btn.setOnClickListener(new View.OnClickListener() { // ved at bruge en onClickListener gør det muligt at først at sende eller gemme besked til når afsender er klar
             @Override
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
-                if (!msg.equals("")) {
+                if (!msg.equals("")) { //nogle lille kontrol for at forhindre spamming med tomme beskeder.
                     sendBesked(firebaseBruger.getUid(), bruger_id, msg); // måske det kun er msg der skal gøres igennem, resten i reposotioriet
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
-                besked_send.setText("");
+                besked_send.setText(""); // sørger for at brugeren ikke skal slette sine egne beskeder efter man har sendt beskeden.
             }
         });
 
@@ -160,26 +160,25 @@ public class BeskedActivity extends AppCompatActivity {
        beskedny.setAfsender(afsender);
        beskedny.setModtager(modtager);
        beskedny.setBesked(besked);
-       beskedViewModel.nyBesked(beskedny);
+       beskedViewModel.nyBesked(beskedny); // sender videre til BeskedViewModel ved brug af nyBesked(beskedny) metoden.
     }
 
-    //TODO flyt til en anden klasse og implementer
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) {
+    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { // denne metode henter beskederne i databasen, hvor den kontrollere om de individuelle beskeder har relevans for brugeren
         beskedList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference(chats);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // DataSnapshot modtages hver gang man aflæser Database data, man modtager data'en som et DataSnapshot
                 beskedList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Besked besked = snapshot.getValue(Besked.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //"dataSnapshot.getChildren()" giver adgang til de nærmeste dataSnapshot
+                    Besked besked = snapshot.getValue(Besked.class); //her marshaller man data'en fra snapshot ind igennem Besked klassen, så afsender er forbundet med en String kaldet afsender så Besked.getAfsender
                     if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
-                            besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) {
-                        beskedList.add(besked);
+                            besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) { // her kontrollere man om det nedhentede har relevans for sin bruger
+                        beskedList.add(besked); // hvis den har så tilføjes den til et Arraylist
                     }
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, beskedList, billedeURL);
-                    recyclerView.setAdapter(beskedAdapter);
+                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, beskedList, billedeURL); // ArrayList bliver sammen sat med BeskedAdapter i BeskedActivity
+                    recyclerView.setAdapter(beskedAdapter); //hvor den bliver sat sammen med et RecyclerView som viser beskederne ved at bruge metoderne og Layout's som er forbundet med BeskedAdapteren
 
                 }
             }
