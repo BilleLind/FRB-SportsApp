@@ -16,7 +16,7 @@ public class AnsattePresenter {
         return navn;
     }
 
-    public void setAnsatteNavn(){
+    public void setNavn(){
 
         this.navn = navn;
     }

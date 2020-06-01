@@ -7,14 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.adapter.BookingViewPagerAdapter;
-import com.example.eksamensprojekt.presentation.common.common;
-import com.example.eksamensprojekt.presentation.fragments.BookingStep2Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kofigyan.stateprogressbar.StateProgressBar;

@@ -38,7 +38,7 @@ public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapte
     @NonNull
     @Override
     public BehandlingViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.behandling_layout, viewGroup, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.fragment_behandling_layout, viewGroup, false);
 
         return new BehandlingViewHolder(itemView);
     }

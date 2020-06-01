@@ -34,7 +34,7 @@ public class AnsatteAdapter extends RecyclerView.Adapter<AnsatteAdapter.AnsatteV
     @NonNull
     @Override
     public AnsatteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context).inflate(R.layout.ansatte_layout, parent, false );
+        View itemView = LayoutInflater.from(context).inflate(R.layout.fragment_ansatte_layout, parent, false );
 
         return new AnsatteViewHolder(itemView);
     }
