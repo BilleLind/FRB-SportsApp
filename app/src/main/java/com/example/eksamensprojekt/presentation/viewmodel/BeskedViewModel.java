@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.repository.BeskedRepository;
@@ -13,7 +12,7 @@ import com.example.eksamensprojekt.repository.BeskedRepository;
 public class BeskedViewModel extends AndroidViewModel {
     private BeskedRepository beskedRepository;
     LiveData<Besked> nyChatBeskedLiveData;
-    LiveData<Besked> modtagChatBeskedLiveData;
+
 
     public BeskedViewModel(@NonNull Application application) {
         super(application);
@@ -21,7 +20,7 @@ public class BeskedViewModel extends AndroidViewModel {
     }
 
 
-    public void nyBesked(Besked nyBesked) { //burde ikke være public, måske læg den i den samme mappe for at gøre det?
+    public void nyBesked(Besked nyBesked) { //her forbindes Repositoriet og viewModel. hvor MutableLiveData bliver til LiveData, med nyBesked af Besked.
         nyChatBeskedLiveData = beskedRepository.sendNyBesked(nyBesked);
     }
 

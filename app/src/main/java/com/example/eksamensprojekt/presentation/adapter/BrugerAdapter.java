@@ -43,7 +43,7 @@ public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, BeskedActivity.class);
-                intent.putExtra("brugerid", bruger.getId());
+                intent.putExtra("brugerid", bruger.getId()); // gemmer brugerid'en for den bruger man klikker på som en slags extra data som sendes med hen til activitien
                 mContext.startActivity(intent);
             }
         });
