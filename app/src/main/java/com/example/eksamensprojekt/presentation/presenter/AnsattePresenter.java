@@ -2,21 +2,22 @@ package com.example.eksamensprojekt.presentation.presenter;
 
 public class AnsattePresenter {
 
-    private String ansatteNavn;
+    private String navn;
 
     public AnsattePresenter(){
 
     }
 
-    public AnsattePresenter(String ansatteNavn){
-        this.ansatteNavn = ansatteNavn;
+    public AnsattePresenter(String navn){
+        this.navn = navn;
     }
 
-    public String getAnsatteNavn(){
-        return ansatteNavn;
+    public String getNavn(){
+        return navn;
     }
 
     public void setAnsatteNavn(){
-        this.ansatteNavn = ansatteNavn;
+
+        this.navn = navn;
     }
 }

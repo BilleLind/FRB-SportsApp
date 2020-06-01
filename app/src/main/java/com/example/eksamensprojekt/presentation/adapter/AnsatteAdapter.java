@@ -42,7 +42,7 @@ public class AnsatteAdapter extends RecyclerView.Adapter<AnsatteAdapter.AnsatteV
     @Override
     public void onBindViewHolder(@NonNull final AnsatteViewHolder ansatteViewHolder, int position) {
 
-        ansatteViewHolder.txtAnsatteNavn.setText(ansattePresenterList.get(position).getAnsatteNavn());
+        ansatteViewHolder.txtAnsatteNavn.setText(ansattePresenterList.get(position).getNavn());
 
         if (!ansatteCardViewList.contains(ansatteViewHolder.cardviewAnsatte))
             ansatteCardViewList.add(ansatteViewHolder.cardviewAnsatte);
@@ -74,8 +74,6 @@ public class AnsatteAdapter extends RecyclerView.Adapter<AnsatteAdapter.AnsatteV
         CardView cardviewAnsatte;
         TextView txtAnsatteNavn;
 
-
-
         RecyclerItemSelectedListener recyclerItemSelectedListener;
 
         public void setRecyclerItemSelectedListener(RecyclerItemSelectedListener recyclerItemSelectedListener) {
@@ -87,6 +85,7 @@ public class AnsatteAdapter extends RecyclerView.Adapter<AnsatteAdapter.AnsatteV
             super(itemView);
 
             txtAnsatteNavn = (TextView) itemView.findViewById(R.id.ansatte_navn);
+            cardviewAnsatte = (CardView) itemView.findViewById(R.id.cardview_ansatte);
 
             itemView.setOnClickListener(this);
         }
