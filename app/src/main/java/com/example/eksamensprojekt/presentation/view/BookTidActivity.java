@@ -26,9 +26,8 @@ import java.util.Objects;
 public class BookTidActivity extends AppCompatActivity {
 
 
+    //Variabler
     private ViewPager viewPager;
-
-    private PagerAdapter pagerAdapter;
 
     private Button naesteStep, tilbageStep;
 
@@ -43,9 +42,9 @@ public class BookTidActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_tid);
 
-        StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.booking_progressbar);
+        //Tilføjer custom progress bar
+        final StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.booking_progressbar);
         stateProgressBar.setStateDescriptionData(descriptionData);
-
 
 
         //Action Bar
@@ -53,7 +52,7 @@ public class BookTidActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        //Forbinder IDs til de korrekte views
+        //instantiere variabler med view ids
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
@@ -89,6 +88,7 @@ public class BookTidActivity extends AppCompatActivity {
         // ^ Action bar ^
 
 
+        //instantiere variabler med view ids
         firebaseAuth = FirebaseAuth.getInstance();
 
         viewPager = (ViewPager) findViewById(R.id.view_pager_booking);
@@ -96,8 +96,7 @@ public class BookTidActivity extends AppCompatActivity {
         naesteStep = (Button) findViewById(R.id.naeste_step_btn);
         tilbageStep = (Button) findViewById(R.id.tilbage_step_btn);
 
-
-       ///
+        //ToDo on click listener til at skifte fragment ved button click
         /*
         naesteStep.setOnClickListener(new View.OnClickListener() {
 
@@ -122,20 +121,27 @@ public class BookTidActivity extends AppCompatActivity {
 
             }
 
+            //Ændre progress baren efter hvilken fragment bruger befinder sig på
             @Override
             public void onPageSelected(int position) {
 
-               /* if (position == 0) {
-                    tilbageStep.setEnabled(false);
-                    naesteStep.setEnabled(true);
 
-                } else {
-                    tilbageStep.setEnabled(true);
-                    naesteStep.setEnabled(true);
+                if (position == 0){
+                    stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
 
                 }
+                else if (position == 1){
+                   stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
 
-                */
+                }
+                else if (position == 2){
+                    stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+
+                }
+                else if (position == 3){
+                    stateProgressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+
+                }
             }
 
             @Override
@@ -160,7 +166,6 @@ public class BookTidActivity extends AppCompatActivity {
             startActivity(signInIntent);
             finish();
         }
-
 
     }
 
