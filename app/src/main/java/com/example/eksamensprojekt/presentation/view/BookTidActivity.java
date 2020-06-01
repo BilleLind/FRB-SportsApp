@@ -17,6 +17,7 @@ import com.example.eksamensprojekt.presentation.common.common;
 import com.example.eksamensprojekt.presentation.fragments.BookingStep2Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.kofigyan.stateprogressbar.StateProgressBar;
 
 
 import java.util.Objects;
@@ -31,6 +32,8 @@ public class BookTidActivity extends AppCompatActivity {
 
     private Button naesteStep, tilbageStep;
 
+    String[] descriptionData = {"Behandling", "Behandler", "Tidspunkt", "Bekræft"};
+
     private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     private FirebaseAuth firebaseAuth;
@@ -39,6 +42,10 @@ public class BookTidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_tid);
+
+        StateProgressBar stateProgressBar = (StateProgressBar) findViewById(R.id.booking_progressbar);
+        stateProgressBar.setStateDescriptionData(descriptionData);
+
 
 
         //Action Bar

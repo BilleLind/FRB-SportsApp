@@ -9,7 +9,9 @@
     <com.jaredrummler.materialspinner.MaterialSpinner
         android:id="@+id/spinner_step1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:background="@android:color/darker_gray"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_behandlinger"

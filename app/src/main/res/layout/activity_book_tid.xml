@@ -8,6 +8,27 @@
     android:orientation="vertical"
     tools:context=".presentation.view.BookTidActivity">
 
+    <com.kofigyan.stateprogressbar.StateProgressBar
+        android:id="@+id/booking_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spb_animateToCurrentProgressState="true"
+        app:spb_checkStateCompleted="true"
+        app:spb_currentStateDescriptionColor="@color/colorAccent"
+        app:spb_currentStateNumber="one"
+        app:spb_maxStateNumber="four"
+        app:spb_stateBackgroundColor="#BDBDBD"
+        app:spb_stateDescriptionColor="#808080"
+        app:spb_stateForegroundColor="@color/colorAccent"
+        app:spb_stateNumberBackgroundColor="#808080"
+        app:spb_stateNumberForegroundColor="#eeeeee" />
+
+
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_booking"
@@ -24,7 +45,8 @@
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="@+id/view_pager_booking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_pager_booking">
 
         <Button
             android:id="@+id/tilbage_step_btn"
@@ -32,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="4dp"
+            android:layout_marginBottom="60dp"
             android:layout_weight="1"
             android:background="@android:color/darker_gray"
             android:enabled="false"
@@ -44,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="4dp"
+            android:layout_marginBottom="60dp"
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:text="Næste"
