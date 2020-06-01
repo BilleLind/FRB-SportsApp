@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment3"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/vaelg_dato_txt"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Step 3"
-        android:textSize="24sp"
-        android:layout_centerInParent="true"/>
+        android:layout_marginTop="55dp"
+        android:gravity="center_horizontal"
+        android:text="Vælg en dato"
+        android:textSize="20dp" />
 
-</RelativeLayout>
+    <CalendarView
+        android:id="@+id/kalender_step3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:id="@+id/scrollView_tider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_tider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"/>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -2,22 +2,22 @@ package com.example.eksamensprojekt.presentation.presenter;
 
 public class BehandlingPresenter {
 
-    private String tid,pris;
+    private String varighed,pris;
 
     public BehandlingPresenter(){
     }
 
-    public BehandlingPresenter(String tid, String pris) {
-        this.tid = tid;
+    public BehandlingPresenter(String varighed, String pris) {
+        this.varighed = varighed;
         this.pris = pris;
     }
 
-    public String getTid() {
-        return tid;
+    public String getVarighed() {
+        return varighed;
     }
 
     public void setTid(){
-        this.tid = tid;
+        this.varighed = varighed;
     }
 
     public String getPris(){

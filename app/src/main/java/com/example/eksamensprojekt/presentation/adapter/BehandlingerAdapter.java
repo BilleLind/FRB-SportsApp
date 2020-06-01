@@ -45,7 +45,7 @@ public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final BehandlingViewHolder behandlingViewHolder, int position) {
-        behandlingViewHolder.txtBehandlingsTid.setText(behandlingPresenterList.get(position).getTid());
+        behandlingViewHolder.txtBehandlingsTid.setText(behandlingPresenterList.get(position).getVarighed());
         behandlingViewHolder.txtBehandlingsPris.setText(behandlingPresenterList.get(position).getPris());
 
         if (!cardViewList.contains(behandlingViewHolder.cardviewBehandlinger))
