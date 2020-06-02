@@ -24,6 +24,8 @@ import java.util.HashMap;
 
 import java.util.Objects;
 
+import static com.example.eksamensprojekt.utils.Konstante.brugere;
+
 public class OpretBrugerActivity extends AppCompatActivity {
 
     private TextInputLayout fornavn, efternavn, email, telefonNr, adgangskode;
@@ -116,13 +118,9 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
                 startActivity(new Intent(OpretBrugerActivity.this, LoginBrugerActivity.class));
                 finish();
-
             }
         });
-
     }
-
-
 
     //Metoden til at bekræfte den indtastede data er gyldig
     private void bekraeftBruger() {
@@ -136,7 +134,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
         //Tjekker om det indtastede data overholder regler. Hvis ikke, oprettelsen brudt.
         if (tjekFornavn(fornavn) != true || tjekEfternavn(efternavn) != true || tjekEmail(email) != true || tjekTelefonNr(telefonNr) != true || tjekAdgangskode(adgangskode) != true){
 
-
             opretProgress.setTitle("Opretter bruger");
             opretProgress.setMessage("Vent venligst mens vi opretter din bruger.");
             opretProgress.setCanceledOnTouchOutside(false);
@@ -144,7 +141,6 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
             opretBruger(email, adgangskode, fornavn, efternavn, telefonNr);
         }
-
     }
 
     //Tjekker om adgangskode indeholde mindst 8 tegn. Bestående af tal + store og små bogstaver.
@@ -277,7 +273,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     assert firebaseUser != null;
                     final String brugerid = firebaseUser.getUid();
 
-                    reference = FirebaseDatabase.getInstance().getReference().child("Brugere").child(brugerid); //TODO does this fix it? error in brugerFragment?
+                    reference = FirebaseDatabase.getInstance().getReference().child(brugere).child(brugerid);
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", brugerid);

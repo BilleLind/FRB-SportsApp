@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.eksamensprojekt">
+          package="com.example.eksamensprojekt">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".presentation.view.BeskedActivity" />
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <activity android:name=".presentation.view.BeskedActivity"/>
         <activity android:name=".presentation.view.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.view.BookTidActivity" />
-        <activity android:name=".presentation.view.ChatActivity" />
-        <activity android:name=".presentation.view.OpretBrugerActivity" />
+        <activity android:name=".presentation.view.BookTidActivity"/>
+        <activity android:name=".presentation.view.ChatActivity"/>
+        <activity android:name=".presentation.view.OpretBrugerActivity"/>
         <activity android:name=".presentation.view.VisProfilActivity"/>
         <activity android:name=".presentation.view.FeedbackActivity"/>
+        <activity android:name=".presentation.view.StartTraeningActivity"/>
         <activity android:name=".presentation.view.LoginBrugerActivity"/>
         <activity android:name=".presentation.adapter.BehandlingerAdapter" />
         <activity android:name=".presentation.adapter.AnsatteAdapter" />

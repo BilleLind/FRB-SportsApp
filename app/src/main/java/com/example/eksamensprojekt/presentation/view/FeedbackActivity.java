@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.*;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,9 @@ public class FeedbackActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    TextView spoorgsmaal_Text_View;
+    RadioButton super_Traening_Button, okay_Traening_Button, kunne_Forbedres_Button, daarlig_Oplevelse_Button;
+    Button gennemfoort_Traening_Button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,24 @@ public class FeedbackActivity extends AppCompatActivity {
             }
         });
         // ^ Action bar ^
+
+        gennemfoort_Traening_Button = (Button) findViewById(R.id.gennemfoort_Traening_Button);
+        super_Traening_Button = (RadioButton) findViewById(R.id.super_Traening_Button);
+        okay_Traening_Button = (RadioButton) findViewById(R.id.okay_Traening_Button);
+        kunne_Forbedres_Button = (RadioButton) findViewById(R.id.kunne_Forbedres_Button);
+        daarlig_Oplevelse_Button = (RadioButton) findViewById(R.id.daarlig_Oplevelse_Button);
+
+        //Skifter til profil activity
+        gennemfoort_Traening_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (super_Traening_Button.isEnabled()) {
+                    Toast.makeText(getApplicationContext(),"Det vi glade for at høre :)",Toast.LENGTH_SHORT).show();
+                }
+                startActivity(new Intent(FeedbackActivity.this, VisProfilActivity.class));
+                finish();
+            }
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
     }

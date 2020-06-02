@@ -1,59 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   tools:context=".presentation.view.MainActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.MainActivity">
+
 
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/placeholderintro"
-            android:id="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:scaleType="fitXY"
-            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.0"
-    />
+        android:id="@+id/mainpage_iv"
+        android:layout_width="390dp"
+        android:layout_height="445dp"
+        android:src="@drawable/placeholderintro"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
     <Button
-            android:id="@+id/goto_booking_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:text="Book tid"
-            android:layout_margin="20dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.279"
-    />
+        android:id="@+id/goto_booking_btn"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:text="Book tid"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/mainpage_iv"
+        app:layout_constraintEnd_toEndOf="@+id/mainpage_iv"
+        app:layout_constraintStart_toStartOf="@+id/mainpage_iv"
+        app:layout_constraintTop_toTopOf="@+id/mainpage_iv" />
+
     <Button
-            android:id="@+id/goto_feedback_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Træningsprogram"
-            android:layout_marginBottom="260dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.751"/>
+        android:id="@+id/goto_feedback_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begynd Træning"
+        app:layout_constraintBottom_toBottomOf="@+id/mainpage_iv"
+        app:layout_constraintEnd_toEndOf="@+id/mainpage_iv"
+        app:layout_constraintStart_toStartOf="@+id/mainpage_iv"
+        app:layout_constraintTop_toBottomOf="@+id/goto_booking_btn" />
+
     <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="     Professionel og \npersonlig behandling"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.043"
-            app:layout_constraintHorizontal_bias="0.521"/>
+        android:id="@+id/velkommen_besked_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:gravity="center_horizontal"
+        android:text="Vi tilbyder forskellige behandlingsformer \nog tilpasser altid behandlingen efter netop \ndine behov. "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/velkommen_tv" />
+
+    <ImageView
+        android:id="@+id/massage_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/massageimg" />
+
+    <ImageView
+        android:id="@+id/fysio_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/massage_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fysioimg" />
+
+    <ImageView
+        android:id="@+id/aku_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/fysio_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/akuimg" />
+
+    <TextView
+        android:id="@+id/massage_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Massage"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginLeft="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/massage_iv" />
+
+    <TextView
+        android:id="@+id/fysio_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fysioterapi"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="36dp"
+        app:layout_constraintStart_toEndOf="@+id/massage_txt"
+        app:layout_constraintTop_toBottomOf="@+id/fysio_iv" />
+
+    <TextView
+        android:id="@+id/akupunktur_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="Akupunktur"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/fysio_txt"
+        app:layout_constraintTop_toBottomOf="@+id/aku_iv" />
+
+    <ImageView
+        android:id="@+id/section_divide1_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fysio_txt"
+        app:srcCompat="@drawable/sectionbar" />
+
+    <TextView
+        android:id="@+id/velkommen_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hos os er ALLE velkomne!"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/section_divide1_iv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

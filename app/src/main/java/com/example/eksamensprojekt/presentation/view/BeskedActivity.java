@@ -3,6 +3,8 @@ package com.example.eksamensprojekt.presentation.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,14 +14,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
 import com.example.eksamensprojekt.data.model.Bruger;
 
-import com.example.eksamensprojekt.data.model.Chat;
+import com.example.eksamensprojekt.presentation.viewmodel.BeskedViewModel;
+import com.example.eksamensprojekt.repository.BeskedRepository;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,25 +37,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+import static com.example.eksamensprojekt.utils.Konstante.brugere;
+import static com.example.eksamensprojekt.utils.Konstante.chats;
+
 public class BeskedActivity extends AppCompatActivity {
 
     ShapeableImageView profilBillede;
-    TextView fornavn;
+
     ImageButton send_btn;
     EditText besked_send;
     FirebaseUser firebaseBruger;
     DatabaseReference databaseReference;
     BeskedAdapter beskedAdapter;
-    List<Chat> chatList;
+    List<Besked> beskedList;
     RecyclerView recyclerView;
     Intent intent;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
+    BeskedViewModel beskedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besked);
+        send_btn = findViewById(R.id.btn_send);
+        besked_send = findViewById(R.id.besked_send);
+        profilBillede = findViewById(R.id.profile_billede);
+
+        //nødvendigt at initialisere ViewModel, ellers kom der nullPointException
+        beskedViewModel = new ViewModelProvider(this).get(BeskedViewModel.class);
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -104,44 +117,36 @@ public class BeskedActivity extends AppCompatActivity {
             bruger_id = getIntent().getStringExtra("brugerid");
         }
 
-        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view); // her forbindes recyclerView med det recyclerView i activity_besked
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
-        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setStackFromEnd(true); // gør så recyclerView bliver fyldt ud begyndende fra bunden.
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        fornavn = findViewById(R.id.fornavn); // nødvendigt at have som koden er nuværende
-        send_btn = findViewById(R.id.btn_send);
-        besked_send = findViewById(R.id.besked_send);
-        profilBillede = findViewById(R.id.profile_billede);
 
-        send_btn.setOnClickListener(new View.OnClickListener() {
+        send_btn.setOnClickListener(new View.OnClickListener() { // ved at bruge en onClickListener gør det muligt at først at sende eller gemme besked til når afsender er klar
             @Override
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
-                if (!msg.equals("")) {
-                    sendBesked(firebaseBruger.getUid(), bruger_id, msg);
+                if (!msg.equals("")) { //nogle lille kontrol for at forhindre spamming med tomme beskeder.
+                    sendBesked(firebaseBruger.getUid(), bruger_id, msg); // måske det kun er msg der skal gøres igennem, resten i reposotioriet
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
-                besked_send.setText("");
+                besked_send.setText(""); // sørger for at brugeren ikke skal slette sine egne beskeder efter man har sendt beskeden.
             }
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Brugere").child(bruger_id);
+
+        //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
+        databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(bruger_id);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger = dataSnapshot.getValue(Bruger.class);
-                fornavn.setText(bruger.getFornavn());
 
-                /*TODO if (bruger.getBilledeURL().equals("default")) {
-                    profile_billede.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    Glide.with(BeskedActivity.this).load(bruger.getBilledeURL()).into(profile_billede);
-                } */
-                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL());
+                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL()); //billede ikke indført
             }
 
             @Override
@@ -150,34 +155,30 @@ public class BeskedActivity extends AppCompatActivity {
         });
     }
 
-    private void sendBesked(String afsender, String modtager, String besked) { // sender besked ved at lægge det ind i en hashmap, med afsender og modtagers brugerid samt beskeden
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("afsender", afsender);
-        hashMap.put("modtager", modtager);
-        hashMap.put("besked", besked);
-
-        reference.child("Chats").push().setValue(hashMap);
-
+    private void sendBesked(String afsender, String modtager, String besked) {
+       Besked beskedny = new Besked();
+       beskedny.setAfsender(afsender);
+       beskedny.setModtager(modtager);
+       beskedny.setBesked(besked);
+       beskedViewModel.nyBesked(beskedny); // sender videre til BeskedViewModel ved brug af nyBesked(beskedny) metoden.
     }
 
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { //
-        chatList = new ArrayList<>();
+    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { // denne metode henter beskederne i databasen, hvor den kontrollere om de individuelle beskeder har relevans for brugeren
+        beskedList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference = FirebaseDatabase.getInstance().getReference(chats);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                chatList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getModtager().equals(minid) && chat.getAfsender().equals(brugerId) ||
-                            chat.getModtager().equals(brugerId) && chat.getAfsender().equals(minid)) {
-                        chatList.add(chat);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // DataSnapshot modtages hver gang man aflæser Database data, man modtager data'en som et DataSnapshot
+                beskedList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //"dataSnapshot.getChildren()" giver adgang til de nærmeste dataSnapshot
+                    Besked besked = snapshot.getValue(Besked.class); //her marshaller man data'en fra snapshot ind igennem Besked klassen, så afsender er forbundet med en String kaldet afsender så Besked.getAfsender
+                    if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
+                            besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) { // her kontrollere man om det nedhentede har relevans for sin bruger
+                        beskedList.add(besked); // hvis den har så tilføjes den til et Arraylist
                     }
-                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, chatList, billedeURL);
-                    recyclerView.setAdapter(beskedAdapter);
+                    beskedAdapter = new BeskedAdapter(BeskedActivity.this, beskedList, billedeURL); // ArrayList bliver sammen sat med BeskedAdapter i BeskedActivity
+                    recyclerView.setAdapter(beskedAdapter); //hvor den bliver sat sammen med et RecyclerView som viser beskederne ved at bruge metoderne og Layout's som er forbundet med BeskedAdapteren
 
                 }
             }
@@ -188,5 +189,4 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
     }
-
 }

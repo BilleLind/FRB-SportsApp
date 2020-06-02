@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MainActivity.this, ChatActivity.class));
                 finish();
             }
@@ -62,22 +61,20 @@ public class MainActivity extends AppCompatActivity {
         seTraerningKnap = (Button) findViewById(R.id.goto_feedback_btn);
         bookTidKnap = (Button) findViewById(R.id.goto_booking_btn);
 
-        //skifter til book tid activity
+        //Skifter til book tid activity
         bookTidKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(MainActivity.this, BookTidActivity.class));
                 finish();
             }
         });
 
-        //skifter til feedback activity
+        //Skifter til start træning activity
         seTraerningKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
+                startActivity(new Intent(MainActivity.this, StartTraeningActivity.class));
                 finish();
             }
         });
