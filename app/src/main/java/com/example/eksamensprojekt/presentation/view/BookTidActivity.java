@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.adapter.BookingViewPagerAdapter;
+import com.example.eksamensprojekt.presentation.common.common;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.kofigyan.stateprogressbar.StateProgressBar;
@@ -93,13 +94,18 @@ public class BookTidActivity extends AppCompatActivity {
         tilbageStep = (Button) findViewById(R.id.tilbage_step_btn);
 
         //ToDo on click listener til at skifte fragment ved button click
+
         /*
         naesteStep.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
                 common.step++;
                 if (common.step == 1){
+
+                    viewPager.setCurrentItem(1);
+
 
 
                 }else if (common.step == 2){
@@ -107,8 +113,9 @@ public class BookTidActivity extends AppCompatActivity {
                 }
             }
         });
+        
+         */
 
-        */
 
         viewPager.setAdapter(new BookingViewPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

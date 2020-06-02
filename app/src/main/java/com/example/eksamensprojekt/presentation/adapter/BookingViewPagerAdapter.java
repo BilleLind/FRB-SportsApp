@@ -15,7 +15,7 @@ import com.example.eksamensprojekt.presentation.fragments.BookingStep4Fragment;
 
 public class BookingViewPagerAdapter extends FragmentPagerAdapter {
 
-    int currentStep = common.step;
+
 
     public BookingViewPagerAdapter(FragmentManager fm, int behavior) {
         super(fm, behavior);

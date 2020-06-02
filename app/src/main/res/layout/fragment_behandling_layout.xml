@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="viser_tid"
-            android:textSize="20sp"
+            android:textSize="18sp"
            />
 
         <TextView
