@@ -35,6 +35,8 @@
         android:id="@+id/goto_feedback_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@android:color/white"
         android:text="Begynd Træning"
         app:layout_constraintBottom_toBottomOf="@+id/mainpage_iv"
         app:layout_constraintEnd_toEndOf="@+id/mainpage_iv"
