@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app ="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:id="@+id/cardview_tider"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tider_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="viser_tidspunkt_her"
+            android:textSize="16sp"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
