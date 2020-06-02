@@ -95,26 +95,50 @@ public class BookTidActivity extends AppCompatActivity {
 
         //ToDo on click listener til at skifte fragment ved button click
 
-        /*
+
         naesteStep.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 common.step++;
-                if (common.step == 1){
 
-                    viewPager.setCurrentItem(1);
-
-
+                if (common.step == 1) {
+                    viewPager.setCurrentItem(1, true);
 
                 }else if (common.step == 2){
+                    viewPager.setCurrentItem(2, true);
+
+                }else if (common.step == 3){
+                    viewPager.setCurrentItem(3, true);
+
+                }
+
+            }
+        });
+
+        tilbageStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                common.step--;
+
+                if (common.step == 0){
+                    viewPager.setCurrentItem(0, true);
+
+                }else if (common.step == 1) {
+                    viewPager.setCurrentItem(1, true);
+
+                }else if (common.step == 2){
+                    viewPager.setCurrentItem(2, true);
+
+                }else if (common.step == 3){
+                    viewPager.setCurrentItem(3, true);
 
                 }
             }
         });
-        
-         */
+
 
 
         viewPager.setAdapter(new BookingViewPagerAdapter(getSupportFragmentManager()));
