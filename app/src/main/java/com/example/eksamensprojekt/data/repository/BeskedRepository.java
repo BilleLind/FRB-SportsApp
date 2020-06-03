@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.repository;
+package com.example.eksamensprojekt.data.repository;
 
 import androidx.lifecycle.MutableLiveData;
 import com.example.eksamensprojekt.data.model.Besked;

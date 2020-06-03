@@ -3,7 +3,6 @@ package com.example.eksamensprojekt.presentation.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +21,6 @@ import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
 import com.example.eksamensprojekt.data.model.Bruger;
 
 import com.example.eksamensprojekt.presentation.viewmodel.BeskedViewModel;
-import com.example.eksamensprojekt.repository.BeskedRepository;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
