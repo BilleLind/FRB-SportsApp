@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.view.ChatActivity"
-        android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.view.ChatActivity">
+
     <TextView
-            android:id="@+id/title_Text_View"
-            android:text="Liggende bækkenløft"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/title_Text_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Liggende bækkenløft"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"/>
+
     <WebView
-            android:id="@+id/oovelse_Web_View"
-            android:layout_width="match_parent"
-            android:layout_height="274dp"/>
+        android:id="@+id/oovelse_Web_View"
+        android:layout_width="match_parent"
+        android:layout_height="274dp" />
+
     <Button
-            android:id="@+id/naeste_Oovelse_Button"
-            android:text="Næste øvelse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/naeste_Oovelse_Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Næste øvelse"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"/>
 </LinearLayout>
