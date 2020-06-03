@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.eksamensprojekt.data.model.Besked;
-import com.example.eksamensprojekt.repository.BeskedRepository;
+import com.example.eksamensprojekt.data.repository.BeskedRepository;
 
 public class BeskedViewModel extends AndroidViewModel {
     private BeskedRepository beskedRepository;
