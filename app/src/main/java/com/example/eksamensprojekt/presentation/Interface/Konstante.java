@@ -1,4 +1,4 @@
-package com.example.eksamensprojekt.utils;
+package com.example.eksamensprojekt.presentation.Interface;
 
 public interface Konstante {
     // en klasse hvor man kan initialisere variabler som man bruger meget
