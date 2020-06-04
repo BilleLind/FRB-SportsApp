@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 import java.util.Objects;
 
-import static com.example.eksamensprojekt.utils.Konstante.brugere;
+import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
 
 public class OpretBrugerActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@ import com.example.eksamensprojekt.data.model.Besked;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
-import static com.example.eksamensprojekt.utils.Konstante.chats;
+import static com.example.eksamensprojekt.presentation.Interface.Konstante.chats;
 
 public class BeskedRepository {
 

@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.eksamensprojekt.utils.Konstante.brugere;
-import static com.example.eksamensprojekt.utils.Konstante.chats;
+import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
+import static com.example.eksamensprojekt.presentation.Interface.Konstante.chats;
 
 public class BeskedActivity extends AppCompatActivity {
 
