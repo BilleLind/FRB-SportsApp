@@ -106,12 +106,12 @@ public class BeskedActivity extends AppCompatActivity {
 
         intent = getIntent();
         firebaseBruger = FirebaseAuth.getInstance().getCurrentUser(); // en "fail safe" for at undgå at BrugerID ikke er kommet tilbage før den skal bruges
-        final String bruger_id;
+        final String modtagerId;
         String data = getIntent().getStringExtra("brugerid");
         if (data == null) {
-            bruger_id = firebaseBruger.getUid();
+            modtagerId = firebaseBruger.getUid();
         } else {
-            bruger_id = getIntent().getStringExtra("brugerid");
+            modtagerId = getIntent().getStringExtra("brugerid");
         }
 
         recyclerView = findViewById(R.id.recycler_view); // her forbindes recyclerView med det recyclerView i activity_besked
@@ -126,7 +126,7 @@ public class BeskedActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String msg = besked_send.getText().toString();
                 if (!msg.equals("")) { //nogle lille kontrol for at forhindre spamming med tomme beskeder.
-                    sendBesked(firebaseBruger.getUid(), bruger_id, msg); // måske det kun er msg der skal gøres igennem, resten i reposotioriet
+                    sendBesked(firebaseBruger.getUid(), modtagerId, msg); // måske det kun er msg der skal gøres igennem, resten i reposotioriet
                 } else {
                     Toast.makeText(BeskedActivity.this, "ikke muligt at sende tomme beskeder", Toast.LENGTH_SHORT).show();
                 }
@@ -136,14 +136,14 @@ public class BeskedActivity extends AppCompatActivity {
 
 
         //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
-        databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(bruger_id);
+        databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(modtagerId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Bruger bruger = dataSnapshot.getValue(Bruger.class);
 
-                laesBesked(firebaseBruger.getUid(), bruger_id, bruger.getBilledeURL()); //billede ikke indført
+                modtagBesked(firebaseBruger.getUid(), modtagerId, bruger.getBilledeURL()); //billede ikke indført
             }
 
             @Override
@@ -160,7 +160,7 @@ public class BeskedActivity extends AppCompatActivity {
        beskedViewModel.nyBesked(beskedny); // sender videre til BeskedViewModel ved brug af nyBesked(beskedny) metoden.
     }
 
-    private void laesBesked(final String minid, final String brugerId, final String billedeURL) { // denne metode henter beskederne i databasen, hvor den kontrollere om de individuelle beskeder har relevans for brugeren
+    private void modtagBesked(final String minid, final String brugerId, final String billedeURL) { // denne metode henter beskederne i databasen, hvor den kontrollere om de individuelle beskeder har relevans for brugeren
         beskedList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference(chats);

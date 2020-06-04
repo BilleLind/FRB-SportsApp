@@ -17,13 +17,10 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.eksamensprojekt.presentation.fragments.BrugerFragment;
 import com.example.eksamensprojekt.presentation.fragments.ChatsFragment;
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.data.model.Bruger;
-
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 
 import java.util.ArrayList;
 import java.util.Objects;
