@@ -16,6 +16,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     ImageView actionBarProfil, actionBarChat; //Action Bar Variabler
+    ImageView massage, fysioterapi, akupunktur;
 
     //Button til main XML
     Button seTraerningKnap;
@@ -60,15 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         seTraerningKnap = (Button) findViewById(R.id.goto_feedback_btn);
         bookTidKnap = (Button) findViewById(R.id.goto_booking_btn);
-
-        //Skifter til book tid activity
-        bookTidKnap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
-                finish();
-            }
-        });
+        massage = (ImageView) findViewById(R.id.massage);
+        fysioterapi = (ImageView) findViewById(R.id.fysio);
+        akupunktur = (ImageView) findViewById(R.id.aku);
 
         //Skifter til trænings oversigt activity
         seTraerningKnap.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +73,43 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //Skifter til book tid activity fra book knap
+        bookTidKnap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til book tid activity fra Massage knap
+        massage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til book tid activity fra Fysio knap
+        fysioterapi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
+
+        //Skifter til book tid activity fra akupunktur knap
+        akupunktur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
+                finish();
+            }
+        });
+
     }
     @Override
     protected void onStart() {
