@@ -14,7 +14,7 @@
             android:layout_height="154dp"/>
     <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         <RadioButton
                 android:text="Super god!"
                 android:layout_width="match_parent"
@@ -35,10 +35,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/daarlig_Oplevelse_Button"/>
-        <Button
-                android:id="@+id/gennemfoort_Traening_Button"
-                android:text="Gennemført for i dag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
     </RadioGroup>
+    <Button
+            android:id="@+id/gennemfoort_Traening_Button"
+            android:text="Gennemført for i dag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/feedback_Input"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility = "gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Eventuel feedback til os?"/>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

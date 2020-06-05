@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.eksamensprojekt.R;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -22,6 +23,7 @@ public class FeedbackActivity extends AppCompatActivity {
     RadioButton super_Traening_Button, okay_Traening_Button, kunne_Forbedres_Button, daarlig_Oplevelse_Button;
     Button gennemfoort_Traening_Button;
     Boolean feedbackChosen = false;
+    TextInputLayout feedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,30 +75,35 @@ public class FeedbackActivity extends AppCompatActivity {
         kunne_Forbedres_Button = (RadioButton) findViewById(R.id.kunne_Forbedres_Button);
         daarlig_Oplevelse_Button = (RadioButton) findViewById(R.id.daarlig_Oplevelse_Button);
         gennemfoort_Traening_Button = (Button) findViewById(R.id.gennemfoort_Traening_Button);
+        feedback = (TextInputLayout) findViewById(R.id.feedback_Input);
 
         //Checker om bruger har valgt feedback
         super_Traening_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
+                feedback.setVisibility(0); //Gør feedback input kassen synlig
             }
         });
         okay_Traening_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
+                feedback.setVisibility(0);
             }
         });
         kunne_Forbedres_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
+                feedback.setVisibility(0);
             }
         });
         daarlig_Oplevelse_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
+                feedback.setVisibility(0);
             }
         });
         // ^^Feedback radio knap check ^^
