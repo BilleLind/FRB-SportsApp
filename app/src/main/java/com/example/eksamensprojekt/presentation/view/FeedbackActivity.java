@@ -74,34 +74,32 @@ public class FeedbackActivity extends AppCompatActivity {
         daarlig_Oplevelse_Button = (RadioButton) findViewById(R.id.daarlig_Oplevelse_Button);
         gennemfoort_Traening_Button = (Button) findViewById(R.id.gennemfoort_Traening_Button);
 
-        //Skifter til profil activity
+        //Checker om bruger har valgt feedback
         super_Traening_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
             }
         });
-        //Skifter til profil activity
         okay_Traening_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
             }
         });
-        //Skifter til profil activity
         kunne_Forbedres_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
             }
         });
-        //Skifter til profil activity
         daarlig_Oplevelse_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 feedbackChosen = true;
             }
         });
+        // ^^Feedback radio knap check ^^
 
         //Skifter til profil activity
         gennemfoort_Traening_Button.setOnClickListener(new View.OnClickListener() {
