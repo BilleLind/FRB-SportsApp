@@ -98,7 +98,7 @@ public class StartTraeningActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (oovelsesPosition <= 4) {
                     oovelsesPosition = oovelsesPosition + 1;
-                } else{
+                } else {
                     Toast.makeText(getApplicationContext(),"Du har gennemført dagens program, godt klaret!",Toast.LENGTH_LONG).show();
                     startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
                     finish();

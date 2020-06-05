@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Skifter til start træning activity
+        //Skifter til trænings oversigt activity
         seTraerningKnap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, StartTraeningActivity.class));
+                startActivity(new Intent(MainActivity.this, IntroTilOovelserActivity.class));
                 finish();
             }
         });

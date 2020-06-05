@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.view.IntroTilOovelserActivity">
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/overtekst_oversigt"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:gravity="center"
+            android:text="Dit program for i dag"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt1_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Liggende bækkenløft"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt_Image_View"
+                android:src="@drawable/liggende_baekkenlooft"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt2_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Etbens Knæbøj"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt2_Image_View"
+                android:src="@drawable/etbens_knaebooj"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt3_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Bækkenløft m/knæstræk"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt3_Image_View"
+                android:src="@drawable/baekkenlooft_med_knaestraek"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt4_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Armstræk"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt4_Image_View"
+                android:src="@drawable/armstraek"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt5_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Mavebøjning"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt5_Image_View"
+                android:src="@drawable/maveboojning"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        <TextView
+                android:id="@+id/oversigt6_Text_View"
+                android:layout_width="179dp"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:text="Lateral Lunge"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"/>
+        <ImageView
+                android:id="@+id/oversigt6_Image_View"
+                android:src="@drawable/lateral_lunge"
+                android:scaleType="fitXY"
+                android:layout_width="226dp"
+                android:layout_height="100dp"/>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/klar_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Klar"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"/>
+</LinearLayout>
+</ScrollView>
