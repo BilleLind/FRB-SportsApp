@@ -1,13 +1,9 @@
 package com.example.eksamensprojekt.presentation.adapter;
 
-import android.widget.Switch;
-
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.eksamensprojekt.presentation.common.common;
 import com.example.eksamensprojekt.presentation.fragments.BookingStep1Fragment;
 import com.example.eksamensprojekt.presentation.fragments.BookingStep2Fragment;
 import com.example.eksamensprojekt.presentation.fragments.BookingStep3Fragment;

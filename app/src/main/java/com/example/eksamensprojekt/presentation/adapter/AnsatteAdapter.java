@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.presentation.Interface.RecyclerItemSelectedListener;
 import com.example.eksamensprojekt.presentation.presenter.AnsattePresenter;
