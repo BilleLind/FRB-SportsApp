@@ -49,11 +49,11 @@
             android:id="@+id/velkommen_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hos os er ALLE velkomne!"
+            android:text="Velkommen til FRB Sportsklinik!"
             android:gravity="center"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
-            android:textSize="28sp"/>
+            android:textSize="26sp"/>
 
     <TextView
             android:id="@+id/velkommen_besked_tv"
