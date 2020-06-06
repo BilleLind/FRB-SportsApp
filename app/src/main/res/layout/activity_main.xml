@@ -73,7 +73,7 @@
             android:textColor="@android:color/white"/>
 
     <Button
-            android:id="@+id/goto_feedback_btn"
+            android:id="@+id/begynd_Traening_Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorAccent"

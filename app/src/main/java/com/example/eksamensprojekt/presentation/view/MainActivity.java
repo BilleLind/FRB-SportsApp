@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // ^ Action bar ^
 
-        seTraerningKnap = (Button) findViewById(R.id.goto_feedback_btn);
+        seTraerningKnap = (Button) findViewById(R.id.begynd_Traening_Button);
         bookTidKnap = (Button) findViewById(R.id.goto_booking_btn);
         massage = (ImageView) findViewById(R.id.massage);
         fysioterapi = (ImageView) findViewById(R.id.fysio);
