@@ -8,19 +8,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Oovelser;
 import com.example.eksamensprojekt.presentation.adapter.OovelserOversigtAdapter;
+import com.example.eksamensprojekt.presentation.viewmodel.IntroTilOovelserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class IntroTilOovelserActivity extends AppCompatActivity {
 
-    private static final String TAG = "IntroTilOovelserActivit";
+    private static final String TAG = "IntroTilOovelserActivit"; //Debugging
 
     //Variabler
     private FirebaseAuth firebaseAuth;
@@ -28,15 +33,31 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
     Button klar_Button;
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+    private IntroTilOovelserViewModel mIntroTilOovelserViewModel; //Nyt ViewModel objekt
+    private RecyclerView mRecyclerView;
+    private OovelserOversigtAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro__til__oovelser);
 
-        Log.d(TAG, "onCreate: started.");
+        Log.d(TAG, "onCreate: started."); //Debugging
 
-        initImageBitmaps();
+        mRecyclerView = findViewById(R.id.oversigt_recycler_view);
+
+        mIntroTilOovelserViewModel = new ViewModelProvider(this).get(IntroTilOovelserViewModel.class); //Instansierer min ViewModel
+
+        mIntroTilOovelserViewModel.init(); //Henter data fra Repository
+
+        mIntroTilOovelserViewModel.getOovelser().observe(this, new Observer<List<Oovelser>>() { //Observerer ændringer i ViewModel af LiveData objekterne.
+            @Override
+            public void onChanged(List<Oovelser> oovelsers) { //Hver gang noget data ændrer sig, så vil det følgende blive eksekveret
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
+        initRecyclerView();
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -93,39 +114,11 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
 
     }
 
-    private void initImageBitmaps() {
-        Log.d(TAG, "initImageBitmaps: preparing bitmaps");
-
-        mImageUrls.add("https://media.exorlive.com/?id=11&filetype=jpg&env=production");
-        mNames.add("Liggende bækkenløft");
-
-        mImageUrls.add("https://media.exorlive.com/?id=605&filetype=jpg&env=production");
-        mNames.add("Etbens knæbøj");
-
-        mImageUrls.add("https://media.exorlive.com/?id=711&filetype=jpg&env=production");
-        mNames.add("Bækkenløft m/knæstræk");
-
-        mImageUrls.add("https://media.exorlive.com/?id=29&filetype=jpg&env=production");
-        mNames.add("Armstræk");
-
-        mImageUrls.add("https://media.exorlive.com/?id=16&filetype=jpg&env=production");
-        mNames.add("Mavebøjning");
-
-        mImageUrls.add("https://media.exorlive.com/?id=8820&filetype=jpg&env=production");
-        mNames.add("Lateral lunge");
-
-        mImageUrls.add("https://media.exorlive.com/?id=10306&filetype=jpg&env=production");
-        mNames.add("Hoppende knæbøjninger");
-
-        initRecyclerView();
-    }
-
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerview.");
-        RecyclerView recyclerView = findViewById(R.id.oversigt_recycler_view);
-        OovelserOversigtAdapter adapter = new OovelserOversigtAdapter(this, mNames, mImageUrls);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new OovelserOversigtAdapter(this, mIntroTilOovelserViewModel.getOovelser().getValue());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override

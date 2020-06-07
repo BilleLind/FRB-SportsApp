@@ -6,7 +6,7 @@ public class Oovelser {
     private String videoURL;
     private String Image;
 
-    public Oovelser(String videoURL, String name, String Image) {
+    public Oovelser(String name, String videoURL, String Image) {
         this.name = name;
         this.videoURL = videoURL;
         this.Image = Image;
