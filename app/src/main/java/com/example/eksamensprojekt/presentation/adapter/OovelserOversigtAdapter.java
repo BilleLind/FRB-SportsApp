@@ -20,8 +20,6 @@ import java.util.List;
 
 public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversigtAdapter.ViewHolder> {
 
-    private static final String TAG = "OovelserAdapter"; //Til debugging
-
     private Context mContext;
     private List<Oovelser> mOovelser = new ArrayList<>();
 
@@ -41,7 +39,6 @@ public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Log.d(TAG, "onBindViewHolder: called."); //Debugging hvis nogle viewholders ikke kommer ind
 
         //Angiver navnet
         ((ViewHolder) viewHolder).oversigtTextView.setText(mOovelser.get(position).getName());

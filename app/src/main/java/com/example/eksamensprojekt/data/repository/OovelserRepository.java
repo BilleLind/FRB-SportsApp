@@ -1,33 +1,33 @@
 package com.example.eksamensprojekt.data.repository;
 
-import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import com.example.eksamensprojekt.data.model.Oovelser;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//Repository klassen er hvor vi samler vores data
 //Singleton mønsteret
-public class OovelserOversigtRepository {
+public class OovelserRepository {
 
-    private static OovelserOversigtRepository instance;
+    private static OovelserRepository instance; //Vi laver et instance for at undgå at skabe en hær af åbne forbindelser til evt. web service/api/caches
     private ArrayList<Oovelser> dataSet = new ArrayList<>();
 
-    public static OovelserOversigtRepository getInstance() {
+    public static OovelserRepository getInstance() {
         if(instance == null) {
-            instance = new OovelserOversigtRepository();
+            instance = new OovelserRepository();
         }
         return instance;
     }
-
-    public MutableLiveData<List<Oovelser>> getOovelser() { //Lyder som om vi henter data fra en online kilde
-        setOovelser();
-        MutableLiveData<List<Oovelser>> data = new MutableLiveData<>();
+    //Her efterligner vi hvordan det ville se ud hvis vi hentede fra en online kilde
+    public MutableLiveData<List<Oovelser>> getOovelser() {
+        setOovelser(); //efterligner at hente fra online kilde
+        MutableLiveData<List<Oovelser>> data = new MutableLiveData<>(); //Forbinder den data med et MutableLiveData objekt
         data.setValue(dataSet);
         return data;
     }
 
-    private void setOovelser() {
+    private void setOovelser() { //Her ville man typisk hente data fra en database
         dataSet.add(new Oovelser( "Liggende bækkenløft", "https://exorlive.com/video/?culture=da-DK&ex=11","https://media.exorlive.com/?id=11&filetype=jpg&env=production"));
         dataSet.add(new Oovelser( "Etbens knæbøj", "https://exorlive.com/video/?culture=da-DK&ex=605","https://media.exorlive.com/?id=605&filetype=jpg&env=production"));
         dataSet.add(new Oovelser( "Bækkenløft m/knæstræk", "https://exorlive.com/video/?culture=da-DK&ex=711","https://media.exorlive.com/?id=711&filetype=jpg&env=production"));

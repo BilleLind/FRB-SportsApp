@@ -15,25 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.data.model.Oovelser;
 import com.example.eksamensprojekt.presentation.adapter.OovelserOversigtAdapter;
-import com.example.eksamensprojekt.presentation.viewmodel.IntroTilOovelserViewModel;
+import com.example.eksamensprojekt.presentation.viewmodel.OovelserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class IntroTilOovelserActivity extends AppCompatActivity {
 
-    private static final String TAG = "IntroTilOovelserActivit"; //Debugging
-
     //Variabler
     private FirebaseAuth firebaseAuth;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
     Button klar_Button;
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
-    private IntroTilOovelserViewModel mIntroTilOovelserViewModel; //Nyt ViewModel objekt
+    private OovelserViewModel mOovelserViewModel; //Nyt ViewModel objekt
     private RecyclerView mRecyclerView;
     private OovelserOversigtAdapter mAdapter;
 
@@ -42,15 +36,13 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro__til__oovelser);
 
-        Log.d(TAG, "onCreate: started."); //Debugging
-
         mRecyclerView = findViewById(R.id.oversigt_recycler_view);
 
-        mIntroTilOovelserViewModel = new ViewModelProvider(this).get(IntroTilOovelserViewModel.class); //Instansierer min ViewModel
+        mOovelserViewModel = new ViewModelProvider(this).get(OovelserViewModel.class); //Instansierer min ViewModel
 
-        mIntroTilOovelserViewModel.init(); //Henter data fra Repository
+        mOovelserViewModel.init(); //Henter data fra Repository
 
-        mIntroTilOovelserViewModel.getOovelser().observe(this, new Observer<List<Oovelser>>() { //Observerer ændringer i ViewModel af LiveData objekterne.
+        mOovelserViewModel.getOovelser().observe(this, new Observer<List<Oovelser>>() { //Observerer ændringer i ViewModel af LiveData objekterne.
             @Override
             public void onChanged(List<Oovelser> oovelsers) { //Hver gang noget data ændrer sig, så vil det følgende blive eksekveret
                 mAdapter.notifyDataSetChanged();
@@ -115,8 +107,7 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        Log.d(TAG, "initRecyclerView: init recyclerview.");
-        mAdapter = new OovelserOversigtAdapter(this, mIntroTilOovelserViewModel.getOovelser().getValue());
+        mAdapter = new OovelserOversigtAdapter(this, mOovelserViewModel.getOovelser().getValue()); //Sender data til adapter
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

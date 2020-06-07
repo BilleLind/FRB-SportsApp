@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -22,7 +20,7 @@ public class StartTraeningActivity extends AppCompatActivity {
 
     private TextView titleTextView;
     private WebView oovelseWebViewVar;
-    private Button naesteOovelseButton, gennemfoortButton;
+    private Button naesteOovelseButton;
     private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
     private String webViewURL = "https://exorlive.com/video/?culture=da-DK&ex=11";
     private String webViewName;
@@ -39,9 +37,9 @@ public class StartTraeningActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
         //Forbinder IDs til de korrekte views
-        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
-        actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarProfil = findViewById(R.id.action_bar_profil);
+        actionBarChat = findViewById(R.id.action_bar_chat);
+        actionBarMenu = findViewById(R.id.action_bar_logo);
 
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +87,8 @@ public class StartTraeningActivity extends AppCompatActivity {
         oovelsesNavnListe.add("Lateral lunge");
         oovelsesNavnListe.add("Hoppende knæbøjninger");
 
-        naesteOovelseButton = (Button)findViewById(R.id.naeste_Oovelse_Button);
-        titleTextView = (TextView) findViewById(R.id.title_Text_View);
+        naesteOovelseButton = findViewById(R.id.naeste_Oovelse_Button);
+        titleTextView = findViewById(R.id.title_Text_View);
 
         //Skifter til ny øvelse
         naesteOovelseButton.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +97,7 @@ public class StartTraeningActivity extends AppCompatActivity {
                 if (oovelsesPosition <= 4) {
                     oovelsesPosition = oovelsesPosition + 1;
                 } else {
-                    Toast.makeText(getApplicationContext(),"Du har gennemført dagens program, godt klaret!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Du har gennemført dagens program, godt klaret!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
                     finish();
                 }
@@ -110,7 +108,7 @@ public class StartTraeningActivity extends AppCompatActivity {
             }
         });
 
-        oovelseWebViewVar = (WebView)findViewById(R.id.oovelse_Web_View);
+        oovelseWebViewVar = findViewById(R.id.oovelse_Web_View);
         oovelseWebViewVar.getSettings().setJavaScriptEnabled(true);
         oovelseWebViewVar.loadUrl(webViewURL);
 
