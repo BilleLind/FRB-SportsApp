@@ -109,7 +109,7 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
     private void initRecyclerView() {
         mAdapter = new OovelserOversigtAdapter(this, mOovelserViewModel.getOovelser().getValue()); //Sender data til adapter
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this)); //LayoutManager placerer item views i et RecyclerView
     }
 
     @Override

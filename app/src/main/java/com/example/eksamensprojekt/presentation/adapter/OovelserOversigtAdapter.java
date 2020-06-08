@@ -1,7 +1,6 @@
 package com.example.eksamensprojekt.presentation.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.data.model.Oovelser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversigtAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<Oovelser> mOovelser = new ArrayList<>();
+    private List<Oovelser> mOovelser;
 
 
     public OovelserOversigtAdapter(Context mContext, List<Oovelser> oovelser) {
@@ -41,7 +39,7 @@ public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         //Angiver navnet
-        ((ViewHolder) viewHolder).oversigtTextView.setText(mOovelser.get(position).getName());
+        viewHolder.oversigtTextView.setText(mOovelser.get(position).getName());
 
         //Angiver billedet
         RequestOptions defaultOptions = new RequestOptions()
@@ -49,11 +47,11 @@ public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversi
         Glide.with(mContext)
                 .setDefaultRequestOptions(defaultOptions)
                 .load(mOovelser.get(position).getImage())
-                .into(((ViewHolder) viewHolder).oversigtImageView);
+                .into(viewHolder.oversigtImageView);
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() { //Antal ViewHolders som skal skabes
         return mOovelser.size();
     }
 
