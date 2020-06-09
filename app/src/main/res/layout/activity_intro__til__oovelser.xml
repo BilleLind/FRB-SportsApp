@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.view.IntroTilOovelserActivity"
+        android:orientation="vertical">
+
+    <Button
+            android:id="@+id/klar_Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Klar!"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/oversigt_recycler_view">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </ScrollView>
+
+</LinearLayout>
