@@ -68,6 +68,35 @@ public class StartTraeningActivity extends AppCompatActivity {
             }
         });
         // ^ Action bar ^
+        
+        naesteOovelseButton = findViewById(R.id.naeste_Oovelse_Button);
+        titleTextView = findViewById(R.id.title_Text_View);
+        oovelseWebViewVar = findViewById(R.id.oovelse_Web_View);
+        oovelseWebViewVar.getSettings().setJavaScriptEnabled(true);
+        oovelseWebViewVar.loadUrl(webViewURL);
+
+        //Skifter til ny øvelse
+        naesteOovelseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tjekOmFærdig();
+                naesteOovelse();
+            }
+        });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    public void tjekOmFærdig() {
+        if (oovelsesPosition <= 4) {
+            oovelsesPosition = oovelsesPosition + 1;
+        } else {
+            Toast.makeText(getApplicationContext(), "Du har gennemført dagens program, godt klaret!", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
+            finish();
+        }
+    }
+    public void naesteOovelse() {
 
         final ArrayList oovelsesListe = new ArrayList(); //Primitiv liste over øvelser
         oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=11");
@@ -87,32 +116,10 @@ public class StartTraeningActivity extends AppCompatActivity {
         oovelsesNavnListe.add("Lateral lunge");
         oovelsesNavnListe.add("Hoppende knæbøjninger");
 
-        naesteOovelseButton = findViewById(R.id.naeste_Oovelse_Button);
-        titleTextView = findViewById(R.id.title_Text_View);
-
-        //Skifter til ny øvelse
-        naesteOovelseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (oovelsesPosition <= 4) {
-                    oovelsesPosition = oovelsesPosition + 1;
-                } else {
-                    Toast.makeText(getApplicationContext(), "Du har gennemført dagens program, godt klaret!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
-                    finish();
-                }
-                webViewURL = (String) oovelsesListe.get(oovelsesPosition);
-                webViewName = (String) oovelsesNavnListe.get(oovelsesPosition);
-                titleTextView.setText(webViewName);
-                oovelseWebViewVar.loadUrl(webViewURL);
-            }
-        });
-
-        oovelseWebViewVar = findViewById(R.id.oovelse_Web_View);
-        oovelseWebViewVar.getSettings().setJavaScriptEnabled(true);
+        webViewURL = (String) oovelsesListe.get(oovelsesPosition);
+        webViewName = (String) oovelsesNavnListe.get(oovelsesPosition);
+        titleTextView.setText(webViewName);
         oovelseWebViewVar.loadUrl(webViewURL);
-
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
