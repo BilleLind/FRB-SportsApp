@@ -21,7 +21,7 @@ public class OovelserRepository {
     }
     //Her efterligner vi hvordan det ville se ud hvis vi hentede fra en online kilde
     public MutableLiveData<List<Oovelser>> getOovelser() {
-        dataSet.clear();
+        dataSet.clear(); //Rydder dataSet så det er klart til en ny activity
         setOovelser(); //efterligner at hente fra online kilde
         MutableLiveData<List<Oovelser>> data = new MutableLiveData<>(); //Forbinder den data med et MutableLiveData objekt
         data.setValue(dataSet);

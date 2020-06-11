@@ -2,7 +2,6 @@ package com.example.eksamensprojekt.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,8 +24,8 @@ public class IntroTilOovelserActivity extends AppCompatActivity {
 
     //Variabler
     private FirebaseAuth firebaseAuth;
-    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
-    Button klar_Button;
+    private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    private  Button klar_Button;
     private OovelserViewModel mOovelserViewModel; //Nyt ViewModel objekt
     private RecyclerView mRecyclerView;
     private OovelserOversigtAdapter mAdapter;
