@@ -1,4 +1,5 @@
 # EksamensProjekt
+Case: 
 Først års Eksamens Projekt
 
 EksamensProjekt er vores FørsteårsProjekt på Sjælland erhvervsakademi, Zealand
@@ -25,6 +26,28 @@ Feedback til øvelser
 Dørkode (Dansikring)
 
 Hertil kan man overveje at udvikle en matchende behandler-app (gerne til desktop.)
+--------------------------------------------------------------------------------------------------------------------------------------
+Arkitektur :
+Med vores app har vi prøvet at følge Grasp 9 principper så godt som vi har kunne.
+med nogle af klasserne eller metoderne har vi fået det gjort til at følge MVVM arkitekturen.
+Vi har også prøvet at fremvise en MVP arkitektur.
+
+Vores Database valg blev Real time Database for vores Chat Use case og Bruger data
+og Cloud Firestore for vores Booking Use case
+
+Technical: 
+Vores App er det kun lavet til Android telefoner
+minimum SDKVersion = 14
+target SDKVersion = 29
+
+Vi bruger følgende libraries : 
+Jaredrummler's Material spinner 1.3.1
+Kofigyan's StateProgressbar 1.0.0
+Bumptech's Glode 4.11.0
+
+Firebase auth 19.3.1
+Firebase Database 19.3.0
+Firebase Firestore 21.4.3
 
 License
 Copyright (C) 2020 FRB-SportsApp
