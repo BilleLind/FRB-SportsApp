@@ -17,6 +17,10 @@ import java.util.List;
 
 
 public class OovelserOversigtAdapter extends RecyclerView.Adapter<OovelserOversigtAdapter.ViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private Context mContext;
     private List<Oovelser> mOovelser;

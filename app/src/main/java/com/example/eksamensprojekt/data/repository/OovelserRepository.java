@@ -9,6 +9,10 @@ import java.util.List;
 //Repository klassen er hvor vi samler vores data
 //Singleton mønsteret
 public class OovelserRepository {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private static OovelserRepository instance; //Vi laver et instance for at undgå at skabe en hær af åbne forbindelser til evt. web service/api/caches
     private ArrayList<Oovelser> dataSet = new ArrayList<>();

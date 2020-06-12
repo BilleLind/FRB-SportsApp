@@ -27,6 +27,10 @@ import java.util.Objects;
 import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
 
 public class OpretBrugerActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private TextInputLayout fornavn, efternavn, email, telefonNr, adgangskode;
 

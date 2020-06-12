@@ -18,6 +18,10 @@ import com.example.eksamensprojekt.presentation.view.BeskedActivity;
 import java.util.List;
 
 public class BrugerAdapter extends RecyclerView.Adapter<BrugerAdapter.ViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private Context mContext;
     private List<Bruger> mBrugere;

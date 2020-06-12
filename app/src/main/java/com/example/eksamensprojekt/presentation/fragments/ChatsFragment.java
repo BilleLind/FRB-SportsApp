@@ -12,6 +12,10 @@ import com.example.eksamensprojekt.R;
 
 
 public class ChatsFragment extends Fragment {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -21,6 +21,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class IntroTilOovelserActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     //Variabler
     private FirebaseAuth firebaseAuth;

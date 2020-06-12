@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     private int space;
 
     public SpacesItemDecoration(int space){

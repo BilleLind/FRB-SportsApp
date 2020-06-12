@@ -28,7 +28,11 @@ import java.util.List;
 import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
 
 
-public class BrugerFragment extends Fragment {
+public class    BrugerFragment extends Fragment {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     private RecyclerView recyclerView;
 
     private BrugerAdapter brugerAdapter;
@@ -46,13 +50,13 @@ public class BrugerFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         brugerList = new ArrayList<>();
 
-        readUsers();
+        visBrugere();
 
         return view;
     }
 
 
-    private void readUsers() {
+    private void visBrugere() {
 
         final FirebaseUser firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(brugere);

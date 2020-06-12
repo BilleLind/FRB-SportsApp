@@ -18,6 +18,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.List;
 
 public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     public static final int MSG_TYPE_VENSTRE = 0;
     public static final int MSG_TYPE_HOEJRE = 1;

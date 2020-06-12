@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingStep2Fragment extends Fragment implements AlleAnsatteLoadListener {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     CollectionReference alleAnsatteRef;
 

@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BehandlingerAdapter extends RecyclerView.Adapter<BehandlingerAdapter.BehandlingViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     Context context;
     List<BehandlingPresenter> behandlingPresenterList;

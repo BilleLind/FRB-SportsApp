@@ -14,6 +14,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     ImageView actionBarProfil, actionBarChat; //Action Bar Variabler
     ImageView massage, fysioterapi, akupunktur;
