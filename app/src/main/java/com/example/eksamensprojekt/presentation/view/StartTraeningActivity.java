@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class StartTraeningActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private FirebaseAuth firebaseAuth;
 

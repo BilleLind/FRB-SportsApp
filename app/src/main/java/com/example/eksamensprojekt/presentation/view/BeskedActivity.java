@@ -55,6 +55,11 @@ specific language governing permissions and limitations
 under the License.
  */
 public class BeskedActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
+
 
     private ShapeableImageView profilBillede;
 

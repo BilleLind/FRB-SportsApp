@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 import com.example.eksamensprojekt.R;
 
 public class BookingStep4Fragment extends Fragment {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     static BookingStep4Fragment instance;
 

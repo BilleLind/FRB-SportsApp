@@ -10,6 +10,10 @@ import com.example.eksamensprojekt.presentation.fragments.BookingStep3Fragment;
 import com.example.eksamensprojekt.presentation.fragments.BookingStep4Fragment;
 
 public class BookingViewPagerAdapter extends FragmentPagerAdapter {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
 
 

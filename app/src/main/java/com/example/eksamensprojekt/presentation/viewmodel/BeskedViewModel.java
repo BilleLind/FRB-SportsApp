@@ -10,6 +10,10 @@ import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.data.repository.BeskedRepository;
 
 public class BeskedViewModel extends AndroidViewModel {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     private BeskedRepository beskedRepository;
     LiveData<Besked> nyChatBeskedLiveData;
 

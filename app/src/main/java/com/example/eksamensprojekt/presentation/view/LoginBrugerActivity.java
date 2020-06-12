@@ -23,6 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class LoginBrugerActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private TextInputLayout email, adgangskode;
 

@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingStep3Fragment extends Fragment implements AlleTiderLoadListener {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     CollectionReference alleTiderRef;
 

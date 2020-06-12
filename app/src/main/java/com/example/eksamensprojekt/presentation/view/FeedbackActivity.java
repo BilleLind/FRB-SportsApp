@@ -16,6 +16,10 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 public class FeedbackActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private FirebaseAuth firebaseAuth;
     ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler

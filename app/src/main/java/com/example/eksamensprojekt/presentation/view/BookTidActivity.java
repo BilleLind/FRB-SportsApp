@@ -37,6 +37,10 @@ under the License.  */
 
 
 public class BookTidActivity extends AppCompatActivity {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
 
     //Variabler

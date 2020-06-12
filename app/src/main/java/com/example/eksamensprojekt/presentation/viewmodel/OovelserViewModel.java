@@ -9,7 +9,10 @@ import com.example.eksamensprojekt.data.repository.OovelserRepository;
 import java.util.List;
 
 public class OovelserViewModel extends ViewModel { //Extender ViewModel
-
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     private MutableLiveData<List<Oovelser>> mOovelser; //MutableLiveData er en subclass af LiveData. Mutable LiveData kan ændres, det kan LiveData ikke.
     private OovelserRepository mRepository;
 

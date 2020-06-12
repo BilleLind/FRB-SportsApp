@@ -29,6 +29,10 @@ import static com.example.eksamensprojekt.presentation.Interface.Konstante.bruge
 
 
 public class    BrugerFragment extends Fragment {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
     private RecyclerView recyclerView;
 
     private BrugerAdapter brugerAdapter;

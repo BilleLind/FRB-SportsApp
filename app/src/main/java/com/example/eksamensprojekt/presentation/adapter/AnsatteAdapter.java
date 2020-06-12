@@ -18,6 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnsatteAdapter extends RecyclerView.Adapter<AnsatteAdapter.AnsatteViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
 
     Context context;

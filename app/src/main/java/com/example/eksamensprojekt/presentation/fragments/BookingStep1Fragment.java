@@ -32,6 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookingStep1Fragment extends Fragment implements AlleBehandlingerLoadListener, BranchLoadListener {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     //Variabler
 

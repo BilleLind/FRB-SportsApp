@@ -20,6 +20,10 @@ import java.util.List;
 
 
 public class TiderAdapter extends RecyclerView.Adapter<com.example.eksamensprojekt.presentation.adapter.TiderAdapter.TiderViewHolder> {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     Context context;
     List<TiderPresenter> tiderPresenterList;

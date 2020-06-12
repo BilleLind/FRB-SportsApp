@@ -1,6 +1,10 @@
 package com.example.eksamensprojekt.presentation.presenter;
 
 public class BehandlingPresenter {
+    /**
+     * @author Anders, Sebastian og Marc
+     * @version 1.2
+     */
 
     private String varighed,pris;
 
