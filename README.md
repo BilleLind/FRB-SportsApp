@@ -1,7 +1,7 @@
 # EksamensProjekt
 Lavet af : CodeyFlex, MarcKlesiewicz og Yokarak
 demonstrativ video for appen : https://discordapp.com/channels/709344809311273010/709344809311273013/720784775845118012
-Det færdige produkt ligger i mappen APK
+Det færdige produkt ligger i under Release
 
 Case: 
 Først års Eksamens Projekt
