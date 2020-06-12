@@ -26,6 +26,7 @@ Feedback til øvelser
 Dørkode (Dansikring)
 
 Hertil kan man overveje at udvikle en matchende behandler-app (gerne til desktop.)
+
 --------------------------------------------------------------------------------------------------------------------------------------
 Arkitektur :
 Med vores app har vi prøvet at følge Grasp 9 principper så godt som vi har kunne.
