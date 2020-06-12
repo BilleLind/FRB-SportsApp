@@ -1,4 +1,6 @@
 # EksamensProjekt
+Lavet af : CodeyFlex, MarcKlesiewicz og Yokarak
+
 Case: 
 Først års Eksamens Projekt
 
