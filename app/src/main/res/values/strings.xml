@@ -6,4 +6,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bruger_navn">Bruger Navn</string>
     <string name="log_ud">Log ud</string>
+    <string name="s_g">søg..</string>
 </resources>
