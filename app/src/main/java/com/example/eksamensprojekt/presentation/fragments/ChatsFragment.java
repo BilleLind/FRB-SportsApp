@@ -25,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class ChatsFragment extends Fragment {
@@ -73,6 +75,11 @@ public class ChatsFragment extends Fragment {
                         brugerList.add(besked.getAfsender());
                     }
                 }
+
+                Set<String> hashSet = new HashSet<>(brugerList); // der bruges hashSet for at undgå at der er blevet skabt en brugerList hvor derefter bliver oprettet en chat med en anden
+                brugerList.clear();
+                brugerList.addAll(hashSet); // smider af fra hashSet ind i det nu tomme (bruger .clear() i linjen før) ArrayList med navnet brugerList
+
                 visAktiveSamtaler();
             }
 
@@ -94,22 +101,13 @@ public class ChatsFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                brugere.clear();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Bruger bruger = snapshot.getValue(Bruger.class);
 
-                    for (String id : brugerList) {
+                    for (String id : brugerList) { // hvis der findes et id i brugerList så bliver det vist i ChatActivity igennem ChatsFragment
                         if (bruger.getId().equals(id)) {
-                            if (brugere.size() != 0) {
-                                for (Bruger bruger1 : brugere) {
-                                    if (!bruger.getId().equals(bruger1.getId())) {
-                                        brugere.add(bruger);
-                                    }
-                                }
-                            } else {
-                                brugere.add(bruger);
-                            }
+                            brugere.add(bruger);
                         }
                     }
                 }
