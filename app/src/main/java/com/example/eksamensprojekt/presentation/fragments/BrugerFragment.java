@@ -52,6 +52,7 @@ public class    BrugerFragment extends Fragment {
 
         visBrugere();
 
+
         return view;
     }
 
@@ -73,6 +74,7 @@ public class    BrugerFragment extends Fragment {
                     if (!bruger.getId().equals(firebaseBruger.getUid())) { // asserts if there are any other user than the current logged in and adds them to the user fragment activity
                         brugerList.add(bruger);
                     }
+
                 }
                 brugerAdapter = new BrugerAdapter(getContext(), brugerList);
                 recyclerView.setAdapter(brugerAdapter);
