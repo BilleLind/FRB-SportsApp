@@ -1,15 +1,19 @@
 package com.example.eksamensprojekt.data.model;
 
+import java.util.Map;
+
 public class Besked {
 
     private String afsender;
     private String modtager;
     private String besked;
+    private Long tid;
 
-    public Besked(String afsender, String modtager, String besked) {
+    public Besked(String afsender, String modtager, String besked, Long tid) {
         this.afsender = afsender;
         this.modtager = modtager;
         this.besked = besked;
+        this.tid = tid;
     }
 
     public Besked() {
@@ -37,5 +41,13 @@ public class Besked {
 
     public void setBesked(String besked) {
         this.besked = besked;
+    }
+
+    public Long getTid() {
+        return tid;
+    }
+
+    public void setTid(Long tid) {
+        this.tid = tid;
     }
 }

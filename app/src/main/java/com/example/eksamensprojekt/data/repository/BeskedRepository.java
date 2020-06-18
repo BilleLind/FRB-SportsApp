@@ -23,6 +23,7 @@ public class BeskedRepository {
         hashMap.put("afsender", nyBesked.getAfsender()); //det gør det muligt at gemme afsenders ide med en forbindelse til indexet som fortæller at det ide tilhøre afsenderen
         hashMap.put("modtager", nyBesked.getModtager());
         hashMap.put("besked", nyBesked.getBesked());
+        hashMap.put("tid", nyBesked.getTid());
 
         databaseReference.child(chats).push().setValue(hashMap); //ved "databaseReference.child(chats)" fortæller vi databasen at lokalitionen for vores Hashwap er under referencen "chats"
 

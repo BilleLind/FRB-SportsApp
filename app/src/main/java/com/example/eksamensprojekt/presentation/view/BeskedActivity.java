@@ -28,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -73,6 +74,8 @@ public class BeskedActivity extends AppCompatActivity {
     private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     private BeskedViewModel beskedViewModel;
+
+    ValueEventListener setBeskedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,11 +176,35 @@ public class BeskedActivity extends AppCompatActivity {
         });
     }
 
+   /* private void setBesked(final String brugerId) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        setBeskedListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Besked besked = snapshot.getValue(Besked.class);
+                    if (besked.getModtager().equals(firebaseBruger.getUid()) && besked.getAfsender().equals(brugerId)) {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("erSet", true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    } */
+
     private void sendBesked(String afsender, String modtager, String besked) {
        Besked beskedny = new Besked();
        beskedny.setAfsender(afsender);
        beskedny.setModtager(modtager);
        beskedny.setBesked(besked);
+       Long tidSomLong = System.currentTimeMillis()/1000;
+       beskedny.setTid(tidSomLong);
        beskedViewModel.nyBesked(beskedny); // sender videre til BeskedViewModel ved brug af nyBesked(beskedny) metoden.
     }
 
