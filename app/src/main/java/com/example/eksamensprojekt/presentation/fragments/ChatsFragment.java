@@ -7,14 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.service.autofill.Dataset;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.data.model.Bruger;
+import com.example.eksamensprojekt.data.model.SamtaleListe;
 import com.example.eksamensprojekt.presentation.adapter.BrugerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,9 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
+import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
 
 
 public class ChatsFragment extends Fragment {
@@ -39,12 +38,12 @@ public class ChatsFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private BrugerAdapter brugerAdapter;
-    private List<Bruger> brugere;
+    private List<Bruger> brugerListe;
 
     FirebaseUser firebaseBruger;
     DatabaseReference databaseReference;
 
-    private List<String> brugerList;
+    private List<SamtaleListe> samtalelisten;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,30 +56,19 @@ public class ChatsFragment extends Fragment {
 
         firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
 
-        brugerList = new ArrayList<>();
+        samtalelisten = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        databaseReference = FirebaseDatabase.getInstance().getReference("samtaleListe").child(firebaseBruger.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                brugerList.clear();
-
+                samtalelisten.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Besked besked = snapshot.getValue(Besked.class);
-
-                    if (besked.getAfsender().equals(firebaseBruger.getUid())) { //TODO når min struktur for chats ændre skal disse også ændres
-                        brugerList.add(besked.getModtager());
-                    }
-                    if (besked.getModtager().equals(firebaseBruger.getUid())) {
-                        brugerList.add(besked.getAfsender());
-                    }
+                    SamtaleListe samtaleListe = snapshot.getValue(SamtaleListe.class);
+                    samtalelisten.add(samtaleListe);
                 }
 
-                Set<String> hashSet = new HashSet<>(brugerList); // der bruges hashSet for at undgå at der er blevet skabt en brugerList hvor derefter bliver oprettet en chat med en anden
-                brugerList.clear();
-                brugerList.addAll(hashSet); // smider af fra hashSet ind i det nu tomme (bruger .clear() i linjen før) ArrayList med navnet brugerList
-
-                visAktiveSamtaler();
+                samtaleTilBruger();
             }
 
             @Override
@@ -88,32 +76,27 @@ public class ChatsFragment extends Fragment {
 
             }
         });
-
 
         return view;
     }
 
-    private void visAktiveSamtaler() {
-        brugere = new ArrayList<>();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference("Brugere");
-
+    private void samtaleTilBruger() {
+        brugerListe = new ArrayList<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference(brugere);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                brugerListe.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Bruger bruger = snapshot.getValue(Bruger.class);
-
-                    for (String id : brugerList) { // hvis der findes et id i brugerList så bliver det vist i ChatActivity igennem ChatsFragment
-                        if (bruger.getId().equals(id)) {
-                            brugere.add(bruger);
+                    for (SamtaleListe samtaleListe : samtalelisten) {
+                        if (bruger.getId().equals(samtaleListe.getBrugerid())) {
+                            brugerListe.add(bruger);
                         }
                     }
                 }
-                brugerAdapter = new BrugerAdapter(getContext(), brugere);
+                brugerAdapter = new BrugerAdapter(getContext(), brugerListe);
                 recyclerView.setAdapter(brugerAdapter);
-
             }
 
             @Override
@@ -123,4 +106,5 @@ public class ChatsFragment extends Fragment {
         });
 
     }
+
 }

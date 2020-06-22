@@ -28,7 +28,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -74,6 +73,7 @@ public class BeskedActivity extends AppCompatActivity {
     private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
 
     private BeskedViewModel beskedViewModel;
+
 
     ValueEventListener setBeskedListener;
 
@@ -159,7 +159,10 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
+
+
         //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
+        assert modtagerId != null;
         databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(modtagerId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -175,6 +178,10 @@ public class BeskedActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
 
    /* private void setBesked(final String brugerId) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -218,6 +225,7 @@ public class BeskedActivity extends AppCompatActivity {
                 beskedList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //"dataSnapshot.getChildren()" giver adgang til de nærmeste dataSnapshot
                     Besked besked = snapshot.getValue(Besked.class); //her marshaller man data'en fra snapshot ind igennem Besked klassen, så afsender er forbundet med en String kaldet afsender så Besked.getAfsender
+                    assert besked != null;
                     if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
                             besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) { // her kontrollere man om det nedhentede har relevans for sin bruger
                         beskedList.add(besked); // hvis den har så tilføjes den til et Arraylist

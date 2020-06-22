@@ -83,7 +83,7 @@ public class    BrugerFragment extends Fragment {
 
     private void soegEfterBrugere(String s) {
         final FirebaseUser firebaseBruger = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance().getReference("Brugere").orderByChild("fornavn").startAt(s).endAt(s +"\uf8ff");
+        Query query = FirebaseDatabase.getInstance().getReference(brugere).orderByChild("fornavn").startAt(s).endAt(s +"\uf8ff");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
