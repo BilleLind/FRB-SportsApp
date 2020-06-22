@@ -15,6 +15,9 @@ import com.example.eksamensprojekt.data.model.Besked;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+import android.text.format.DateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder> {
@@ -57,15 +60,24 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
 
         holder.visBesked.setText(besked.getBesked());
 
+
+        holder.tidBesked.setText(skafTid(besked));
+
         /* if (billedeURL.equals("default")){
             holder.profile_billede.setImageResource(R.mipmap.ic_launcher);
         } else {
             Glide.with(mcontext).load(billedeURL).into(holder.profile_billede);
         } */
 
-
-
     }
+
+    private String skafTid(Besked besked) {
+        Calendar kalender = Calendar.getInstance();
+        kalender.setTimeInMillis(besked.getTid()*1000);
+        String dato = DateFormat.format("dd-MM-yyyy 'KL.' HH:mm:ss", kalender).toString();
+        return dato;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -76,12 +88,14 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
 
         public TextView visBesked;
         public ImageView profilBillede;
+        public  TextView tidBesked;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             visBesked = itemView.findViewById(R.id.vis_besked);
             profilBillede = itemView.findViewById(R.id.profile_billede);
+            tidBesked = itemView.findViewById(R.id.tid_besked);
         }
     }
 

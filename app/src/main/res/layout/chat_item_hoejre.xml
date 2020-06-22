@@ -30,9 +30,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_vist"
-            android:layout_below="@id/vis_besked"
-            android:layout_alignParentEnd="true" />
+            android:id="@+id/tid_besked"
+            android:layout_toStartOf="@id/vis_besked"
+            android:layout_marginEnd="8dp"
+            android:layout_alignBaseline="@id/vis_besked"
+            />
 
     </RelativeLayout>
 

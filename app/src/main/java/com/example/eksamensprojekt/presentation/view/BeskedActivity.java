@@ -74,6 +74,9 @@ public class BeskedActivity extends AppCompatActivity {
 
     private BeskedViewModel beskedViewModel;
 
+
+    ValueEventListener setBeskedListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,7 +159,10 @@ public class BeskedActivity extends AppCompatActivity {
         });
 
 
+
+
         //TODO skal alt sammen sikkert ind i repositoriet og observer ind hertil
+        assert modtagerId != null;
         databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(modtagerId);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -173,11 +179,39 @@ public class BeskedActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
+   /* private void setBesked(final String brugerId) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+        setBeskedListener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Besked besked = snapshot.getValue(Besked.class);
+                    if (besked.getModtager().equals(firebaseBruger.getUid()) && besked.getAfsender().equals(brugerId)) {
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("erSet", true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    } */
+
     private void sendBesked(String afsender, String modtager, String besked) {
        Besked beskedny = new Besked();
        beskedny.setAfsender(afsender);
        beskedny.setModtager(modtager);
        beskedny.setBesked(besked);
+       Long tidSomLong = System.currentTimeMillis()/1000;
+       beskedny.setTid(tidSomLong);
        beskedViewModel.nyBesked(beskedny); // sender videre til BeskedViewModel ved brug af nyBesked(beskedny) metoden.
     }
 
@@ -191,6 +225,7 @@ public class BeskedActivity extends AppCompatActivity {
                 beskedList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { //"dataSnapshot.getChildren()" giver adgang til de nærmeste dataSnapshot
                     Besked besked = snapshot.getValue(Besked.class); //her marshaller man data'en fra snapshot ind igennem Besked klassen, så afsender er forbundet med en String kaldet afsender så Besked.getAfsender
+                    assert besked != null;
                     if (besked.getModtager().equals(minid) && besked.getAfsender().equals(brugerId) ||
                             besked.getModtager().equals(brugerId) && besked.getAfsender().equals(minid)) { // her kontrollere man om det nedhentede har relevans for sin bruger
                         beskedList.add(besked); // hvis den har så tilføjes den til et Arraylist

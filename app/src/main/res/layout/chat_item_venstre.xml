@@ -25,9 +25,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_vist"
-        android:visibility="gone"
-        android:layout_below="@id/vis_besked"/>
+        android:id="@+id/tid_besked"
+        android:layout_toEndOf="@+id/vis_besked"
+        android:layout_alignBaseline="@id/vis_besked"
+        android:layout_marginStart="8dp"/>
 
 
 </RelativeLayout>

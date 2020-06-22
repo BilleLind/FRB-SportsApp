@@ -281,8 +281,8 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
                     HashMap<String, String> hashMap = new HashMap<>();
                     hashMap.put("id", brugerid);
-                    hashMap.put("fornavn", fornavn);
-                    hashMap.put("efternavn", efternavn);
+                    hashMap.put("fornavn", fornavn.substring(0,1));
+                    hashMap.put("efternavn", efternavn.substring(0,1));
                     hashMap.put("telefonNr", telefonNr);
                     hashMap.put("email", email);
 
