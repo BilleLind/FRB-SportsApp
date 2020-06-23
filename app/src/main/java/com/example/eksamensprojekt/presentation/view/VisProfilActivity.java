@@ -25,7 +25,7 @@ public class VisProfilActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseUser firebaseBruger;
-    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class VisProfilActivity extends AppCompatActivity {
         //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarHome = (ImageView) findViewById(R.id.action_bar_home);
 
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,7 @@ public class VisProfilActivity extends AppCompatActivity {
         });
 
         //Skifter til menu activity
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+        actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -32,7 +32,7 @@ public class LoginBrugerActivity extends AppCompatActivity {
 
     private Button goToOpretBrugerBtn, loginBtn;
 
-    private ImageView actionBarMain,actionBarChat,actionBarProfil;
+    private ImageView actionBarHome,actionBarChat,actionBarProfil;
 
     private ProgressDialog loginProgress;
 
@@ -53,12 +53,12 @@ public class LoginBrugerActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarHome = (ImageView) findViewById(R.id.action_bar_home);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
 
 
-        actionBarMain.setOnClickListener(new View.OnClickListener() {
+        actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
