@@ -21,7 +21,7 @@ public class VisProfilActivity extends AppCompatActivity {
      * @version 1.2
      */
 
-    private Button brugerLogUdKnap;
+    private Button brugerLogUdKnap, chatButton, træningButton;
 
     private FirebaseAuth firebaseAuth;
     FirebaseUser firebaseBruger;
@@ -76,6 +76,8 @@ public class VisProfilActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         brugerLogUdKnap = (Button) findViewById(R.id.log_ud_btn);
+        chatButton = (Button) findViewById(R.id.goto_chat_btn);
+        træningButton = (Button) findViewById(R.id.goto_traening_btn);
 
 
         brugerLogUdKnap.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +86,22 @@ public class VisProfilActivity extends AppCompatActivity {
 
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
+
+        træningButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VisProfilActivity.this, IntroTilOovelserActivity.class));
                 finish();
             }
         });
