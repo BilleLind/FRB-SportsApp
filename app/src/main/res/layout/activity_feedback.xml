@@ -42,7 +42,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/rounded_buttons"
         android:textColor="@android:color/white"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/feedback_Input"
