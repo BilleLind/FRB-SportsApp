@@ -1,7 +1,10 @@
 package com.example.eksamensprojekt.presentation.view;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -91,27 +94,39 @@ public class MainActivity extends AppCompatActivity {
         massage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
-                finish();
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create(); //Read Update
+                alertDialog.setTitle("Massage");
+                alertDialog.setMessage(getString(R.string.massage_info));
+
+                alertDialog.show();
             }
+
         });
 
         //Skifter til book tid activity fra Fysio knap
         fysioterapi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
-                finish();
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create(); //Read Update
+                alertDialog.setTitle("Fysioterapi");
+                alertDialog.setMessage(getString(R.string.fysioterapi_info));
+
+                alertDialog.show();
             }
+
         });
 
         //Skifter til book tid activity fra akupunktur knap
         akupunktur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, BookTidActivity.class));
-                finish();
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create(); //Read Update
+                alertDialog.setTitle("Akupunktur");
+                alertDialog.setMessage(getString(R.string.akupunktur_info));
+
+                alertDialog.show();
             }
+
         });
 
     }
