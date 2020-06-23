@@ -8,4 +8,6 @@
     <string name="log_ud">Log ud</string>
     <string name="s_g">søg..</string>
     <string name="set">Set</string>
+    <string name="v_lg_billede">vælg billede</string>
+    <string name="skift_billede">skift billede</string>
 </resources>
