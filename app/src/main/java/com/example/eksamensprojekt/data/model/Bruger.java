@@ -1,5 +1,7 @@
 package com.example.eksamensprojekt.data.model;
 
+import com.google.firebase.database.Exclude;
+
 public class Bruger {
 
     private String id, fornavn, billedeURL, brugerType;
@@ -15,6 +17,7 @@ public class Bruger {
         this.id = id;
         this.fornavn = fornavn;
     }
+
 
     public Bruger() {
     }

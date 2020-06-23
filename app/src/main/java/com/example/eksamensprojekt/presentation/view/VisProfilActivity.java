@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -19,11 +17,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.data.repository.Upload;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.eksamensprojekt.data.model.Besked;
+import com.example.eksamensprojekt.data.model.Bruger;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.example.eksamensprojekt.presentation.Interface.Konstante.VEALG_BILLEDE_ANMODNING;
@@ -72,7 +70,7 @@ public class VisProfilActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_billede);
 
         opbevaringsRef = FirebaseStorage.getInstance().getReference("uploads");
-        databaseReference = FirebaseDatabase.getInstance().getReference(brugere);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         //Action Bar
         //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -181,10 +179,8 @@ public class VisProfilActivity extends AppCompatActivity {
                         }
                     }, 100);
                     Toast.makeText(VisProfilActivity.this, "Upload fuldført", Toast.LENGTH_SHORT).show();
-                    String tempUid = firebaseBruger.getUid();
-                    Upload upload = new Upload(tempUid, Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).toString().toLowerCase());
-                    String uploadID = databaseReference.push().getKey();
-                    databaseReference.child(uploadID).setValue(upload);
+                    String temp = taskSnapshot.getUploadSessionUri().toString();
+                    databaseReference.child(brugere).child(firebaseBruger.getUid()).child("billedeURL").setValue(temp);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -202,6 +198,7 @@ public class VisProfilActivity extends AppCompatActivity {
             Toast.makeText(this, "Intet billede valgt", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void vaelgBillede() {
         Intent intent = new Intent();
