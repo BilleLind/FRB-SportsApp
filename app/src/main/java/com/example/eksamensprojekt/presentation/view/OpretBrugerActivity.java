@@ -39,9 +39,11 @@ public class OpretBrugerActivity extends AppCompatActivity {
 
     private ProgressDialog opretProgress;
 
+
     //firebase authentication
     FirebaseAuth firebaseAuth;
     DatabaseReference reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opret_bruger);
 
         firebaseAuth = firebaseAuth.getInstance();
+
 
         //Tilføjer custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -85,6 +88,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
         // ^^action bar
 
@@ -265,6 +269,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
     }
 
 
+
     //Metode til registrering af ny bruger gennem firebase
     private void opretBruger(final String email, String adgangskode, final String fornavn, final String efternavn, final String telefonNr) {
 
@@ -285,6 +290,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     hashMap.put("efternavn", efternavn.substring(0,1));
                     hashMap.put("telefonNr", telefonNr);
                     hashMap.put("email", email);
+                    hashMap.put("brugerType", "patient");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -310,5 +316,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         });
 
     }
+
+
 }
 
