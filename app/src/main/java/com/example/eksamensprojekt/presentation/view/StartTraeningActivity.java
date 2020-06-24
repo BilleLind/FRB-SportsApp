@@ -25,7 +25,7 @@ public class StartTraeningActivity extends AppCompatActivity {
     private TextView titleTextView;
     private WebView oovelseWebViewVar;
     private Button naesteOovelseButton;
-    private ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    private ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
     private String webViewURL = "https://exorlive.com/video/?culture=da-DK&ex=11";
     private String webViewName;
     private int oovelsesPosition = 0;
@@ -43,7 +43,7 @@ public class StartTraeningActivity extends AppCompatActivity {
         //Forbinder IDs til de korrekte views
         actionBarProfil = findViewById(R.id.action_bar_profil);
         actionBarChat = findViewById(R.id.action_bar_chat);
-        actionBarMenu = findViewById(R.id.action_bar_logo);
+        actionBarHome = findViewById(R.id.action_bar_home);
 
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class StartTraeningActivity extends AppCompatActivity {
         });
 
         //Skifter til menu activity
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+        actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartTraeningActivity.this, MainActivity.class));

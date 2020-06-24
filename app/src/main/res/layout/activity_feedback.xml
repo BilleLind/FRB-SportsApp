@@ -37,10 +37,13 @@
                 android:id="@+id/daarlig_Oplevelse_Button"/>
     </RadioGroup>
     <Button
-            android:id="@+id/gennemfoort_Traening_Button"
-            android:text="Gennemført for i dag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/gennemfoort_Traening_Button"
+        android:text="Gennemført for i dag"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_buttons"
+        android:textColor="@android:color/white"/>
     <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/feedback_Input"
             android:layout_width="match_parent"
