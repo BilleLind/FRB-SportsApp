@@ -35,10 +35,10 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
 
     FirebaseUser firebaseBruger;
 
-    public BeskedAdapter(Context context, List<Besked> beskedList, String billedeURL) {
+    public BeskedAdapter(Context context, List<Besked> beskedList) {
         this.beskedList = beskedList;
         this.context = context;
-        this.billedeURL = billedeURL;
+        //this.billedeURL = billedeURL;
     }
 
     @NonNull
@@ -87,14 +87,14 @@ public class BeskedAdapter extends RecyclerView.Adapter<BeskedAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView visBesked;
-        public ImageView profilBillede;
+        //public ImageView profilBillede;
         public  TextView tidBesked;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             visBesked = itemView.findViewById(R.id.vis_besked);
-            profilBillede = itemView.findViewById(R.id.profile_billede);
+          //  profilBillede = itemView.findViewById(R.id.profile_billede);
             tidBesked = itemView.findViewById(R.id.tid_besked);
         }
     }
