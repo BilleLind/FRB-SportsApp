@@ -9,13 +9,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Bruger;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -118,16 +123,33 @@ public class VisProfilActivity extends AppCompatActivity {
                 finish();
             }
         });
+        udfyldProfil();
 
     }
 
-    private void startAcitivityMetode(Context context, Context context2) {
-        startActivity(new Intent(context.class, context2.class));
-    }
 
 
     private void udfyldProfil() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child()
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(fireBruger.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Bruger bruger = dataSnapshot.getValue(Bruger.class);
+                String fuldeNavn = bruger.getFornavn() +" "+ bruger.getEfternavn();
+                visFuldenavn.setText(fuldeNavn);
+                String email = bruger.getEmail();
+                visEmail.setText(email);
+                String tele = bruger.getTelefonNr();
+                visTelefonNr.setText(tele);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 
