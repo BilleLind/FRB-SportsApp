@@ -4,13 +4,16 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import com.example.eksamensprojekt.R;
 
+import com.example.eksamensprojekt.presentation.common.MyTimer;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
 
+    long startTime = MyTimer.currentTimestamp();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +49,20 @@ public class MainActivity extends AppCompatActivity {
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
 
+        Date date=new Date(startTime);
+        System.out.println("Time is " + date.toString() + " (" + date.getTime() + ")\n");
+        System.out.println("Calculation starting.");
+
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VisProfilActivity.class));
-                finish();
+                gotoProfil(v);
+
+                long endTime = MyTimer.currentTimestamp();
+                String resultat = MyTimer.timeElapsed(startTime, endTime) ;
+                System.out.println();
+                Log.i("EXECUTETIME", resultat);
             }
         });
 
@@ -115,6 +128,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void gotoProfil(View view) {
+        Intent intent = new Intent (this, VisProfilActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
