@@ -8,6 +8,7 @@ public class Besked {
     private String modtager;
     private String besked;
     private Long tid;
+    private String billedeUrl;
 
     public Besked(String afsender, String modtager, String besked, Long tid) {
         this.afsender = afsender;
@@ -15,6 +16,7 @@ public class Besked {
         this.besked = besked;
         this.tid = tid;
     }
+
 
     public Besked() {
     }
@@ -49,5 +51,13 @@ public class Besked {
 
     public void setTid(Long tid) {
         this.tid = tid;
+    }
+
+    public String getBilledeUrl() {
+        return billedeUrl;
+    }
+
+    public void setBilledeUrl(String billedeUrl) {
+        this.billedeUrl = billedeUrl;
     }
 }

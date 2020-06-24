@@ -16,6 +16,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profile_billede"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:shapeAppearanceOverlay="@style/cirkelBillede"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginTop="15dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/v_lg_billede"
+        android:id="@+id/billedeValg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_billede"
+        android:layout_marginTop="12dp"
+        />
+    <ProgressBar
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_billede"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/setBilledet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/billedeValg"
+        android:layout_marginTop="10dp"
+
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/skift_billede"
+        android:id="@+id/setBilledet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_billede"
+        />
+
     <Button
         android:id="@+id/log_ud_btn"
         android:layout_width="wrap_content"
