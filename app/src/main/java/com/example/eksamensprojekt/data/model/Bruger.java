@@ -1,18 +1,23 @@
 package com.example.eksamensprojekt.data.model;
 
+import com.google.firebase.database.Exclude;
+
 public class Bruger {
 
-    private String id, fornavn, billedeURL;
+    private String id, fornavn, billedeURL, brugerType;
 
-    public Bruger(String id, String fornavn, String billedeURL) {
+
+    public Bruger(String id, String fornavn, String billedeURL, String brugerType) {
         this.id = id;
         this.fornavn = fornavn;
         this.billedeURL = billedeURL;
+        this.brugerType = brugerType;
     }
     public Bruger(String id, String fornavn) {
         this.id = id;
         this.fornavn = fornavn;
     }
+
 
     public Bruger() {
     }
@@ -39,5 +44,13 @@ public class Bruger {
 
     public void setBilledeURL(String billedeURL) {
         this.billedeURL = billedeURL;
+    }
+
+    public String getBrugerType() {
+        return brugerType;
+    }
+
+    public void setBrugerType(String brugerType) {
+        this.brugerType = brugerType;
     }
 }

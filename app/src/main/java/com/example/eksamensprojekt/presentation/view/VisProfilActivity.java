@@ -1,19 +1,17 @@
 package com.example.eksamensprojekt.presentation.view;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import java.util.Objects;
-
 
 public class VisProfilActivity extends AppCompatActivity {
     /**
@@ -26,6 +24,8 @@ public class VisProfilActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     FirebaseUser firebaseBruger;
     ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,7 @@ public class VisProfilActivity extends AppCompatActivity {
             }
         });
         // ^ Action bar ^
+
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -123,4 +124,5 @@ public class VisProfilActivity extends AppCompatActivity {
             finish();
         }
     }
+
 }

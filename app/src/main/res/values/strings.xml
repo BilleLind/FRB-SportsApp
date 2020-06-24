@@ -8,6 +8,8 @@
     <string name="log_ud">Log ud</string>
     <string name="s_g">søg..</string>
     <string name="set">Set</string>
+  <string name="v_lg_billede">vælg billede</string>
+    <string name="skift_billede">skift billede</string>
     <string name="massage_info">Den individuelle og personlige briksmassage, hvor massøren virkelig har mulighed for at gå i dybden med et specifikt problem eller give en dybtgående massage på en kropsdel; alt efter medarbejderens ønske.
 
 Teknikken er udviklet i begyndelsen af 1900-tallet i samarbejde mellem læger fra Stockholms Universitet og svenskeren Per H. Ling, der udviklede et omfattende gymnastikprogram baseret på en udstræknings- og afslapningsteknik, der giver afspænding og en indgående forståelse for musklernes funktion.
@@ -15,8 +17,11 @@ Teknikken er udviklet i begyndelsen af 1900-tallet i samarbejde mellem læger fr
 Fysiurgisk massage fokuserer som gymnastik-programmet på at få bevægelsesapparatet (muskler, sener og led) til at fungere optimalt. Kroppen opfatter den fysiurgiske massage, som om man foretager en effektiv gymnastik, udstrækning og afslapning og dermed afspænding.
 
 Massagen er dybtegående og fri for ubehag af nogen art. Slap af og fortæl, hvis det gør ondt. "Det skal IKKE gøre ondt, før det gør godt!"</string>
-    <string name="fysioterapi_info">Behandlingen består dels af manuelle teknikker hvor fysioterapeuten med sine hænder hjælper din krop til at hele og forbedre din krops funktionsevne.
+    
+  <string name="fysioterapi_info">Behandlingen består dels af manuelle teknikker hvor fysioterapeuten med sine hænder hjælper din krop til at hele og forbedre din krops funktionsevne.
         Dels består behandlingen i træning, hvor vi arbejder med øvelser, der har til sigte at rette op på skavanker og svagheder i din krop/psyke, samt at genoptræne de funktioner, som pga. din tilstand er blevet dårligere eller helt er forsvundet. Fysioterapeuten arbejder desuden med at undervise dig i hvordan du i fremtiden kan forebygge og dermed undgå at sygdommen eller skaden kommer igen eller hvordan du kan minimere generne.</string>
-    <string name="akupunktur_info">Akupunktur er en behandlingsmetode fra Kina og andre dele af Fjernøsten, som bygger på anvendelsen af nåle, der stikkes ind i akupunkturpunkter. Iflg. den traditionelle kinesiske forklaring, der er et par tusinde år gammel, siges akupunkturnålene at genoprette kroppens normale energibalance.
+    
+  <string name="akupunktur_info">Akupunktur er en behandlingsmetode fra Kina og andre dele af Fjernøsten, som bygger på anvendelsen af nåle, der stikkes ind i akupunkturpunkter. Iflg. den traditionelle kinesiske forklaring, der er et par tusinde år gammel, siges akupunkturnålene at genoprette kroppens normale energibalance.
 Princippet i akupunkturbehandlingen er, at akupunktøren indsætter tynde nåle i bestemte punkter på patientens hud for at forebygge eller behandle bestemte sygdomme.</string>
+
 </resources>
