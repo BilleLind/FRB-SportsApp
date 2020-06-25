@@ -7,10 +7,9 @@ public class Bruger {
     private String id, fornavn, billedeURL, brugerType, efternavn, telefonNr, email;
 
 
-    public Bruger(String id, String fornavn, String billedeURL, String brugerType) {
+    public Bruger(String id, String fornavn,  String brugerType) {
         this.id = id;
         this.fornavn = fornavn;
-        this.billedeURL = billedeURL;
         this.brugerType = brugerType;
     }
     public Bruger(String id, String fornavn) {

@@ -291,7 +291,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
                     hashMap.put("telefonNr", telefonNr);
                     hashMap.put("email", email);
                     hashMap.put("brugerType", "patient");
-                    hashMap.put("billedeURL", "null");
+                    //hashMap.put("billedeURL", "null");
 
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

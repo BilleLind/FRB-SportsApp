@@ -33,11 +33,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
+
 import static com.example.eksamensprojekt.presentation.Interface.Konstante.chats;
 /*
 Licensed to the Apache Software Foundation (ASF) under one
