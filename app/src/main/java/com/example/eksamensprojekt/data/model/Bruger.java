@@ -4,7 +4,7 @@ import com.google.firebase.database.Exclude;
 
 public class Bruger {
 
-    private String id, fornavn, billedeURL, brugerType;
+    private String id, fornavn, billedeURL, brugerType, efternavn, telefonNr, email;
 
 
     public Bruger(String id, String fornavn, String billedeURL, String brugerType) {
@@ -53,4 +53,29 @@ public class Bruger {
     public void setBrugerType(String brugerType) {
         this.brugerType = brugerType;
     }
+
+    public String getEfternavn() {
+        return efternavn;
+    }
+
+    public void setEfternavn(String efternavn) {
+        this.efternavn = efternavn;
+    }
+
+    public String getTelefonNr() {
+        return telefonNr;
+    }
+
+    public void setTelefonNr(String telefonNr) {
+        this.telefonNr = telefonNr;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
+

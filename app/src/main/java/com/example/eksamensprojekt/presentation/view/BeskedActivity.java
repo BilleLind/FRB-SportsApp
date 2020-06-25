@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,9 +19,9 @@ import android.widget.Toast;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.data.model.Besked;
 import com.example.eksamensprojekt.presentation.adapter.BeskedAdapter;
-import com.example.eksamensprojekt.data.model.Bruger;
 
-import com.example.eksamensprojekt.presentation.common.MyTimer;
+
+
 import com.example.eksamensprojekt.presentation.viewmodel.BeskedViewModel;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,7 +77,7 @@ public class BeskedActivity extends AppCompatActivity {
 
     private BeskedViewModel beskedViewModel;
 
-    long startTime = MyTimer.currentTimestamp();
+
     ValueEventListener setBeskedListener;
 
     @Override
