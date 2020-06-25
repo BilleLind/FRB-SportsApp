@@ -7,34 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.eksamensprojekt.R;
-import com.example.eksamensprojekt.data.model.Bruger;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-
 
 import java.util.Objects;
 
-import static com.example.eksamensprojekt.presentation.Interface.Konstante.brugere;
-
-
 public class VisProfilActivity extends AppCompatActivity {
 
-
-    private Button seTraeningBtn, seBeskederBtn, logUdBtn, bookTidBtn;
-
-    private TextView visFuldenavn, visEmail, visTelefonNr, visNaesteBooking;
 
     private Button brugerLogUdKnap, chatButton, træningButton;
 
@@ -42,87 +27,68 @@ public class VisProfilActivity extends AppCompatActivity {
     FirebaseUser firebaseBruger;
     ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
 
-    private FirebaseAuth mAuth;
-    private FirebaseUser fireBruger;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vis_profil);
 
-        //Tilføjer custom action bar
+
+        //Action Bar
+        //Tilføjer custom action bar til activity
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.action_bar_layout);
 
-        mAuth = FirebaseAuth.getInstance();
-        fireBruger = FirebaseAuth.getInstance().getCurrentUser();
-
-        
-        bookTidBtn = (Button) findViewById(R.id.goto_booking_btn);
+        //Forbinder IDs til de korrekte views
+        actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarHome = (ImageView) findViewById(R.id.action_bar_home);
 
-
-        //Sætter de forskellige views til at ændre layoutet
-        logUdBtn.setOnClickListener(new View.OnClickListener() {
+        //Skifter til vis profil activity
+        actionBarProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mAuth.getInstance().signOut();
-                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
-                finish();
-
-            }
-        });
-
-        seTraeningBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(VisProfilActivity.this, FeedbackActivity.class));
+                startActivity(new Intent(VisProfilActivity.this, VisProfilActivity.class));
                 finish();
             }
         });
 
+        //Skifter til chat activity
+        actionBarChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+                finish();
+            }
+        });
 
         //Skifter til menu activity
         actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
-                finish();
-
-            }
-        });
-
-        bookTidBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(VisProfilActivity.this, BookTidActivity.class));
+                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
             }
         });
+        // ^ Action bar ^
 
-
-        actionBarChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        firebaseAuth = FirebaseAuth.getInstance();
 
         brugerLogUdKnap = (Button) findViewById(R.id.log_ud_btn);
         chatButton = (Button) findViewById(R.id.goto_chat_btn);
         træningButton = (Button) findViewById(R.id.goto_traening_btn);
 
 
-                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
+        brugerLogUdKnap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
                 finish();
             }
         });
-        
-
-
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,48 +107,20 @@ public class VisProfilActivity extends AppCompatActivity {
         });
     }
 
-
-
-   /* private void udfyldProfil() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(brugere).child(fireBruger.getUid());
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Bruger bruger = dataSnapshot.getValue(Bruger.class);
-                String fuldeNavn = bruger.getFornavn() +" "+ bruger.getEfternavn();
-                visFuldenavn.setText(fuldeNavn);
-                String email = bruger.getEmail();
-                visEmail.setText(email);
-                String tele = bruger.getTelefonNr();
-                visTelefonNr.setText(tele);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }*/
-
-
-
-    //Tjekker om bruger er logget ind. Hvis ikke, skifter til opret bruger activity
+    //Tjekker om bruger er logget ind. Hvis ikke, bliver bruger præsenteret for opret bruger aktiviteten.
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // Tjek om bruger er logged in (ikke null) og opdater UI som nødvendigt.
+        firebaseBruger = firebaseAuth.getCurrentUser();
         //updateUI(currentUser);
 
+        if (firebaseBruger == null) {
 
-        if (currentUser == null) {
-
-            Intent opretBrugerIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
-            startActivity(opretBrugerIntent);
+            Intent ikkeLoggetIndIntent = new Intent(VisProfilActivity.this, OpretBrugerActivity.class);
+            startActivity(ikkeLoggetIndIntent);
             finish();
         }
-
     }
 }
