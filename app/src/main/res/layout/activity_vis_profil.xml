@@ -5,21 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/toplayout_profil"
-        layout="@layout/profil_top_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <include
-        android:id="midlayout_profil"
-        layout="@layout/profil_mid_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toplayout_profil" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

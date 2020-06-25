@@ -52,16 +52,8 @@ public class VisProfilActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fireBruger = FirebaseAuth.getInstance().getCurrentUser();
 
-        seTraeningBtn = (Button) findViewById(R.id.goto_traening_btn);
-        seBeskederBtn =(Button) findViewById(R.id.goto_chat_btn);
-        logUdBtn = (Button) findViewById(R.id.logud_btn);
+        
         bookTidBtn = (Button) findViewById(R.id.goto_booking_btn);
-
-        visFuldenavn = (TextView) findViewById(R.id.vis_fuldenavn_tv);
-        visEmail = (TextView) findViewById(R.id.vis_email_tv);
-        visTelefonNr = (TextView) findViewById(R.id.vis_telefonNr_tv);
-        visNaesteBooking = (TextView) findViewById(R.id.vis_dato_tv);
-
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
         actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
 
