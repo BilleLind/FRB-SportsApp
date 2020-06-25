@@ -8,12 +8,14 @@
         android:orientation="vertical">
 
     <Button
-            android:id="@+id/klar_Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Klar!"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"/>
+        android:id="@+id/klar_Button"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_buttons"
+        android:text="Start træning!"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/white" />
 
     <ScrollView
             android:layout_width="match_parent"
@@ -22,7 +24,8 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/oversigt_recycler_view">
+                android:id="@+id/oversigt_recycler_view"
+            android:layout_marginTop="16dp">
         </androidx.recyclerview.widget.RecyclerView>
 
     </ScrollView>

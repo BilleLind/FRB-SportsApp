@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/action_bar_chat"
         app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toEndOf="@+id/action_bar_menu"
+        app:layout_constraintStart_toEndOf="@+id/action_bar_home"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/frbsportsapplogo" />
 
@@ -40,14 +40,14 @@
         app:srcCompat="@drawable/icons8_speech_bubble_144" />
 
     <ImageView
-        android:id="@+id/action_bar_menu"
+        android:id="@+id/action_bar_home"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icons8_menu_144" />
+        app:srcCompat="@drawable/icons8_home_144" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

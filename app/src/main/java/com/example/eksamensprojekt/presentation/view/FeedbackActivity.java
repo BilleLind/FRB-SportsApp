@@ -22,7 +22,7 @@ public class FeedbackActivity extends AppCompatActivity {
      */
 
     private FirebaseAuth firebaseAuth;
-    ImageView actionBarProfil, actionBarChat, actionBarMenu; //Action Bar Variabler
+    ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
     TextView spoorgsmaal_Text_View;
     RadioButton super_Traening_Button, okay_Traening_Button, kunne_Forbedres_Button, daarlig_Oplevelse_Button;
     Button gennemfoort_Traening_Button;
@@ -42,7 +42,7 @@ public class FeedbackActivity extends AppCompatActivity {
         //Forbinder IDs til de korrekte views
         actionBarProfil = (ImageView) findViewById(R.id.action_bar_profil);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMenu = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarHome = (ImageView) findViewById(R.id.action_bar_home);
 
         //Skifter til vis profil activity
         actionBarProfil.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class FeedbackActivity extends AppCompatActivity {
         });
 
         //Skifter til menu activity
-        actionBarMenu.setOnClickListener(new View.OnClickListener() {
+        actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

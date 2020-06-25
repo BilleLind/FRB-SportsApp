@@ -31,11 +31,16 @@ import static com.example.eksamensprojekt.presentation.Interface.Konstante.bruge
 
 public class VisProfilActivity extends AppCompatActivity {
 
+
     private Button seTraeningBtn, seBeskederBtn, logUdBtn, bookTidBtn;
 
     private TextView visFuldenavn, visEmail, visTelefonNr, visNaesteBooking;
 
-    private ImageView actionBarChat, actionBarMain;
+    private Button brugerLogUdKnap, chatButton, træningButton;
+
+    private FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseBruger;
+    ImageView actionBarProfil, actionBarChat, actionBarHome; //Action Bar Variabler
 
     private FirebaseAuth mAuth;
     private FirebaseUser fireBruger;
@@ -55,7 +60,7 @@ public class VisProfilActivity extends AppCompatActivity {
         
         bookTidBtn = (Button) findViewById(R.id.goto_booking_btn);
         actionBarChat = (ImageView) findViewById(R.id.action_bar_chat);
-        actionBarMain = (ImageView) findViewById(R.id.action_bar_logo);
+        actionBarHome = (ImageView) findViewById(R.id.action_bar_home);
 
 
         //Sætter de forskellige views til at ændre layoutet
@@ -79,7 +84,10 @@ public class VisProfilActivity extends AppCompatActivity {
             }
         });
 
-        seBeskederBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        //Skifter til menu activity
+        actionBarHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -98,25 +106,39 @@ public class VisProfilActivity extends AppCompatActivity {
             }
         });
 
+
         actionBarChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+        brugerLogUdKnap = (Button) findViewById(R.id.log_ud_btn);
+        chatButton = (Button) findViewById(R.id.goto_chat_btn);
+        træningButton = (Button) findViewById(R.id.goto_traening_btn);
+
 
                 startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
                 finish();
             }
         });
+        
 
-        actionBarMain.setOnClickListener(new View.OnClickListener() {
+
+
+        chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(VisProfilActivity.this, MainActivity.class));
+                startActivity(new Intent(VisProfilActivity.this, ChatActivity.class));
                 finish();
             }
         });
-        //udfyldProfil();
 
+        træningButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VisProfilActivity.this, IntroTilOovelserActivity.class));
+                finish();
+            }
+        });
     }
 
 
