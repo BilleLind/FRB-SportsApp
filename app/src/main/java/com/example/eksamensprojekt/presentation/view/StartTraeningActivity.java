@@ -7,12 +7,14 @@ import android.webkit.WebView;
 import android.widget.*;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import com.example.eksamensprojekt.R;
 import com.example.eksamensprojekt.data.model.Oovelser;
+import com.example.eksamensprojekt.presentation.viewmodel.OovelserViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class StartTraeningActivity extends AppCompatActivity {
@@ -31,14 +33,25 @@ public class StartTraeningActivity extends AppCompatActivity {
     private String webViewName;
     private int oovelsesPosition = 0;
 
-    public ArrayList<Oovelser> oovelsesListe = new ArrayList<>();
+    List<Oovelser> oovelsesListe;
+
+    private OovelserViewModel mOovelserViewModel; //Nyt ViewModel objekt
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_traening);
 
-        initOovelser(); //Initialiserer træningsprogram
+        mOovelserViewModel = new ViewModelProvider(this).get(OovelserViewModel.class); //Instansierer min ViewModel
+
+        mOovelserViewModel.init(); //Initialiserer data fra Repository så det klar til at hentes
+
+        mOovelserViewModel.getOovelser().observe(this, new Observer<List<Oovelser>>() { //Observerer ændringer i ViewModel af LiveData objekterne.
+            @Override
+            public void onChanged(List<Oovelser> oovelsers) { //Hver gang noget data ændrer sig, så vil det følgende blive eksekveret
+                initOovelser(); //Initialiserer træningsprogram
+            }
+        });
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -106,15 +119,7 @@ public class StartTraeningActivity extends AppCompatActivity {
     }
 
     public void initOovelser() {
-
-        //Primitiv liste over øvelser
-        oovelsesListe.add(new Oovelser("Liggende bækkenløft", "https://exorlive.com/video/?culture=da-DK&ex=11", "https://media.exorlive.com/?id=11&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Etbens knæbøj", "https://exorlive.com/video/?culture=da-DK&ex=605", "https://media.exorlive.com/?id=605&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Bækkenløft m/knæstræk", "https://exorlive.com/video/?culture=da-DK&ex=711", "https://media.exorlive.com/?id=711&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Armstræk", "https://exorlive.com/video/?culture=da-DK&ex=29", "https://media.exorlive.com/?id=29&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Mavebøjning", "https://exorlive.com/video/?culture=da-DK&ex=16", "https://media.exorlive.com/?id=16&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Lateral lunge", "https://exorlive.com/video/?culture=da-DK&ex=8820", "https://media.exorlive.com/?id=8820&filetype=jpg&env=production"));
-        oovelsesListe.add(new Oovelser("Hoppende knæbøjninger", "https://exorlive.com/video/?culture=da-DK&ex=10306", "https://media.exorlive.com/?id=10306&filetype=jpg&env=production"));
+        oovelsesListe = mOovelserViewModel.getOovelser().getValue(); //Henter øvelser fra ViewModel
     }
 
     public void naesteOovelse() {
