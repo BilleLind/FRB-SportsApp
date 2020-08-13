@@ -8,6 +8,7 @@ import android.widget.*;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eksamensprojekt.R;
+import com.example.eksamensprojekt.data.model.Oovelser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,10 +31,14 @@ public class StartTraeningActivity extends AppCompatActivity {
     private String webViewName;
     private int oovelsesPosition = 0;
 
+    public ArrayList<Oovelser> oovelsesListe = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_traening);
+
+        initOovelser(); //Initialiserer træningsprogram
 
         //Action Bar
         //Tilføjer custom action bar til activity
@@ -72,7 +77,7 @@ public class StartTraeningActivity extends AppCompatActivity {
             }
         });
         // ^ Action bar ^
-        
+
         naesteOovelseButton = findViewById(R.id.naeste_Oovelse_Button);
         titleTextView = findViewById(R.id.title_Text_View);
         oovelseWebViewVar = findViewById(R.id.oovelse_Web_View);
@@ -92,38 +97,35 @@ public class StartTraeningActivity extends AppCompatActivity {
     }
 
     public void tjekOmFærdig() {
-        if (oovelsesPosition <= 4) {
-            oovelsesPosition = oovelsesPosition + 1;
-        } else {
+        oovelsesPosition = oovelsesPosition + 1;
+        if (oovelsesPosition >= oovelsesListe.size()) { //Denne if statemenet tjekker om der er flere øvelser tilbage i arraylisten/træningsprogrammet
             Toast.makeText(getApplicationContext(), "Du har gennemført dagens program, godt klaret!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class));
+            startActivity(new Intent(StartTraeningActivity.this, FeedbackActivity.class)); //Hvis ikke bliver brugeren sendt videre til feedback menuen
             finish();
         }
     }
+
+    public void initOovelser() {
+
+        //Primitiv liste over øvelser
+        oovelsesListe.add(new Oovelser("Liggende bækkenløft", "https://exorlive.com/video/?culture=da-DK&ex=11", "https://media.exorlive.com/?id=11&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Etbens knæbøj", "https://exorlive.com/video/?culture=da-DK&ex=605", "https://media.exorlive.com/?id=605&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Bækkenløft m/knæstræk", "https://exorlive.com/video/?culture=da-DK&ex=711", "https://media.exorlive.com/?id=711&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Armstræk", "https://exorlive.com/video/?culture=da-DK&ex=29", "https://media.exorlive.com/?id=29&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Mavebøjning", "https://exorlive.com/video/?culture=da-DK&ex=16", "https://media.exorlive.com/?id=16&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Lateral lunge", "https://exorlive.com/video/?culture=da-DK&ex=8820", "https://media.exorlive.com/?id=8820&filetype=jpg&env=production"));
+        oovelsesListe.add(new Oovelser("Hoppende knæbøjninger", "https://exorlive.com/video/?culture=da-DK&ex=10306", "https://media.exorlive.com/?id=10306&filetype=jpg&env=production"));
+    }
+
     public void naesteOovelse() {
-
-        final ArrayList oovelsesListe = new ArrayList(); //Primitiv liste over øvelser
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=11");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=605");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=711");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=29");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=16");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=8820");
-        oovelsesListe.add("https://exorlive.com/video/?culture=da-DK&ex=10306");
-
-        final ArrayList oovelsesNavnListe = new ArrayList(); //Primitiv liste over navn på øvelser
-        oovelsesNavnListe.add("Liggende bækkenløft");
-        oovelsesNavnListe.add("Etbens knæbøj");
-        oovelsesNavnListe.add("Bækkenløft m/knæstræk");
-        oovelsesNavnListe.add("Armstræk");
-        oovelsesNavnListe.add("Mavebøjning");
-        oovelsesNavnListe.add("Lateral lunge");
-        oovelsesNavnListe.add("Hoppende knæbøjninger");
-
-        webViewURL = (String) oovelsesListe.get(oovelsesPosition);
-        webViewName = (String) oovelsesNavnListe.get(oovelsesPosition);
-        titleTextView.setText(webViewName);
-        oovelseWebViewVar.loadUrl(webViewURL);
+        if (oovelsesPosition < oovelsesListe.size()) { //Denne if statement stopper appen fra at crashe hvis den løber tør for indexes i Arraylisten
+            //Skifter øvelses navnet
+            webViewName = (String) oovelsesListe.get(oovelsesPosition).getName();
+            titleTextView.setText(webViewName);
+            //Skifter øvelses videoen
+            webViewURL = (String) oovelsesListe.get(oovelsesPosition).getVideoURL();
+            oovelseWebViewVar.loadUrl(webViewURL);
+        }
     }
 
     @Override
